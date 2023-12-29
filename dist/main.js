@@ -930,6 +930,8 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fetchAutocomplete: () => (/* binding */ fetchAutocomplete),
+/* harmony export */   fetchIPAddress: () => (/* binding */ fetchIPAddress),
 /* harmony export */   fetchWeather: () => (/* binding */ fetchWeather),
 /* harmony export */   printConsoleData: () => (/* binding */ printConsoleData)
 /* harmony export */ });
@@ -943,7 +945,36 @@ async function fetchWeather() {
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.log(data);
     return data;
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+}
+
+//? **`` This fetches your location to be used in the initial displayed weather.
+async function fetchIPAddress() {
+  try {
+    const response = await fetch(
+      'http://api.weatherapi.com/v1/ip.json?key=a6926baa03824f759bd20713231912&q=auto:ip',
+      { mode: 'cors' },
+    );
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+}
+
+//? **`` This fetches multiple cities that match your city. The returned data has an ID that can be inputted into the 'fetchWeather' api query
+async function fetchAutocomplete() {
+  try {
+    const response = await fetch(
+      'http://api.weatherapi.com/v1/search.json?key=a6926baa03824f759bd20713231912&q=seattle',
+      { mode: 'cors' },
+    );
+    const data = await response.json();
+    console.log(data);
   } catch (error) {
     console.error(`Error: ${error}`);
   }
@@ -1071,6 +1102,12 @@ __webpack_require__.r(__webpack_exports__);
 (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchWeather)().then((data) => {
   (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(data);
 });
+
+(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchIPAddress)();
+
+(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchAutocomplete)();
+
+//todo **`` Need to get the IP address to set the initial weather. Then make a form field. Then add the autocomplete to the search bar. Then let that input trigger the weather api
 
 })();
 

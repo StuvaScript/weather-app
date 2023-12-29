@@ -1,4 +1,4 @@
-export { fetchWeather, printConsoleData };
+export { fetchWeather, printConsoleData, fetchIPAddress, fetchAutocomplete };
 
 //? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
 async function fetchWeather() {
@@ -8,7 +8,36 @@ async function fetchWeather() {
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.log(data);
     return data;
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+}
+
+//? **`` This fetches your location to be used in the initial displayed weather.
+async function fetchIPAddress() {
+  try {
+    const response = await fetch(
+      'http://api.weatherapi.com/v1/ip.json?key=a6926baa03824f759bd20713231912&q=auto:ip',
+      { mode: 'cors' },
+    );
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+}
+
+//? **`` This fetches multiple cities that match your city. The returned data has an ID that can be inputted into the 'fetchWeather' api query
+async function fetchAutocomplete() {
+  try {
+    const response = await fetch(
+      'http://api.weatherapi.com/v1/search.json?key=a6926baa03824f759bd20713231912&q=seattle',
+      { mode: 'cors' },
+    );
+    const data = await response.json();
+    console.log(data);
   } catch (error) {
     console.error(`Error: ${error}`);
   }
