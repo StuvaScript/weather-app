@@ -930,61 +930,52 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getWeather: () => (/* binding */ getWeather)
+/* harmony export */   fetchWeather: () => (/* binding */ fetchWeather),
+/* harmony export */   printConsoleData: () => (/* binding */ printConsoleData)
 /* harmony export */ });
 
 
-async function getWeather() {
+//? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
+async function fetchWeather() {
   try {
     const response = await fetch(
       'http://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=portland&days=3',
       { mode: 'cors' },
     );
     const data = await response.json();
-
-    console.group(`Current temps`);
-    console.log(data.current.temp_c + ' temp C');
-    console.log(data.current.temp_f + ' temp F');
-    console.log(data.current.condition.text + ' condition');
-    console.log(data.current.condition.icon.slice(-7) + ' icon number');
-    console.groupEnd();
-
-    data.forecast.forecastday.forEach((element) => {
-      console.group(`${element.date} day temps`);
-      console.log(element.day.mintemp_c + ' min temp C');
-      console.log(element.day.maxtemp_c + ' max temp C');
-      console.log(element.day.mintemp_f + ' min temp F');
-      console.log(element.day.maxtemp_f + ' max temp F');
-      console.log(element.day.condition.text + ' condition');
-      console.log(element.day.condition.icon.slice(-7) + ' icon number');
-      console.groupEnd();
-    });
-    // // forecast day, min temp C
-    // console.log(data.forecast.forecastday[0].day.mintemp_c);
-    // // forecast day, min temp F
-    // console.log(data.forecast.forecastday[0].day.mintemp_f);
-    // // forecast day, min temp C
-    // console.log(data.forecast.forecastday[0].day.maxtemp_c);
-    // // forecast day, min temp F
-    // console.log(data.forecast.forecastday[0].day.maxtemp_f);
-    // update me
-    console.log(data.forecast.forecastday);
-    console.log(data.current);
+    return data;
   } catch (error) {
     console.error(`Error: ${error}`);
   }
 }
 
-//* **`` Needed properties:
-// is_day
-// hourly? Might get pretty complicated...
+//? **`` This gets all our necessary data and logs it to the console
+function printConsoleData(data) {
+  //? **`` Current weather
+  console.group(`Current temps`);
+  console.log(data.current.temp_c + ' temp C');
+  console.log(data.current.temp_f + ' temp F');
+  console.log(data.current.condition.text + ' condition');
+  console.log(data.current.condition.icon.slice(-7) + ' icon number');
+  console.log(data.current.is_day + ' daytime? 1 = yes, 0 = no');
+  console.groupEnd();
 
-// condition: text
-// condition: icon
-// maxtemp_f
-// maxtemp_c
-// mintemp_f
-// mintemp_c
+  //? **`` This loops through the forecast data
+  data.forecast.forecastday.forEach((element) => {
+    console.group(`${element.date} day temps`);
+    console.log(element.day.mintemp_c + ' min temp C');
+    console.log(element.day.maxtemp_c + ' max temp C');
+    console.log(element.day.mintemp_f + ' min temp F');
+    console.log(element.day.maxtemp_f + ' max temp F');
+    console.log(element.day.condition.text + ' condition');
+    console.log(element.day.condition.icon.slice(-7) + ' icon number');
+    console.log(element.day.daily_will_it_rain + ' rain? 1 = yes, 0 = no');
+    console.log(element.day.daily_will_it_snow + ' snow? 1 = yes, 0 = no');
+    console.log(element.day.daily_chance_of_rain + ' percent chance of rain');
+    console.log(element.day.daily_chance_of_snow + ' percent chance of snow');
+    console.groupEnd();
+  });
+}
 
 
 /***/ })
@@ -1076,7 +1067,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.getWeather)();
+//? **`` Gets the weather data, then logs it to the console
+(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchWeather)().then((data) => {
+  (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(data);
+});
 
 })();
 

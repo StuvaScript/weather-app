@@ -1,5 +1,8 @@
-import { getWeather } from './modules/functions';
+import { printConsoleData, fetchWeather } from './modules/functions';
 import './normalize.css';
 import './style.css';
 
-getWeather();
+//? **`` Gets the weather data, then logs it to the console
+fetchWeather().then((data) => {
+  printConsoleData(data);
+});
