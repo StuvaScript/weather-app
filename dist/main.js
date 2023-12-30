@@ -938,14 +938,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
-async function fetchWeather() {
+async function fetchWeather(inputData) {
   try {
     const response = await fetch(
-      'http://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=portland&days=3',
+      `http://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=${inputData.lat},${inputData.lon}&days=3`,
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.group('Weather');
     console.log(data);
+    console.groupEnd();
     return data;
   } catch (error) {
     console.error(`Error: ${error}`);
@@ -960,7 +962,14 @@ async function fetchIPAddress() {
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.group('IP Address');
+    console.log(`We detect that you're in ${data.city}`);
+    console.log('Is that right?');
+    console.log(data.lat + ' latitude');
+    console.log(data.lon + ' longitude');
     console.log(data);
+    console.groupEnd();
+    return data;
   } catch (error) {
     console.error(`Error: ${error}`);
   }
@@ -974,7 +983,10 @@ async function fetchAutocomplete() {
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.group('Autocomplete');
     console.log(data);
+    console.groupEnd();
+    return data;
   } catch (error) {
     console.error(`Error: ${error}`);
   }
@@ -1099,11 +1111,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //? **`` Gets the weather data, then logs it to the console
-(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchWeather)().then((data) => {
-  (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(data);
+(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchIPAddress)().then((ipData) => {
+  (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchWeather)(ipData).then((data) => {
+    (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(data);
+  });
 });
-
-(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchIPAddress)();
 
 (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchAutocomplete)();
 
