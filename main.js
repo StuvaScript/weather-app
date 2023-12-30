@@ -922,6 +922,59 @@ module.exports = styleTagTransform;
 
 /***/ }),
 
+/***/ "./src/modules/dom-manipulation.js":
+/*!*****************************************!*\
+  !*** ./src/modules/dom-manipulation.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   printConsoleData: () => (/* binding */ printConsoleData)
+/* harmony export */ });
+
+
+//? **`` This gets all our necessary data and logs it to the console
+function printConsoleData(data) {
+  //? **`` Current weather
+  console.group(`Current temps`);
+  console.log(data.current.temp_c + ' temp C');
+  console.log(data.current.temp_f + ' temp F');
+  console.log(data.current.condition + ' condition');
+  console.log(data.current.icon + ' icon number');
+  console.log(data.current.is_day + ' daytime? 1 = yes, 0 = no');
+  console.groupEnd();
+
+  //? **`` This loops through the forecast data
+  data.forecastday.forEach((element) => {
+    console.group(`${element.date} day temps`);
+    console.log(element.date + ' date');
+    console.log(element.mintemp_c + ' min temp C');
+    console.log(element.maxtemp_c + ' max temp C');
+    console.log(element.mintemp_f + ' min temp F');
+    console.log(element.maxtemp_f + ' max temp F');
+    console.log(element.condition + ' condition');
+    console.log(element.icon + ' icon number');
+    console.log(element.daily_will_it_rain + ' rain? 1 = yes, 0 = no');
+    console.log(element.daily_will_it_snow + ' snow? 1 = yes, 0 = no');
+    console.log(element.daily_chance_of_rain + ' percent chance of rain');
+    console.log(element.daily_chance_of_snow + ' percent chance of snow');
+    console.log(element.totalprecip_in + ' total rain in inches');
+    console.log(element.totalprecip_mm + ' total rain in millimeters');
+    console.log(element.totalsnow_in + ' total snow in inches');
+    console.log(element.totalprecip_cm + ' total snow in centimeters');
+    console.groupEnd();
+  });
+
+  //? **`` Displayed city
+  console.group('Diplayed City');
+  console.log(data.location.name + ' city name');
+  console.groupEnd();
+}
+
+
+/***/ }),
+
 /***/ "./src/modules/functions.js":
 /*!**********************************!*\
   !*** ./src/modules/functions.js ***!
@@ -933,13 +986,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   displayInitialWeather: () => (/* binding */ displayInitialWeather),
 /* harmony export */   fetchAutocomplete: () => (/* binding */ fetchAutocomplete)
 /* harmony export */ });
+/* harmony import */ var _dom_manipulation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom-manipulation */ "./src/modules/dom-manipulation.js");
+
+
 
 
 //? **`` Gets the user's IP address, sends the location to the weather fetcher which fetches the weather data, then logs it to the console
 async function displayInitialWeather() {
   const ipData = await fetchIPAddress();
   const weatherData = await fetchWeather(ipData);
-  printConsoleData(weatherData);
+  (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(weatherData);
 }
 
 //? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
@@ -957,16 +1013,20 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('Weather');
+    console.group('%cWeather', 'background:gold; color:black');
     console.log(data);
     console.groupEnd();
-    return data;
+
+    const dataObject = createWeatherDataObject(data);
+    console.log(dataObject);
+
+    return dataObject;
   } catch (error) {
     console.error(`Error: ${error}`);
   }
 }
 
-//? **`` This fetches your location to be used in the initial displayed weather.
+//? **`` This fetches the user's location to be used in the initial displayed weather and returns an object with only the required data
 async function fetchIPAddress() {
   try {
     const response = await fetch(
@@ -974,14 +1034,17 @@ async function fetchIPAddress() {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('IP Address');
+    console.group('%cIP Address', 'background:green');
     console.log(`We detect that you're in ${data.city}`);
     console.log('Is that right?');
     console.log(data.lat + ' latitude');
     console.log(data.lon + ' longitude');
     console.log(data);
     console.groupEnd();
-    return data;
+
+    const dataObject = createIPDataObject(data);
+    console.log(dataObject);
+    return dataObject;
   } catch (error) {
     console.error(`Error: ${error}`);
   }
@@ -995,7 +1058,7 @@ async function fetchAutocomplete() {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('Autocomplete');
+    console.group('%cAutocomplete', 'background:#1ce; color:black');
     console.log(data);
     console.groupEnd();
     return data;
@@ -1004,32 +1067,51 @@ async function fetchAutocomplete() {
   }
 }
 
-//? **`` This gets all our necessary data and logs it to the console
-function printConsoleData(data) {
-  //? **`` Current weather
-  console.group(`Current temps`);
-  console.log(data.current.temp_c + ' temp C');
-  console.log(data.current.temp_f + ' temp F');
-  console.log(data.current.condition.text + ' condition');
-  console.log(data.current.condition.icon.slice(-7) + ' icon number');
-  console.log(data.current.is_day + ' daytime? 1 = yes, 0 = no');
-  console.groupEnd();
+//? **`` Takes the data from the fetchIPAddress API and returns only what we need
+function createIPDataObject(data) {
+  const ip = data.ip;
+  const lat = data.lat;
+  const lon = data.lon;
 
-  //? **`` This loops through the forecast data
-  data.forecast.forecastday.forEach((element) => {
-    console.group(`${element.date} day temps`);
-    console.log(element.day.mintemp_c + ' min temp C');
-    console.log(element.day.maxtemp_c + ' max temp C');
-    console.log(element.day.mintemp_f + ' min temp F');
-    console.log(element.day.maxtemp_f + ' max temp F');
-    console.log(element.day.condition.text + ' condition');
-    console.log(element.day.condition.icon.slice(-7) + ' icon number');
-    console.log(element.day.daily_will_it_rain + ' rain? 1 = yes, 0 = no');
-    console.log(element.day.daily_will_it_snow + ' snow? 1 = yes, 0 = no');
-    console.log(element.day.daily_chance_of_rain + ' percent chance of rain');
-    console.log(element.day.daily_chance_of_snow + ' percent chance of snow');
-    console.groupEnd();
+  return { ip, lat, lon };
+}
+
+//? **`` Takes the data from the fetchWeather API and returns only what we need
+function createWeatherDataObject(data) {
+  //? **`` Creating an object for the current day with only the needed data
+  const current = {};
+  current.temp_c = data.current.temp_c;
+  current.temp_f = data.current.temp_f;
+  current.condition = data.current.condition.text;
+  current.icon = data.current.condition.icon.slice(-7);
+  current.is_day = data.current.is_day;
+
+  //? **`` Creating an array with objects for the forecast with only the needed data
+  const forecastday = [];
+  data.forecast.forecastday.forEach((element, index) => {
+    forecastday[index] = {};
+    forecastday[index].date = element.date;
+    forecastday[index].mintemp_c = element.day.mintemp_c;
+    forecastday[index].maxtemp_c = element.day.maxtemp_c;
+    forecastday[index].mintemp_f = element.day.mintemp_f;
+    forecastday[index].maxtemp_f = element.day.maxtemp_f;
+    forecastday[index].condition = element.day.condition.text;
+    forecastday[index].icon = element.day.condition.icon.slice(-7);
+    forecastday[index].daily_will_it_rain = element.day.daily_will_it_rain;
+    forecastday[index].daily_will_it_snow = element.day.daily_will_it_snow;
+    forecastday[index].daily_chance_of_rain = element.day.daily_chance_of_rain;
+    forecastday[index].daily_chance_of_snow = element.day.daily_chance_of_snow;
+    forecastday[index].totalprecip_in = element.day.totalprecip_in;
+    forecastday[index].totalprecip_mm = element.day.totalprecip_mm;
+    forecastday[index].totalsnow_in = element.day.totalsnow_cm / 25.4;
+    forecastday[index].totalsnow_cm = element.day.totalsnow_cm;
   });
+
+  //? **`` Creating an object with the city name
+  const location = {};
+  location.name = data.location.name;
+
+  return { current, forecastday, location };
 }
 
 
