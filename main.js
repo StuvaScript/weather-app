@@ -975,6 +975,35 @@ function printConsoleData(data) {
 
 /***/ }),
 
+/***/ "./src/modules/event-handlers.js":
+/*!***************************************!*\
+  !*** ./src/modules/event-handlers.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   searchInputLogic: () => (/* binding */ searchInputLogic)
+/* harmony export */ });
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./src/modules/functions.js");
+
+
+
+
+const searchBtn = document.querySelector('#search-button');
+
+function searchInputLogic() {
+  searchBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const inputValue = document.querySelector('#search-input').value;
+    (0,_functions__WEBPACK_IMPORTED_MODULE_0__.fetchAutocomplete)(inputValue);
+  });
+}
+
+
+/***/ }),
+
 /***/ "./src/modules/functions.js":
 /*!**********************************!*\
   !*** ./src/modules/functions.js ***!
@@ -1000,7 +1029,7 @@ async function displayInitialWeather() {
 
 //? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
 async function fetchWeather(receivedData) {
-  //! **`` Filter that needs to be split off. Also need to add the autocomplete filter on here.
+  //! **`` Filter that needs to be split off. Also need to add the autocomplete filter on here. Might need to remove the 'IP' property if unnecessary. Also need to be able to take zip code.
   let inputData;
   if (receivedData.ip) {
     console.log('This came from the IP Fetcher');
@@ -1026,7 +1055,7 @@ async function fetchWeather(receivedData) {
   }
 }
 
-//? **`` This fetches the user's location to be used in the initial displayed weather and returns an object with only the required data
+//? **`` This fetches the user's location to be used in the initial displayed weather and converts it to a JS object
 async function fetchIPAddress() {
   try {
     const response = await fetch(
@@ -1050,17 +1079,22 @@ async function fetchIPAddress() {
   }
 }
 
-//? **`` This fetches multiple cities that match your city. The returned data has an ID that can be inputted into the 'fetchWeather' api query
-async function fetchAutocomplete() {
+//todo **`` Make a factory function that takes the lat and lon
+//? **`` This fetches multiple cities that match the inputted city. The returned data has an ID that can be inputted into the 'fetchWeather' api query
+async function fetchAutocomplete(receivedData) {
   try {
     const response = await fetch(
-      'http://api.weatherapi.com/v1/search.json?key=a6926baa03824f759bd20713231912&q=seattle',
+      `http://api.weatherapi.com/v1/search.json?key=a6926baa03824f759bd20713231912&q=${receivedData}`,
       { mode: 'cors' },
     );
     const data = await response.json();
     console.group('%cAutocomplete', 'background:#1ce; color:black');
     console.log(data);
     console.groupEnd();
+
+    const dataObject = createAutocompleteDataObject(data);
+    console.log(dataObject);
+
     return data;
   } catch (error) {
     console.error(`Error: ${error}`);
@@ -1112,6 +1146,21 @@ function createWeatherDataObject(data) {
   location.name = data.location.name;
 
   return { current, forecastday, location };
+}
+
+//? **`` Takes the data from the fetchAutocomplete API and creates an array with objects for the autocomplete with only the needed data
+function createAutocompleteDataObject(data) {
+  const autocompleteArray = [];
+  data.forEach((element, index) => {
+    autocompleteArray[index] = {};
+    autocompleteArray[index].name = element.name;
+    autocompleteArray[index].region = element.region;
+    autocompleteArray[index].country = element.country;
+    autocompleteArray[index].lat = element.lat;
+    autocompleteArray[index].lon = element.lon;
+  });
+
+  return { autocompleteArray };
 }
 
 
@@ -1197,17 +1246,17 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/functions */ "./src/modules/functions.js");
-/* harmony import */ var _normalize_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./normalize.css */ "./src/normalize.css");
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
+/* harmony import */ var _modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/event-handlers */ "./src/modules/event-handlers.js");
+/* harmony import */ var _modules_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/functions */ "./src/modules/functions.js");
+/* harmony import */ var _normalize_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./normalize.css */ "./src/normalize.css");
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 
 
 
 
-(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.displayInitialWeather)();
-(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchAutocomplete)();
 
-//todo **`` Make a form field. Then add the autocomplete to the search bar. Then let that input trigger the weather api
+(0,_modules_functions__WEBPACK_IMPORTED_MODULE_1__.displayInitialWeather)();
+(0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.searchInputLogic)();
 
 })();
 
