@@ -1,10 +1,24 @@
-export { fetchWeather, printConsoleData, fetchIPAddress, fetchAutocomplete };
+export { fetchAutocomplete, displayInitialWeather };
+
+//? **`` Gets the user's IP address, sends the location to the weather fetcher which fetches the weather data, then logs it to the console
+async function displayInitialWeather() {
+  const ipData = await fetchIPAddress();
+  const weatherData = await fetchWeather(ipData);
+  printConsoleData(weatherData);
+}
 
 //? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
-async function fetchWeather(inputData) {
+async function fetchWeather(receivedData) {
+  //! **`` Filter that needs to be split off. Also need to add the autocomplete filter on here.
+  let inputData;
+  if (receivedData.ip) {
+    console.log('This came from the IP Fetcher');
+    inputData = `${receivedData.lat},${receivedData.lon}`;
+  }
+
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=${inputData.lat},${inputData.lon}&days=3`,
+      `http://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=${inputData}&days=3`,
       { mode: 'cors' },
     );
     const data = await response.json();

@@ -930,18 +930,30 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   fetchAutocomplete: () => (/* binding */ fetchAutocomplete),
-/* harmony export */   fetchIPAddress: () => (/* binding */ fetchIPAddress),
-/* harmony export */   fetchWeather: () => (/* binding */ fetchWeather),
-/* harmony export */   printConsoleData: () => (/* binding */ printConsoleData)
+/* harmony export */   displayInitialWeather: () => (/* binding */ displayInitialWeather),
+/* harmony export */   fetchAutocomplete: () => (/* binding */ fetchAutocomplete)
 /* harmony export */ });
 
 
+//? **`` Gets the user's IP address, sends the location to the weather fetcher which fetches the weather data, then logs it to the console
+async function displayInitialWeather() {
+  const ipData = await fetchIPAddress();
+  const weatherData = await fetchWeather(ipData);
+  printConsoleData(weatherData);
+}
+
 //? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
-async function fetchWeather(inputData) {
+async function fetchWeather(receivedData) {
+  //! **`` Filter that needs to be split off. Also need to add the autocomplete filter on here.
+  let inputData;
+  if (receivedData.ip) {
+    console.log('This came from the IP Fetcher');
+    inputData = `${receivedData.lat},${receivedData.lon}`;
+  }
+
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=${inputData.lat},${inputData.lon}&days=3`,
+      `http://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=${inputData}&days=3`,
       { mode: 'cors' },
     );
     const data = await response.json();
@@ -1110,16 +1122,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//? **`` Gets the weather data, then logs it to the console
-(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchIPAddress)().then((ipData) => {
-  (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchWeather)(ipData).then((data) => {
-    (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(data);
-  });
-});
-
+(0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.displayInitialWeather)();
 (0,_modules_functions__WEBPACK_IMPORTED_MODULE_0__.fetchAutocomplete)();
 
-//todo **`` Need to get the IP address to set the initial weather. Then make a form field. Then add the autocomplete to the search bar. Then let that input trigger the weather api
+//todo **`` Make a form field. Then add the autocomplete to the search bar. Then let that input trigger the weather api
 
 })();
 
