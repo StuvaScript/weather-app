@@ -936,60 +936,89 @@ __webpack_require__.r(__webpack_exports__);
 
 const main = document.querySelector('main');
 
-//todo **`` Rename this function. Its not console logging anymore
 //? **`` This gets all our necessary data and logs it to the console
 function displayData(data) {
   //? **`` This removes all the child elements inside the 'main' element
   main.replaceChildren();
 
-  //? **`` Display city
-  createDivs(data.location);
+  measurementSystemCheck(data);
 
-  console.group('Diplayed City');
-  console.log(data.location.city_name + ' city name');
-  console.groupEnd();
+  //? **`` Display city
+  const cityDiv = document.createElement('div');
+  cityDiv.setAttribute('id', 'city-wrapper');
+  createDivs(cityDiv, data.location);
+
+  // console.group('Diplayed City');
+  // console.log(data.location.city_name + ' city name');
+  // console.groupEnd();
 
   //? **`` Displays the current weather
-  createDivs(data.current);
+  const currentWeatherDiv = document.createElement('div');
+  currentWeatherDiv.setAttribute('id', 'current-weather-wrapper');
+  createDivs(currentWeatherDiv, data.current);
 
-  console.group(`Current temps`);
-  console.log(data.current.temp_c + ' temp C');
-  console.log(data.current.temp_f + ' temp F');
-  console.log(data.current.condition + ' condition');
-  console.log(data.current.icon + ' icon number');
-  console.log(data.current.is_day + ' daytime? 1 = yes, 0 = no');
-  console.groupEnd();
+  // console.group(`Current temps`);
+  // console.log(data.current.temp_c + ' temp C');
+  // console.log(data.current.temp_f + ' temp F');
+  // console.log(data.current.condition + ' condition');
+  // console.log(data.current.icon + ' icon number');
+  // console.log(data.current.is_day + ' daytime? 1 = yes, 0 = no');
+  // console.groupEnd();
 
   //? **`` This loops thru and displays the forecast data
-  data.forecastday.forEach((element) => {
-    createDivs(element);
+  const forecastWeatherDiv = document.createElement('div');
+  forecastWeatherDiv.setAttribute('id', 'forecast-weather-wrapper');
 
-    console.group(`${element.date} day temps`);
-    console.log(element.date + ' date');
-    console.log(element.mintemp_c + ' min temp C');
-    console.log(element.maxtemp_c + ' max temp C');
-    console.log(element.mintemp_f + ' min temp F');
-    console.log(element.maxtemp_f + ' max temp F');
-    console.log(element.condition + ' condition');
-    console.log(element.icon + ' icon number');
-    console.log(element.daily_will_it_rain + ' rain? 1 = yes, 0 = no');
-    console.log(element.daily_will_it_snow + ' snow? 1 = yes, 0 = no');
-    console.log(element.daily_chance_of_rain + ' percent chance of rain');
-    console.log(element.daily_chance_of_snow + ' percent chance of snow');
-    console.log(element.totalprecip_in + ' total rain in inches');
-    console.log(element.totalprecip_mm + ' total rain in millimeters');
-    console.log(element.totalsnow_in + ' total snow in inches');
-    console.log(element.totalprecip_cm + ' total snow in centimeters');
-    console.groupEnd();
+  data.forecastday.forEach((element) => {
+    const forecastDayDiv = document.createElement('div');
+    forecastDayDiv.classList.add('forecast-day');
+    createDivs(forecastDayDiv, element);
+    forecastWeatherDiv.append(forecastDayDiv);
+
+    // console.group(`${element.date} day temps`);
+    // console.log(element.date + ' date');
+    // console.log(element.mintemp_c + ' min temp C');
+    // console.log(element.maxtemp_c + ' max temp C');
+    // console.log(element.mintemp_f + ' min temp F');
+    // console.log(element.maxtemp_f + ' max temp F');
+    // console.log(element.condition + ' condition');
+    // console.log(element.icon + ' icon number');
+    // console.log(element.daily_will_it_rain + ' rain? 1 = yes, 0 = no');
+    // console.log(element.daily_will_it_snow + ' snow? 1 = yes, 0 = no');
+    // console.log(element.daily_chance_of_rain + ' percent chance of rain');
+    // console.log(element.daily_chance_of_snow + ' percent chance of snow');
+    // console.log(element.totalprecip_in + ' total rain in inches');
+    // console.log(element.totalprecip_mm + ' total rain in millimeters');
+    // console.log(element.totalsnow_in + ' total snow in inches');
+    // console.log(element.totalprecip_cm + ' total snow in centimeters');
+    // console.groupEnd();
   });
+
+  main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
 }
 
-function createDivs(weatherInfo) {
+function createDivs(parentElement, weatherInfo) {
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
-    div.classList.add('weather-data', `${key}`);
+    div.classList.add(`${key}`);
     div.innerText = `${value}`;
-    main.append(div);
+    parentElement.append(div);
+  }
+}
+
+//? **`` Changes to F or C depending on the detected country
+function measurementSystemCheck(data) {
+  const fToggle = document.querySelector('#F-toggle');
+  const cToggle = document.querySelector('#C-toggle');
+
+  if (
+    data.location.country === 'United States of America' ||
+    data.location.country === 'Liberia' ||
+    data.location.country === 'Myanmar'
+  ) {
+    fToggle.checked = true;
+  } else {
+    cToggle.checked = true;
   }
 }
 
@@ -1083,6 +1112,8 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.log(data);
+
     const dataObject = createWeatherDataObject(data);
 
     console.group('%cWeather', 'background:gold; color:black');
@@ -1179,6 +1210,7 @@ function createWeatherDataObject(data) {
   //? **`` Creating an object with the city name
   const location = {};
   location.city_name = data.location.name;
+  location.country = data.location.country;
 
   return { current, forecastday, location };
 }
@@ -1301,6 +1333,21 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_modules_functions__WEBPACK_IMPORTED_MODULE_1__.displayInitialWeather)();
 (0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.searchInputLogic)();
+
+//* File: dom-manipulation.js | Line: 76
+//todo **`` Refine the measurementSystemCheck() to only display the C or F info. Make a listener for that same idea too.
+
+//* File: dom-manipulation.js | Line: 76
+//todo **`` Use 'display:none' to hide and remove either Celsius or Fahrenheit info
+
+//* File: functions.js | Line: 150
+//todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
+
+//* File: event-handlers.js | Line: 19
+//todo **`` Need to pop up a warning or something that it's empty
+
+//* File: event-handlers.js | Line: 31
+//todo **`` Need to pop up a warning or something that it can't find the location
 
 })();
 

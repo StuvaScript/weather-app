@@ -14,26 +14,50 @@
         type="text"
         name="search-input"
         id="search-input"
-        aria-label="Search for a city here."
+        aria-label="Search for a city or ZIP/postal code here."
       />
       <button type="submit">Search City or ZIP/Postal Code</button>
+      <div id="toggle-wrapper">
+        <div id="F-wrapper">
+          <label for="F-toggle">°F</label>
+          <input
+            type="radio"
+            name="toggle"
+            id="F-toggle"
+            value="fahrenheit"
+            aria-label="Switch to Fahrenheit"
+          />
+        </div>
+        <div id="C-wrapper">
+          <label for="C-toggle">°C</label>
+          <input
+            type="radio"
+            name="toggle"
+            id="C-toggle"
+            value="celsius"
+            aria-label="Switch to Celsius"
+          />
+        </div>
+      </div>
     </form>
+
+    <p id="toggle-switch"></p>
 
     <main></main>
 
-    <p>
+    <footer>
       Powered by
       <a href="https://www.weatherapi.com/" title="Free Weather API"
         >WeatherAPI.com</a
       >
-    </p>
-    <p>
-      <a href="https://www.weatherapi.com/" title="Free Weather API"
-        ><img
-          src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png"
-          alt="Weather data by WeatherAPI.com"
-          border="0"
-      /></a>
-    </p>
+      <p>
+        <a href="https://www.weatherapi.com/" title="Free Weather API"
+          ><img
+            src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png"
+            alt="Weather data by WeatherAPI.com"
+            border="0"
+        /></a>
+      </p>
+    </footer>
   </body>
 </html>
