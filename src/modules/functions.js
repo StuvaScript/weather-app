@@ -28,6 +28,8 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.log(data);
+
     const dataObject = createWeatherDataObject(data);
 
     console.group('%cWeather', 'background:gold; color:black');
@@ -124,6 +126,7 @@ function createWeatherDataObject(data) {
   //? **`` Creating an object with the city name
   const location = {};
   location.city_name = data.location.name;
+  location.country = data.location.country;
 
   return { current, forecastday, location };
 }
