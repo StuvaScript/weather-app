@@ -65,8 +65,7 @@ async function fetchIPAddress() {
   }
 }
 
-//todo **`` Make a factory function that takes the lat and lon
-//? **`` This fetches multiple cities that match the inputted city. The returned data has an ID that can be inputted into the 'fetchWeather' api query
+//? **`` This fetches multiple cities that match the inputted city.
 async function fetchAutocomplete(receivedData) {
   try {
     const response = await fetch(
