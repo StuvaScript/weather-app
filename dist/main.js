@@ -993,11 +993,36 @@ __webpack_require__.r(__webpack_exports__);
 const searchBtn = document.querySelector('#search-button');
 
 function searchInputLogic() {
-  searchBtn.addEventListener('click', (e) => {
+  searchBtn.addEventListener('click', async (e) => {
     e.preventDefault();
+    let inputValue = document.querySelector('#search-input').value;
+    if (inputValue == '') {
+      console.log('Empty search field');
+      return;
+    }
 
-    const inputValue = document.querySelector('#search-input').value;
-    (0,_functions__WEBPACK_IMPORTED_MODULE_0__.fetchAutocomplete)(inputValue);
+    //todo **`` Need to reset the search field
+    try {
+      const response = await (0,_functions__WEBPACK_IMPORTED_MODULE_0__.fetchAutocomplete)(inputValue);
+      multipleCityChecker(response);
+    } catch (error) {
+      console.error(`Error: ${error}`);
+    }
+
+    //todo **`` This needs to come out of this handler into the functions module
+    //? **`` This checks to see if there is more than one value in the Autocomplete fetch
+    async function multipleCityChecker(array) {
+      if (array[1]) {
+        console.log('Pick your city');
+      } else {
+        try {
+          const weatherData = await (0,_functions__WEBPACK_IMPORTED_MODULE_0__.fetchWeather)(array[0]);
+          (0,_functions__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(weatherData);
+        } catch (error) {
+          console.error(`Error: ${error}`);
+        }
+      }
+    }
   });
 }
 
@@ -1013,7 +1038,9 @@ function searchInputLogic() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   displayInitialWeather: () => (/* binding */ displayInitialWeather),
-/* harmony export */   fetchAutocomplete: () => (/* binding */ fetchAutocomplete)
+/* harmony export */   fetchAutocomplete: () => (/* binding */ fetchAutocomplete),
+/* harmony export */   fetchWeather: () => (/* binding */ fetchWeather),
+/* harmony export */   printConsoleData: () => (/* reexport safe */ _dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)
 /* harmony export */ });
 /* harmony import */ var _dom_manipulation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom-manipulation */ "./src/modules/dom-manipulation.js");
 
@@ -1022,19 +1049,18 @@ __webpack_require__.r(__webpack_exports__);
 
 //? **`` Gets the user's IP address, sends the location to the weather fetcher which fetches the weather data, then logs it to the console
 async function displayInitialWeather() {
-  const ipData = await fetchIPAddress();
-  const weatherData = await fetchWeather(ipData);
-  (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(weatherData);
+  try {
+    const ipData = await fetchIPAddress();
+    const weatherData = await fetchWeather(ipData);
+    (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(weatherData);
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
 }
 
-//? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
+//? **`` This fetches our weather data, converts it to a JS object, then returns the data
 async function fetchWeather(receivedData) {
-  //! **`` Filter that needs to be split off. Also need to add the autocomplete filter on here. Might need to remove the 'IP' property if unnecessary. Also need to be able to take zip code.
-  let inputData;
-  if (receivedData.ip) {
-    console.log('This came from the IP Fetcher');
-    inputData = `${receivedData.lat},${receivedData.lon}`;
-  }
+  const inputData = `${receivedData.lat},${receivedData.lon}`;
 
   try {
     const response = await fetch(
@@ -1092,10 +1118,10 @@ async function fetchAutocomplete(receivedData) {
     console.log(data);
     console.groupEnd();
 
-    const dataObject = createAutocompleteDataObject(data);
-    console.log(dataObject);
+    const dataArray = createAutocompleteDataArray(data);
+    console.log(dataArray);
 
-    return data;
+    return dataArray;
   } catch (error) {
     console.error(`Error: ${error}`);
   }
@@ -1103,11 +1129,10 @@ async function fetchAutocomplete(receivedData) {
 
 //? **`` Takes the data from the fetchIPAddress API and returns only what we need
 function createIPDataObject(data) {
-  const ip = data.ip;
   const lat = data.lat;
   const lon = data.lon;
 
-  return { ip, lat, lon };
+  return { lat, lon };
 }
 
 //? **`` Takes the data from the fetchWeather API and returns only what we need
@@ -1149,7 +1174,7 @@ function createWeatherDataObject(data) {
 }
 
 //? **`` Takes the data from the fetchAutocomplete API and creates an array with objects for the autocomplete with only the needed data
-function createAutocompleteDataObject(data) {
+function createAutocompleteDataArray(data) {
   const autocompleteArray = [];
   data.forEach((element, index) => {
     autocompleteArray[index] = {};
@@ -1160,7 +1185,7 @@ function createAutocompleteDataObject(data) {
     autocompleteArray[index].lon = element.lon;
   });
 
-  return { autocompleteArray };
+  return autocompleteArray;
 }
 
 

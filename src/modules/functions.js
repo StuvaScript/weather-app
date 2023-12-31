@@ -1,22 +1,26 @@
 import { printConsoleData } from './dom-manipulation';
 
-export { fetchAutocomplete, displayInitialWeather };
+export {
+  fetchAutocomplete,
+  displayInitialWeather,
+  fetchWeather,
+  printConsoleData,
+};
 
 //? **`` Gets the user's IP address, sends the location to the weather fetcher which fetches the weather data, then logs it to the console
 async function displayInitialWeather() {
-  const ipData = await fetchIPAddress();
-  const weatherData = await fetchWeather(ipData);
-  printConsoleData(weatherData);
+  try {
+    const ipData = await fetchIPAddress();
+    const weatherData = await fetchWeather(ipData);
+    printConsoleData(weatherData);
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
 }
 
-//? **`` This fetches our weather data, converts it to a JS object, then returns the data. Our error handler is built into this function
+//? **`` This fetches our weather data, converts it to a JS object, then returns the data
 async function fetchWeather(receivedData) {
-  //! **`` Filter that needs to be split off. Also need to add the autocomplete filter on here. Might need to remove the 'IP' property if unnecessary. Also need to be able to take zip code.
-  let inputData;
-  if (receivedData.ip) {
-    console.log('This came from the IP Fetcher');
-    inputData = `${receivedData.lat},${receivedData.lon}`;
-  }
+  const inputData = `${receivedData.lat},${receivedData.lon}`;
 
   try {
     const response = await fetch(
@@ -74,10 +78,10 @@ async function fetchAutocomplete(receivedData) {
     console.log(data);
     console.groupEnd();
 
-    const dataObject = createAutocompleteDataObject(data);
-    console.log(dataObject);
+    const dataArray = createAutocompleteDataArray(data);
+    console.log(dataArray);
 
-    return data;
+    return dataArray;
   } catch (error) {
     console.error(`Error: ${error}`);
   }
@@ -85,11 +89,10 @@ async function fetchAutocomplete(receivedData) {
 
 //? **`` Takes the data from the fetchIPAddress API and returns only what we need
 function createIPDataObject(data) {
-  const ip = data.ip;
   const lat = data.lat;
   const lon = data.lon;
 
-  return { ip, lat, lon };
+  return { lat, lon };
 }
 
 //? **`` Takes the data from the fetchWeather API and returns only what we need
@@ -131,7 +134,7 @@ function createWeatherDataObject(data) {
 }
 
 //? **`` Takes the data from the fetchAutocomplete API and creates an array with objects for the autocomplete with only the needed data
-function createAutocompleteDataObject(data) {
+function createAutocompleteDataArray(data) {
   const autocompleteArray = [];
   data.forEach((element, index) => {
     autocompleteArray[index] = {};
@@ -142,5 +145,5 @@ function createAutocompleteDataObject(data) {
     autocompleteArray[index].lon = element.lon;
   });
 
-  return { autocompleteArray };
+  return autocompleteArray;
 }
