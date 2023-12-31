@@ -1,39 +1,36 @@
-import { fetchAutocomplete, fetchWeather, printConsoleData } from './functions';
+import { displayData } from './dom-manipulation';
+import {
+  fetchAutocomplete,
+  fetchWeather,
+  multipleCityChecker,
+} from './functions';
 
 export { searchInputLogic };
 
-const searchBtn = document.querySelector('#search-button');
+const form = document.querySelector('form');
 
+//? **`` This activates the autocomplete, the user selects a city if there are multiples, then the coordinates are sent to the weather fetcher, then displayed.
 function searchInputLogic() {
-  searchBtn.addEventListener('click', async (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    let inputValue = document.querySelector('#search-input').value;
-    if (inputValue == '') {
-      console.log('Empty search field');
+    let inputField = document.querySelector('#search-input');
+    //? **`` This returns if the input is submitted empty
+    if (inputField.value === '') {
+      //todo **`` Need to pop up a warning or something that it's empty
+      console.warn('Empty search field');
       return;
     }
 
-    //todo **`` Need to reset the search field
     try {
-      const response = await fetchAutocomplete(inputValue);
-      multipleCityChecker(response);
+      const response = await fetchAutocomplete(inputField.value);
+      const multiCheck = await multipleCityChecker(response);
+      const weatherData = await fetchWeather(multiCheck[0]);
+      displayData(weatherData);
     } catch (error) {
       console.error(`Error: ${error}`);
-    }
-
-    //todo **`` This needs to come out of this handler into the functions module
-    //? **`` This checks to see if there is more than one value in the Autocomplete fetch
-    async function multipleCityChecker(array) {
-      if (array[1]) {
-        console.log('Pick your city');
-      } else {
-        try {
-          const weatherData = await fetchWeather(array[0]);
-          printConsoleData(weatherData);
-        } catch (error) {
-          console.error(`Error: ${error}`);
-        }
-      }
+      console.warn("Can't find location");
+    } finally {
+      inputField.value = '';
     }
   });
 }

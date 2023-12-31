@@ -1,10 +1,10 @@
-import { printConsoleData } from './dom-manipulation';
+import { displayData } from './dom-manipulation';
 
 export {
   fetchAutocomplete,
   displayInitialWeather,
   fetchWeather,
-  printConsoleData,
+  multipleCityChecker,
 };
 
 //? **`` Gets the user's IP address, sends the location to the weather fetcher which fetches the weather data, then logs it to the console
@@ -12,7 +12,7 @@ async function displayInitialWeather() {
   try {
     const ipData = await fetchIPAddress();
     const weatherData = await fetchWeather(ipData);
-    printConsoleData(weatherData);
+    displayData(weatherData);
   } catch (error) {
     console.error(`Error: ${error}`);
   }
@@ -28,12 +28,11 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('%cWeather', 'background:gold; color:black');
-    console.log(data);
-    console.groupEnd();
-
     const dataObject = createWeatherDataObject(data);
+
+    console.group('%cWeather', 'background:gold; color:black');
     console.log(dataObject);
+    console.groupEnd();
 
     return dataObject;
   } catch (error) {
@@ -49,16 +48,14 @@ async function fetchIPAddress() {
       { mode: 'cors' },
     );
     const data = await response.json();
+    const dataObject = createIPDataObject(data);
+
     console.group('%cIP Address', 'background:green');
     console.log(`We detect that you're in ${data.city}`);
     console.log('Is that right?');
-    console.log(data.lat + ' latitude');
-    console.log(data.lon + ' longitude');
-    console.log(data);
+    console.log(dataObject);
     console.groupEnd();
 
-    const dataObject = createIPDataObject(data);
-    console.log(dataObject);
     return dataObject;
   } catch (error) {
     console.error(`Error: ${error}`);
@@ -73,12 +70,11 @@ async function fetchAutocomplete(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('%cAutocomplete', 'background:#1ce; color:black');
-    console.log(data);
-    console.groupEnd();
-
     const dataArray = createAutocompleteDataArray(data);
+
+    console.group('%cAutocomplete', 'background:#1ce; color:black');
     console.log(dataArray);
+    console.groupEnd();
 
     return dataArray;
   } catch (error) {
@@ -127,7 +123,7 @@ function createWeatherDataObject(data) {
 
   //? **`` Creating an object with the city name
   const location = {};
-  location.name = data.location.name;
+  location.city_name = data.location.name;
 
   return { current, forecastday, location };
 }
@@ -145,4 +141,13 @@ function createAutocompleteDataArray(data) {
   });
 
   return autocompleteArray;
+}
+
+//? **`` This checks to see if there is more than one value in the Autocomplete fetch
+async function multipleCityChecker(array) {
+  if (array[1]) {
+    //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
+    console.log('Pick your city');
+  }
+  return array;
 }

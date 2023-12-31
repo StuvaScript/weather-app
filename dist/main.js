@@ -930,13 +930,28 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   printConsoleData: () => (/* binding */ printConsoleData)
+/* harmony export */   displayData: () => (/* binding */ displayData)
 /* harmony export */ });
 
 
+const main = document.querySelector('main');
+
+//todo **`` Rename this function. Its not console logging anymore
 //? **`` This gets all our necessary data and logs it to the console
-function printConsoleData(data) {
-  //? **`` Current weather
+function displayData(data) {
+  //? **`` This removes all the child elements inside the 'main' element
+  main.replaceChildren();
+
+  //? **`` Display city
+  createDivs(data.location);
+
+  console.group('Diplayed City');
+  console.log(data.location.city_name + ' city name');
+  console.groupEnd();
+
+  //? **`` Displays the current weather
+  createDivs(data.current);
+
   console.group(`Current temps`);
   console.log(data.current.temp_c + ' temp C');
   console.log(data.current.temp_f + ' temp F');
@@ -945,8 +960,10 @@ function printConsoleData(data) {
   console.log(data.current.is_day + ' daytime? 1 = yes, 0 = no');
   console.groupEnd();
 
-  //? **`` This loops through the forecast data
+  //? **`` This loops thru and displays the forecast data
   data.forecastday.forEach((element) => {
+    createDivs(element);
+
     console.group(`${element.date} day temps`);
     console.log(element.date + ' date');
     console.log(element.mintemp_c + ' min temp C');
@@ -965,11 +982,15 @@ function printConsoleData(data) {
     console.log(element.totalprecip_cm + ' total snow in centimeters');
     console.groupEnd();
   });
+}
 
-  //? **`` Displayed city
-  console.group('Diplayed City');
-  console.log(data.location.name + ' city name');
-  console.groupEnd();
+function createDivs(weatherInfo) {
+  for (const [key, value] of Object.entries(weatherInfo)) {
+    const div = document.createElement('div');
+    div.classList.add('weather-data', `${key}`);
+    div.innerText = `${value}`;
+    main.append(div);
+  }
 }
 
 
@@ -985,43 +1006,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   searchInputLogic: () => (/* binding */ searchInputLogic)
 /* harmony export */ });
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./src/modules/functions.js");
+/* harmony import */ var _dom_manipulation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom-manipulation */ "./src/modules/dom-manipulation.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions */ "./src/modules/functions.js");
 
 
 
 
-const searchBtn = document.querySelector('#search-button');
 
+const form = document.querySelector('form');
+
+//? **`` This activates the autocomplete, the user selects a city if there are multiples, then the coordinates are sent to the weather fetcher, then displayed.
 function searchInputLogic() {
-  searchBtn.addEventListener('click', async (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    let inputValue = document.querySelector('#search-input').value;
-    if (inputValue == '') {
-      console.log('Empty search field');
+    let inputField = document.querySelector('#search-input');
+    //? **`` This returns if the input is submitted empty
+    if (inputField.value === '') {
+      //todo **`` Need to pop up a warning or something that it's empty
+      console.warn('Empty search field');
       return;
     }
 
-    //todo **`` Need to reset the search field
     try {
-      const response = await (0,_functions__WEBPACK_IMPORTED_MODULE_0__.fetchAutocomplete)(inputValue);
-      multipleCityChecker(response);
+      const response = await (0,_functions__WEBPACK_IMPORTED_MODULE_1__.fetchAutocomplete)(inputField.value);
+      const multiCheck = await (0,_functions__WEBPACK_IMPORTED_MODULE_1__.multipleCityChecker)(response);
+      const weatherData = await (0,_functions__WEBPACK_IMPORTED_MODULE_1__.fetchWeather)(multiCheck[0]);
+      (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayData)(weatherData);
     } catch (error) {
       console.error(`Error: ${error}`);
-    }
-
-    //todo **`` This needs to come out of this handler into the functions module
-    //? **`` This checks to see if there is more than one value in the Autocomplete fetch
-    async function multipleCityChecker(array) {
-      if (array[1]) {
-        console.log('Pick your city');
-      } else {
-        try {
-          const weatherData = await (0,_functions__WEBPACK_IMPORTED_MODULE_0__.fetchWeather)(array[0]);
-          (0,_functions__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(weatherData);
-        } catch (error) {
-          console.error(`Error: ${error}`);
-        }
-      }
+      console.warn("Can't find location");
+    } finally {
+      inputField.value = '';
     }
   });
 }
@@ -1040,7 +1055,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   displayInitialWeather: () => (/* binding */ displayInitialWeather),
 /* harmony export */   fetchAutocomplete: () => (/* binding */ fetchAutocomplete),
 /* harmony export */   fetchWeather: () => (/* binding */ fetchWeather),
-/* harmony export */   printConsoleData: () => (/* reexport safe */ _dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)
+/* harmony export */   multipleCityChecker: () => (/* binding */ multipleCityChecker)
 /* harmony export */ });
 /* harmony import */ var _dom_manipulation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom-manipulation */ "./src/modules/dom-manipulation.js");
 
@@ -1052,7 +1067,7 @@ async function displayInitialWeather() {
   try {
     const ipData = await fetchIPAddress();
     const weatherData = await fetchWeather(ipData);
-    (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.printConsoleData)(weatherData);
+    (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayData)(weatherData);
   } catch (error) {
     console.error(`Error: ${error}`);
   }
@@ -1068,12 +1083,11 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('%cWeather', 'background:gold; color:black');
-    console.log(data);
-    console.groupEnd();
-
     const dataObject = createWeatherDataObject(data);
+
+    console.group('%cWeather', 'background:gold; color:black');
     console.log(dataObject);
+    console.groupEnd();
 
     return dataObject;
   } catch (error) {
@@ -1089,16 +1103,14 @@ async function fetchIPAddress() {
       { mode: 'cors' },
     );
     const data = await response.json();
+    const dataObject = createIPDataObject(data);
+
     console.group('%cIP Address', 'background:green');
     console.log(`We detect that you're in ${data.city}`);
     console.log('Is that right?');
-    console.log(data.lat + ' latitude');
-    console.log(data.lon + ' longitude');
-    console.log(data);
+    console.log(dataObject);
     console.groupEnd();
 
-    const dataObject = createIPDataObject(data);
-    console.log(dataObject);
     return dataObject;
   } catch (error) {
     console.error(`Error: ${error}`);
@@ -1113,12 +1125,11 @@ async function fetchAutocomplete(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('%cAutocomplete', 'background:#1ce; color:black');
-    console.log(data);
-    console.groupEnd();
-
     const dataArray = createAutocompleteDataArray(data);
+
+    console.group('%cAutocomplete', 'background:#1ce; color:black');
     console.log(dataArray);
+    console.groupEnd();
 
     return dataArray;
   } catch (error) {
@@ -1167,7 +1178,7 @@ function createWeatherDataObject(data) {
 
   //? **`` Creating an object with the city name
   const location = {};
-  location.name = data.location.name;
+  location.city_name = data.location.name;
 
   return { current, forecastday, location };
 }
@@ -1185,6 +1196,15 @@ function createAutocompleteDataArray(data) {
   });
 
   return autocompleteArray;
+}
+
+//? **`` This checks to see if there is more than one value in the Autocomplete fetch
+async function multipleCityChecker(array) {
+  if (array[1]) {
+    //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
+    console.log('Pick your city');
+  }
+  return array;
 }
 
 
