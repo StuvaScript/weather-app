@@ -421,7 +421,37 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ``, "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, `body {
+  font-family: sans-serif;
+}
+
+main {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#city-wrapper {
+  background: rebeccapurple;
+  color: white;
+}
+
+#current-weather-wrapper {
+  background: #1ce;
+}
+
+#forecast-weather-wrapper {
+  background: #bada55;
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#forecast-weather-wrapper > * {
+  border: 2px solid #000;
+}
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -936,7 +966,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const main = document.querySelector('main');
 
-//? **`` This gets all our necessary data and logs it to the console
+//? **`` This gets all our necessary data and displays it
 function displayData(data) {
   //? **`` This removes all the child elements inside the 'main' element
   main.replaceChildren();
@@ -948,22 +978,10 @@ function displayData(data) {
   cityDiv.setAttribute('id', 'city-wrapper');
   createDivs(cityDiv, data.location);
 
-  // console.group('Diplayed City');
-  // console.log(data.location.city_name + ' city name');
-  // console.groupEnd();
-
   //? **`` Displays the current weather
   const currentWeatherDiv = document.createElement('div');
   currentWeatherDiv.setAttribute('id', 'current-weather-wrapper');
   createDivs(currentWeatherDiv, data.current);
-
-  // console.group(`Current temps`);
-  // console.log(data.current.temp_c + ' temp C');
-  // console.log(data.current.temp_f + ' temp F');
-  // console.log(data.current.condition + ' condition');
-  // console.log(data.current.icon + ' icon number');
-  // console.log(data.current.is_day + ' daytime? 1 = yes, 0 = no');
-  // console.groupEnd();
 
   //? **`` This loops thru and displays the forecast data
   const forecastWeatherDiv = document.createElement('div');
@@ -974,32 +992,16 @@ function displayData(data) {
     forecastDayDiv.classList.add('forecast-day');
     createDivs(forecastDayDiv, element);
     forecastWeatherDiv.append(forecastDayDiv);
-
-    // console.group(`${element.date} day temps`);
-    // console.log(element.date + ' date');
-    // console.log(element.mintemp_c + ' min temp C');
-    // console.log(element.maxtemp_c + ' max temp C');
-    // console.log(element.mintemp_f + ' min temp F');
-    // console.log(element.maxtemp_f + ' max temp F');
-    // console.log(element.condition + ' condition');
-    // console.log(element.icon + ' icon number');
-    // console.log(element.daily_will_it_rain + ' rain? 1 = yes, 0 = no');
-    // console.log(element.daily_will_it_snow + ' snow? 1 = yes, 0 = no');
-    // console.log(element.daily_chance_of_rain + ' percent chance of rain');
-    // console.log(element.daily_chance_of_snow + ' percent chance of snow');
-    // console.log(element.totalprecip_in + ' total rain in inches');
-    // console.log(element.totalprecip_mm + ' total rain in millimeters');
-    // console.log(element.totalsnow_in + ' total snow in inches');
-    // console.log(element.totalprecip_cm + ' total snow in centimeters');
-    // console.groupEnd();
   });
 
   main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
 }
 
+//? **`` Creates divs with the inputted data and adds class names
 function createDivs(parentElement, weatherInfo) {
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
+    measurementClassAdder(key, div);
     div.classList.add(`${key}`);
     div.innerText = `${value}`;
     parentElement.append(div);
@@ -1011,15 +1013,47 @@ function measurementSystemCheck(data) {
   const fToggle = document.querySelector('#F-toggle');
   const cToggle = document.querySelector('#C-toggle');
 
-  if (
-    data.location.country === 'United States of America' ||
-    data.location.country === 'Liberia' ||
-    data.location.country === 'Myanmar'
-  ) {
-    fToggle.checked = true;
-  } else {
-    cToggle.checked = true;
+  //? **`` This toggles F or C on the initial IP fetch
+  if (!fToggle.checked && !cToggle.checked) {
+    if (
+      data.location.country === 'United States of America' ||
+      data.location.country === 'Liberia'
+    ) {
+      fToggle.checked = true;
+    } else {
+      cToggle.checked = true;
+    }
   }
+}
+
+//? **`` This adds a class of either 'celsius' or 'fahrenheit' to the correct measurement data
+function measurementClassAdder(key, div) {
+  const celsiusArray = [
+    'temp_c',
+    'mintemp_c',
+    'maxtemp_c',
+    'totalprecip_mm',
+    'totalsnow_cm',
+  ];
+  const fahrenheitArray = [
+    'temp_f',
+    'mintemp_f',
+    'maxtemp_f',
+    'totalprecip_in',
+    'totalsnow_in',
+  ];
+
+  celsiusArray.forEach((item) => {
+    if (key === item) {
+      return div.classList.add('celsius');
+    }
+  });
+
+  fahrenheitArray.forEach((item) => {
+    if (key === item) {
+      return div.classList.add('fahrenheit');
+    }
+  });
 }
 
 
@@ -1033,7 +1067,8 @@ function measurementSystemCheck(data) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   searchInputLogic: () => (/* binding */ searchInputLogic)
+/* harmony export */   searchInputLogic: () => (/* binding */ searchInputLogic),
+/* harmony export */   toggleMeasurementData: () => (/* binding */ toggleMeasurementData)
 /* harmony export */ });
 /* harmony import */ var _dom_manipulation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom-manipulation */ "./src/modules/dom-manipulation.js");
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions */ "./src/modules/functions.js");
@@ -1063,10 +1098,41 @@ function searchInputLogic() {
       (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayData)(weatherData);
     } catch (error) {
       console.error(`Error: ${error}`);
+      //todo **`` Need to pop up a warning or something that it can't find the location
       console.warn("Can't find location");
     } finally {
       inputField.value = '';
     }
+  });
+}
+
+function toggleMeasurementData() {
+  const toggleWrapper = document.querySelector('#toggle-wrapper');
+  const fToggle = document.querySelector('#F-toggle');
+
+  toggleWrapper.addEventListener('click', (e) => {
+    console.log(e);
+
+    fToggle.checked ? displayF() : displayC();
+  });
+}
+
+//! **`` Move these to function module
+function displayF() {
+  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
+    item.classList.remove('hidden');
+  });
+  [...document.querySelectorAll('.celsius')].forEach((item) => {
+    item.classList.add('hidden');
+  });
+}
+
+function displayC() {
+  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
+    item.classList.add('hidden');
+  });
+  [...document.querySelectorAll('.celsius')].forEach((item) => {
+    item.classList.remove('hidden');
   });
 }
 
@@ -1333,12 +1399,17 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_modules_functions__WEBPACK_IMPORTED_MODULE_1__.displayInitialWeather)();
 (0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.searchInputLogic)();
+(0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.toggleMeasurementData)();
+
+//! **`` WATCH YOUR PROJECT WITH 'NPX WEBPACK --WATCH' FOOOOOOOOL!!!! :)
+
+//todo **`` Bring in the icons
 
 //* File: dom-manipulation.js | Line: 76
-//todo **`` Refine the measurementSystemCheck() to only display the C or F info. Make a listener for that same idea too.
+//todo **`` Get the measurementSystemCheck() to hide the C or F info on initial IP fetch.
 
-//* File: dom-manipulation.js | Line: 76
-//todo **`` Use 'display:none' to hide and remove either Celsius or Fahrenheit info
+//* File: event-handlers.js | Line: 39
+//todo **`` Move the functions to dom-manipulation.js, add the toggler to measurementSystemCheck() and change it to only check fToggle and classList.toggle() accordingly to shorten up the 'hidden' class add code.
 
 //* File: functions.js | Line: 150
 //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
