@@ -1,0 +1,30 @@
+body {
+  font-family: sans-serif;
+}
+
+main {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#city-wrapper {
+  background: rebeccapurple;
+  color: white;
+}
+
+#current-weather-wrapper {
+  background: #1ce;
+}
+
+#forecast-weather-wrapper {
+  background: #bada55;
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#forecast-weather-wrapper > * {
+  border: 2px solid #000;
+}

@@ -5,7 +5,7 @@ import {
   multipleCityChecker,
 } from './functions';
 
-export { searchInputLogic };
+export { searchInputLogic, toggleMeasurementData };
 
 const form = document.querySelector('form');
 
@@ -28,9 +28,40 @@ function searchInputLogic() {
       displayData(weatherData);
     } catch (error) {
       console.error(`Error: ${error}`);
+      //todo **`` Need to pop up a warning or something that it can't find the location
       console.warn("Can't find location");
     } finally {
       inputField.value = '';
     }
+  });
+}
+
+function toggleMeasurementData() {
+  const toggleWrapper = document.querySelector('#toggle-wrapper');
+  const fToggle = document.querySelector('#F-toggle');
+
+  toggleWrapper.addEventListener('click', (e) => {
+    console.log(e);
+
+    fToggle.checked ? displayF() : displayC();
+  });
+}
+
+//! **`` Move these to function module
+function displayF() {
+  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
+    item.classList.remove('hidden');
+  });
+  [...document.querySelectorAll('.celsius')].forEach((item) => {
+    item.classList.add('hidden');
+  });
+}
+
+function displayC() {
+  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
+    item.classList.add('hidden');
+  });
+  [...document.querySelectorAll('.celsius')].forEach((item) => {
+    item.classList.remove('hidden');
   });
 }
