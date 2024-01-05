@@ -1,3 +1,5 @@
+import * as icon from './icon-handler';
+
 export { displayData, displayC, displayF };
 
 const main = document.querySelector('main');
@@ -10,12 +12,12 @@ function displayData(data) {
   //? **`` Display city
   const cityDiv = document.createElement('div');
   cityDiv.setAttribute('id', 'city-wrapper');
-  createDivs(cityDiv, data.location);
+  manipulateData(cityDiv, data.location);
 
   //? **`` Displays the current weather
   const currentWeatherDiv = document.createElement('div');
   currentWeatherDiv.setAttribute('id', 'current-weather-wrapper');
-  createDivs(currentWeatherDiv, data.current);
+  manipulateData(currentWeatherDiv, data.current);
 
   //? **`` This loops thru and displays the forecast data
   const forecastWeatherDiv = document.createElement('div');
@@ -24,7 +26,7 @@ function displayData(data) {
   data.forecastday.forEach((element) => {
     const forecastDayDiv = document.createElement('div');
     forecastDayDiv.classList.add('forecast-day');
-    createDivs(forecastDayDiv, element);
+    manipulateData(forecastDayDiv, element);
     forecastWeatherDiv.append(forecastDayDiv);
   });
 
@@ -34,18 +36,20 @@ function displayData(data) {
   measurementSystemCheck(data);
 }
 
-//? **`` Creates divs with the inputted data and adds class names
-function createDivs(parentElement, weatherInfo) {
+//? **`` Creates divs with the inputted data, adds class names, displays either C or F, sets the correct weather icon
+function manipulateData(parentElement, weatherInfo) {
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
     measurementClassAdder(key, div);
     div.classList.add(`${key}`);
     div.innerText = `${value}`;
+    setIcon(div, key, value);
+
     parentElement.append(div);
   }
 }
 
-//? **`` Changes the checked radio button (F or C) depending on the detected country and displays either the C or F data accordingly
+//? **`` Displays either the C or F data accordingly depending on the radio buttons
 function measurementSystemCheck(data) {
   const fToggle = document.querySelector('#F-toggle');
   const cToggle = document.querySelector('#C-toggle');
@@ -62,6 +66,13 @@ function measurementSystemCheck(data) {
       cToggle.checked = true;
       displayC();
     }
+  }
+
+  //? **`` Checks for the checked radio button when searching for a new location and displays either C or F data
+  if (fToggle.checked) {
+    displayF();
+  } else {
+    displayC();
   }
 }
 
@@ -113,4 +124,15 @@ function displayC() {
   [...document.querySelectorAll('.celsius')].forEach((item) => {
     item.classList.remove('hidden');
   });
+}
+
+//? **`` Detects if the key is an icon, takes the icon value and gets the icon from the 'icon-handler.js' file
+function setIcon(div, key, value) {
+  if (key === 'icon') {
+    const img = document.createElement('img');
+    img.setAttribute('src', icon.day[`${value}`]);
+    img.setAttribute('alt', 'Icon representing the weather');
+    div.innerText = '';
+    div.append(img);
+  }
 }

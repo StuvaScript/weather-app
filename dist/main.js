@@ -968,6 +968,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   displayData: () => (/* binding */ displayData),
 /* harmony export */   displayF: () => (/* binding */ displayF)
 /* harmony export */ });
+/* harmony import */ var _icon_handler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon-handler */ "./src/modules/icon-handler.js");
+
+
 
 
 const main = document.querySelector('main');
@@ -980,12 +983,12 @@ function displayData(data) {
   //? **`` Display city
   const cityDiv = document.createElement('div');
   cityDiv.setAttribute('id', 'city-wrapper');
-  createDivs(cityDiv, data.location);
+  manipulateData(cityDiv, data.location);
 
   //? **`` Displays the current weather
   const currentWeatherDiv = document.createElement('div');
   currentWeatherDiv.setAttribute('id', 'current-weather-wrapper');
-  createDivs(currentWeatherDiv, data.current);
+  manipulateData(currentWeatherDiv, data.current);
 
   //? **`` This loops thru and displays the forecast data
   const forecastWeatherDiv = document.createElement('div');
@@ -994,7 +997,7 @@ function displayData(data) {
   data.forecastday.forEach((element) => {
     const forecastDayDiv = document.createElement('div');
     forecastDayDiv.classList.add('forecast-day');
-    createDivs(forecastDayDiv, element);
+    manipulateData(forecastDayDiv, element);
     forecastWeatherDiv.append(forecastDayDiv);
   });
 
@@ -1004,18 +1007,20 @@ function displayData(data) {
   measurementSystemCheck(data);
 }
 
-//? **`` Creates divs with the inputted data and adds class names
-function createDivs(parentElement, weatherInfo) {
+//? **`` Creates divs with the inputted data, adds class names, displays either C or F, sets the correct weather icon
+function manipulateData(parentElement, weatherInfo) {
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
     measurementClassAdder(key, div);
     div.classList.add(`${key}`);
     div.innerText = `${value}`;
+    setIcon(div, key, value);
+
     parentElement.append(div);
   }
 }
 
-//? **`` Changes the checked radio button (F or C) depending on the detected country and displays either the C or F data accordingly
+//? **`` Displays either the C or F data accordingly depending on the radio buttons
 function measurementSystemCheck(data) {
   const fToggle = document.querySelector('#F-toggle');
   const cToggle = document.querySelector('#C-toggle');
@@ -1032,6 +1037,13 @@ function measurementSystemCheck(data) {
       cToggle.checked = true;
       displayC();
     }
+  }
+
+  //? **`` Checks for the checked radio button when searching for a new location and displays either C or F data
+  if (fToggle.checked) {
+    displayF();
+  } else {
+    displayC();
   }
 }
 
@@ -1083,6 +1095,17 @@ function displayC() {
   [...document.querySelectorAll('.celsius')].forEach((item) => {
     item.classList.remove('hidden');
   });
+}
+
+//? **`` Detects if the key is an icon, takes the icon value and gets the icon from the 'icon-handler.js' file
+function setIcon(div, key, value) {
+  if (key === 'icon') {
+    const img = document.createElement('img');
+    img.setAttribute('src', _icon_handler__WEBPACK_IMPORTED_MODULE_0__.day[`${value}`]);
+    img.setAttribute('alt', 'Icon representing the weather');
+    div.innerText = '';
+    div.append(img);
+  }
 }
 
 
@@ -1315,6 +1338,1280 @@ async function multipleCityChecker(array) {
 }
 
 
+/***/ }),
+
+/***/ "./src/modules/icon-handler.js":
+/*!*************************************!*\
+  !*** ./src/modules/icon-handler.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   day: () => (/* binding */ day),
+/* harmony export */   night: () => (/* binding */ night)
+/* harmony export */ });
+/* harmony import */ var _images_weather_64x64_day_113_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../images/weather/64x64/day/113.png */ "./src/images/weather/64x64/day/113.png");
+/* harmony import */ var _images_weather_64x64_day_116_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../images/weather/64x64/day/116.png */ "./src/images/weather/64x64/day/116.png");
+/* harmony import */ var _images_weather_64x64_day_119_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../images/weather/64x64/day/119.png */ "./src/images/weather/64x64/day/119.png");
+/* harmony import */ var _images_weather_64x64_day_122_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../images/weather/64x64/day/122.png */ "./src/images/weather/64x64/day/122.png");
+/* harmony import */ var _images_weather_64x64_day_143_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../images/weather/64x64/day/143.png */ "./src/images/weather/64x64/day/143.png");
+/* harmony import */ var _images_weather_64x64_day_176_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../images/weather/64x64/day/176.png */ "./src/images/weather/64x64/day/176.png");
+/* harmony import */ var _images_weather_64x64_day_179_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../images/weather/64x64/day/179.png */ "./src/images/weather/64x64/day/179.png");
+/* harmony import */ var _images_weather_64x64_day_182_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../images/weather/64x64/day/182.png */ "./src/images/weather/64x64/day/182.png");
+/* harmony import */ var _images_weather_64x64_day_185_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../images/weather/64x64/day/185.png */ "./src/images/weather/64x64/day/185.png");
+/* harmony import */ var _images_weather_64x64_day_200_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../images/weather/64x64/day/200.png */ "./src/images/weather/64x64/day/200.png");
+/* harmony import */ var _images_weather_64x64_day_227_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../images/weather/64x64/day/227.png */ "./src/images/weather/64x64/day/227.png");
+/* harmony import */ var _images_weather_64x64_day_230_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../images/weather/64x64/day/230.png */ "./src/images/weather/64x64/day/230.png");
+/* harmony import */ var _images_weather_64x64_day_248_png__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../images/weather/64x64/day/248.png */ "./src/images/weather/64x64/day/248.png");
+/* harmony import */ var _images_weather_64x64_day_260_png__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../images/weather/64x64/day/260.png */ "./src/images/weather/64x64/day/260.png");
+/* harmony import */ var _images_weather_64x64_day_263_png__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../images/weather/64x64/day/263.png */ "./src/images/weather/64x64/day/263.png");
+/* harmony import */ var _images_weather_64x64_day_266_png__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../images/weather/64x64/day/266.png */ "./src/images/weather/64x64/day/266.png");
+/* harmony import */ var _images_weather_64x64_day_281_png__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../images/weather/64x64/day/281.png */ "./src/images/weather/64x64/day/281.png");
+/* harmony import */ var _images_weather_64x64_day_284_png__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../images/weather/64x64/day/284.png */ "./src/images/weather/64x64/day/284.png");
+/* harmony import */ var _images_weather_64x64_day_293_png__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../images/weather/64x64/day/293.png */ "./src/images/weather/64x64/day/293.png");
+/* harmony import */ var _images_weather_64x64_day_296_png__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../images/weather/64x64/day/296.png */ "./src/images/weather/64x64/day/296.png");
+/* harmony import */ var _images_weather_64x64_day_299_png__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../images/weather/64x64/day/299.png */ "./src/images/weather/64x64/day/299.png");
+/* harmony import */ var _images_weather_64x64_day_302_png__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../images/weather/64x64/day/302.png */ "./src/images/weather/64x64/day/302.png");
+/* harmony import */ var _images_weather_64x64_day_305_png__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../images/weather/64x64/day/305.png */ "./src/images/weather/64x64/day/305.png");
+/* harmony import */ var _images_weather_64x64_day_308_png__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../images/weather/64x64/day/308.png */ "./src/images/weather/64x64/day/308.png");
+/* harmony import */ var _images_weather_64x64_day_311_png__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../images/weather/64x64/day/311.png */ "./src/images/weather/64x64/day/311.png");
+/* harmony import */ var _images_weather_64x64_day_314_png__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../images/weather/64x64/day/314.png */ "./src/images/weather/64x64/day/314.png");
+/* harmony import */ var _images_weather_64x64_day_317_png__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../images/weather/64x64/day/317.png */ "./src/images/weather/64x64/day/317.png");
+/* harmony import */ var _images_weather_64x64_day_320_png__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../images/weather/64x64/day/320.png */ "./src/images/weather/64x64/day/320.png");
+/* harmony import */ var _images_weather_64x64_day_323_png__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../images/weather/64x64/day/323.png */ "./src/images/weather/64x64/day/323.png");
+/* harmony import */ var _images_weather_64x64_day_326_png__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../images/weather/64x64/day/326.png */ "./src/images/weather/64x64/day/326.png");
+/* harmony import */ var _images_weather_64x64_day_329_png__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../images/weather/64x64/day/329.png */ "./src/images/weather/64x64/day/329.png");
+/* harmony import */ var _images_weather_64x64_day_332_png__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../images/weather/64x64/day/332.png */ "./src/images/weather/64x64/day/332.png");
+/* harmony import */ var _images_weather_64x64_day_335_png__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ../images/weather/64x64/day/335.png */ "./src/images/weather/64x64/day/335.png");
+/* harmony import */ var _images_weather_64x64_day_338_png__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ../images/weather/64x64/day/338.png */ "./src/images/weather/64x64/day/338.png");
+/* harmony import */ var _images_weather_64x64_day_350_png__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ../images/weather/64x64/day/350.png */ "./src/images/weather/64x64/day/350.png");
+/* harmony import */ var _images_weather_64x64_day_353_png__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ../images/weather/64x64/day/353.png */ "./src/images/weather/64x64/day/353.png");
+/* harmony import */ var _images_weather_64x64_day_356_png__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ../images/weather/64x64/day/356.png */ "./src/images/weather/64x64/day/356.png");
+/* harmony import */ var _images_weather_64x64_day_359_png__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ../images/weather/64x64/day/359.png */ "./src/images/weather/64x64/day/359.png");
+/* harmony import */ var _images_weather_64x64_day_362_png__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ../images/weather/64x64/day/362.png */ "./src/images/weather/64x64/day/362.png");
+/* harmony import */ var _images_weather_64x64_day_365_png__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ../images/weather/64x64/day/365.png */ "./src/images/weather/64x64/day/365.png");
+/* harmony import */ var _images_weather_64x64_day_368_png__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ../images/weather/64x64/day/368.png */ "./src/images/weather/64x64/day/368.png");
+/* harmony import */ var _images_weather_64x64_day_371_png__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ../images/weather/64x64/day/371.png */ "./src/images/weather/64x64/day/371.png");
+/* harmony import */ var _images_weather_64x64_day_374_png__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ../images/weather/64x64/day/374.png */ "./src/images/weather/64x64/day/374.png");
+/* harmony import */ var _images_weather_64x64_day_377_png__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ../images/weather/64x64/day/377.png */ "./src/images/weather/64x64/day/377.png");
+/* harmony import */ var _images_weather_64x64_day_386_png__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ../images/weather/64x64/day/386.png */ "./src/images/weather/64x64/day/386.png");
+/* harmony import */ var _images_weather_64x64_day_389_png__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ../images/weather/64x64/day/389.png */ "./src/images/weather/64x64/day/389.png");
+/* harmony import */ var _images_weather_64x64_day_392_png__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ../images/weather/64x64/day/392.png */ "./src/images/weather/64x64/day/392.png");
+/* harmony import */ var _images_weather_64x64_day_395_png__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ../images/weather/64x64/day/395.png */ "./src/images/weather/64x64/day/395.png");
+/* harmony import */ var _images_weather_64x64_night_113_png__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ../images/weather/64x64/night/113.png */ "./src/images/weather/64x64/night/113.png");
+/* harmony import */ var _images_weather_64x64_night_116_png__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ../images/weather/64x64/night/116.png */ "./src/images/weather/64x64/night/116.png");
+/* harmony import */ var _images_weather_64x64_night_119_png__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ../images/weather/64x64/night/119.png */ "./src/images/weather/64x64/night/119.png");
+/* harmony import */ var _images_weather_64x64_night_122_png__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ../images/weather/64x64/night/122.png */ "./src/images/weather/64x64/night/122.png");
+/* harmony import */ var _images_weather_64x64_night_143_png__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ../images/weather/64x64/night/143.png */ "./src/images/weather/64x64/night/143.png");
+/* harmony import */ var _images_weather_64x64_night_176_png__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ../images/weather/64x64/night/176.png */ "./src/images/weather/64x64/night/176.png");
+/* harmony import */ var _images_weather_64x64_night_179_png__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ../images/weather/64x64/night/179.png */ "./src/images/weather/64x64/night/179.png");
+/* harmony import */ var _images_weather_64x64_night_182_png__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ../images/weather/64x64/night/182.png */ "./src/images/weather/64x64/night/182.png");
+/* harmony import */ var _images_weather_64x64_night_185_png__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ../images/weather/64x64/night/185.png */ "./src/images/weather/64x64/night/185.png");
+/* harmony import */ var _images_weather_64x64_night_200_png__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ../images/weather/64x64/night/200.png */ "./src/images/weather/64x64/night/200.png");
+/* harmony import */ var _images_weather_64x64_night_227_png__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ../images/weather/64x64/night/227.png */ "./src/images/weather/64x64/night/227.png");
+/* harmony import */ var _images_weather_64x64_night_230_png__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ../images/weather/64x64/night/230.png */ "./src/images/weather/64x64/night/230.png");
+/* harmony import */ var _images_weather_64x64_night_248_png__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ../images/weather/64x64/night/248.png */ "./src/images/weather/64x64/night/248.png");
+/* harmony import */ var _images_weather_64x64_night_260_png__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ../images/weather/64x64/night/260.png */ "./src/images/weather/64x64/night/260.png");
+/* harmony import */ var _images_weather_64x64_night_263_png__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ../images/weather/64x64/night/263.png */ "./src/images/weather/64x64/night/263.png");
+/* harmony import */ var _images_weather_64x64_night_266_png__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ../images/weather/64x64/night/266.png */ "./src/images/weather/64x64/night/266.png");
+/* harmony import */ var _images_weather_64x64_night_281_png__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ../images/weather/64x64/night/281.png */ "./src/images/weather/64x64/night/281.png");
+/* harmony import */ var _images_weather_64x64_night_284_png__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ../images/weather/64x64/night/284.png */ "./src/images/weather/64x64/night/284.png");
+/* harmony import */ var _images_weather_64x64_night_293_png__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ../images/weather/64x64/night/293.png */ "./src/images/weather/64x64/night/293.png");
+/* harmony import */ var _images_weather_64x64_night_296_png__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ../images/weather/64x64/night/296.png */ "./src/images/weather/64x64/night/296.png");
+/* harmony import */ var _images_weather_64x64_night_299_png__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ../images/weather/64x64/night/299.png */ "./src/images/weather/64x64/night/299.png");
+/* harmony import */ var _images_weather_64x64_night_302_png__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ../images/weather/64x64/night/302.png */ "./src/images/weather/64x64/night/302.png");
+/* harmony import */ var _images_weather_64x64_night_305_png__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ../images/weather/64x64/night/305.png */ "./src/images/weather/64x64/night/305.png");
+/* harmony import */ var _images_weather_64x64_night_308_png__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ../images/weather/64x64/night/308.png */ "./src/images/weather/64x64/night/308.png");
+/* harmony import */ var _images_weather_64x64_night_311_png__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ../images/weather/64x64/night/311.png */ "./src/images/weather/64x64/night/311.png");
+/* harmony import */ var _images_weather_64x64_night_314_png__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ../images/weather/64x64/night/314.png */ "./src/images/weather/64x64/night/314.png");
+/* harmony import */ var _images_weather_64x64_night_317_png__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ../images/weather/64x64/night/317.png */ "./src/images/weather/64x64/night/317.png");
+/* harmony import */ var _images_weather_64x64_night_320_png__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ../images/weather/64x64/night/320.png */ "./src/images/weather/64x64/night/320.png");
+/* harmony import */ var _images_weather_64x64_night_323_png__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ../images/weather/64x64/night/323.png */ "./src/images/weather/64x64/night/323.png");
+/* harmony import */ var _images_weather_64x64_night_326_png__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ../images/weather/64x64/night/326.png */ "./src/images/weather/64x64/night/326.png");
+/* harmony import */ var _images_weather_64x64_night_329_png__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ../images/weather/64x64/night/329.png */ "./src/images/weather/64x64/night/329.png");
+/* harmony import */ var _images_weather_64x64_night_332_png__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ../images/weather/64x64/night/332.png */ "./src/images/weather/64x64/night/332.png");
+/* harmony import */ var _images_weather_64x64_night_335_png__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ../images/weather/64x64/night/335.png */ "./src/images/weather/64x64/night/335.png");
+/* harmony import */ var _images_weather_64x64_night_338_png__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ../images/weather/64x64/night/338.png */ "./src/images/weather/64x64/night/338.png");
+/* harmony import */ var _images_weather_64x64_night_350_png__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ../images/weather/64x64/night/350.png */ "./src/images/weather/64x64/night/350.png");
+/* harmony import */ var _images_weather_64x64_night_353_png__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ../images/weather/64x64/night/353.png */ "./src/images/weather/64x64/night/353.png");
+/* harmony import */ var _images_weather_64x64_night_356_png__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ../images/weather/64x64/night/356.png */ "./src/images/weather/64x64/night/356.png");
+/* harmony import */ var _images_weather_64x64_night_359_png__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ../images/weather/64x64/night/359.png */ "./src/images/weather/64x64/night/359.png");
+/* harmony import */ var _images_weather_64x64_night_362_png__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ../images/weather/64x64/night/362.png */ "./src/images/weather/64x64/night/362.png");
+/* harmony import */ var _images_weather_64x64_night_365_png__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ../images/weather/64x64/night/365.png */ "./src/images/weather/64x64/night/365.png");
+/* harmony import */ var _images_weather_64x64_night_368_png__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ../images/weather/64x64/night/368.png */ "./src/images/weather/64x64/night/368.png");
+/* harmony import */ var _images_weather_64x64_night_371_png__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ../images/weather/64x64/night/371.png */ "./src/images/weather/64x64/night/371.png");
+/* harmony import */ var _images_weather_64x64_night_374_png__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ../images/weather/64x64/night/374.png */ "./src/images/weather/64x64/night/374.png");
+/* harmony import */ var _images_weather_64x64_night_377_png__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ../images/weather/64x64/night/377.png */ "./src/images/weather/64x64/night/377.png");
+/* harmony import */ var _images_weather_64x64_night_386_png__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ../images/weather/64x64/night/386.png */ "./src/images/weather/64x64/night/386.png");
+/* harmony import */ var _images_weather_64x64_night_389_png__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ../images/weather/64x64/night/389.png */ "./src/images/weather/64x64/night/389.png");
+/* harmony import */ var _images_weather_64x64_night_392_png__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ../images/weather/64x64/night/392.png */ "./src/images/weather/64x64/night/392.png");
+/* harmony import */ var _images_weather_64x64_night_395_png__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ../images/weather/64x64/night/395.png */ "./src/images/weather/64x64/night/395.png");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//? **`` Sets the imported icon to a value in an object
+const day = {
+  '113.png': _images_weather_64x64_day_113_png__WEBPACK_IMPORTED_MODULE_0__,
+  '116.png': _images_weather_64x64_day_116_png__WEBPACK_IMPORTED_MODULE_1__,
+  '119.png': _images_weather_64x64_day_119_png__WEBPACK_IMPORTED_MODULE_2__,
+  '122.png': _images_weather_64x64_day_122_png__WEBPACK_IMPORTED_MODULE_3__,
+  '143.png': _images_weather_64x64_day_143_png__WEBPACK_IMPORTED_MODULE_4__,
+  '176.png': _images_weather_64x64_day_176_png__WEBPACK_IMPORTED_MODULE_5__,
+  '179.png': _images_weather_64x64_day_179_png__WEBPACK_IMPORTED_MODULE_6__,
+  '182.png': _images_weather_64x64_day_182_png__WEBPACK_IMPORTED_MODULE_7__,
+  '185.png': _images_weather_64x64_day_185_png__WEBPACK_IMPORTED_MODULE_8__,
+  '200.png': _images_weather_64x64_day_200_png__WEBPACK_IMPORTED_MODULE_9__,
+  '227.png': _images_weather_64x64_day_227_png__WEBPACK_IMPORTED_MODULE_10__,
+  '230.png': _images_weather_64x64_day_230_png__WEBPACK_IMPORTED_MODULE_11__,
+  '248.png': _images_weather_64x64_day_248_png__WEBPACK_IMPORTED_MODULE_12__,
+  '260.png': _images_weather_64x64_day_260_png__WEBPACK_IMPORTED_MODULE_13__,
+  '263.png': _images_weather_64x64_day_263_png__WEBPACK_IMPORTED_MODULE_14__,
+  '266.png': _images_weather_64x64_day_266_png__WEBPACK_IMPORTED_MODULE_15__,
+  '281.png': _images_weather_64x64_day_281_png__WEBPACK_IMPORTED_MODULE_16__,
+  '284.png': _images_weather_64x64_day_284_png__WEBPACK_IMPORTED_MODULE_17__,
+  '293.png': _images_weather_64x64_day_293_png__WEBPACK_IMPORTED_MODULE_18__,
+  '296.png': _images_weather_64x64_day_296_png__WEBPACK_IMPORTED_MODULE_19__,
+  '299.png': _images_weather_64x64_day_299_png__WEBPACK_IMPORTED_MODULE_20__,
+  '302.png': _images_weather_64x64_day_302_png__WEBPACK_IMPORTED_MODULE_21__,
+  '305.png': _images_weather_64x64_day_305_png__WEBPACK_IMPORTED_MODULE_22__,
+  '308.png': _images_weather_64x64_day_308_png__WEBPACK_IMPORTED_MODULE_23__,
+  '311.png': _images_weather_64x64_day_311_png__WEBPACK_IMPORTED_MODULE_24__,
+  '314.png': _images_weather_64x64_day_314_png__WEBPACK_IMPORTED_MODULE_25__,
+  '317.png': _images_weather_64x64_day_317_png__WEBPACK_IMPORTED_MODULE_26__,
+  '320.png': _images_weather_64x64_day_320_png__WEBPACK_IMPORTED_MODULE_27__,
+  '323.png': _images_weather_64x64_day_323_png__WEBPACK_IMPORTED_MODULE_28__,
+  '326.png': _images_weather_64x64_day_326_png__WEBPACK_IMPORTED_MODULE_29__,
+  '329.png': _images_weather_64x64_day_329_png__WEBPACK_IMPORTED_MODULE_30__,
+  '332.png': _images_weather_64x64_day_332_png__WEBPACK_IMPORTED_MODULE_31__,
+  '335.png': _images_weather_64x64_day_335_png__WEBPACK_IMPORTED_MODULE_32__,
+  '338.png': _images_weather_64x64_day_338_png__WEBPACK_IMPORTED_MODULE_33__,
+  '350.png': _images_weather_64x64_day_350_png__WEBPACK_IMPORTED_MODULE_34__,
+  '353.png': _images_weather_64x64_day_353_png__WEBPACK_IMPORTED_MODULE_35__,
+  '356.png': _images_weather_64x64_day_356_png__WEBPACK_IMPORTED_MODULE_36__,
+  '359.png': _images_weather_64x64_day_359_png__WEBPACK_IMPORTED_MODULE_37__,
+  '362.png': _images_weather_64x64_day_362_png__WEBPACK_IMPORTED_MODULE_38__,
+  '365.png': _images_weather_64x64_day_365_png__WEBPACK_IMPORTED_MODULE_39__,
+  '368.png': _images_weather_64x64_day_368_png__WEBPACK_IMPORTED_MODULE_40__,
+  '371.png': _images_weather_64x64_day_371_png__WEBPACK_IMPORTED_MODULE_41__,
+  '374.png': _images_weather_64x64_day_374_png__WEBPACK_IMPORTED_MODULE_42__,
+  '377.png': _images_weather_64x64_day_377_png__WEBPACK_IMPORTED_MODULE_43__,
+  '386.png': _images_weather_64x64_day_386_png__WEBPACK_IMPORTED_MODULE_44__,
+  '389.png': _images_weather_64x64_day_389_png__WEBPACK_IMPORTED_MODULE_45__,
+  '392.png': _images_weather_64x64_day_392_png__WEBPACK_IMPORTED_MODULE_46__,
+  '395.png': _images_weather_64x64_day_395_png__WEBPACK_IMPORTED_MODULE_47__,
+};
+
+//? **`` Sets the imported icon to a value in an object
+const night = {
+  '113.png': _images_weather_64x64_night_113_png__WEBPACK_IMPORTED_MODULE_48__,
+  '116.png': _images_weather_64x64_night_116_png__WEBPACK_IMPORTED_MODULE_49__,
+  '119.png': _images_weather_64x64_night_119_png__WEBPACK_IMPORTED_MODULE_50__,
+  '122.png': _images_weather_64x64_night_122_png__WEBPACK_IMPORTED_MODULE_51__,
+  '143.png': _images_weather_64x64_night_143_png__WEBPACK_IMPORTED_MODULE_52__,
+  '176.png': _images_weather_64x64_night_176_png__WEBPACK_IMPORTED_MODULE_53__,
+  '179.png': _images_weather_64x64_night_179_png__WEBPACK_IMPORTED_MODULE_54__,
+  '182.png': _images_weather_64x64_night_182_png__WEBPACK_IMPORTED_MODULE_55__,
+  '185.png': _images_weather_64x64_night_185_png__WEBPACK_IMPORTED_MODULE_56__,
+  '200.png': _images_weather_64x64_night_200_png__WEBPACK_IMPORTED_MODULE_57__,
+  '227.png': _images_weather_64x64_night_227_png__WEBPACK_IMPORTED_MODULE_58__,
+  '230.png': _images_weather_64x64_night_230_png__WEBPACK_IMPORTED_MODULE_59__,
+  '248.png': _images_weather_64x64_night_248_png__WEBPACK_IMPORTED_MODULE_60__,
+  '260.png': _images_weather_64x64_night_260_png__WEBPACK_IMPORTED_MODULE_61__,
+  '263.png': _images_weather_64x64_night_263_png__WEBPACK_IMPORTED_MODULE_62__,
+  '266.png': _images_weather_64x64_night_266_png__WEBPACK_IMPORTED_MODULE_63__,
+  '281.png': _images_weather_64x64_night_281_png__WEBPACK_IMPORTED_MODULE_64__,
+  '284.png': _images_weather_64x64_night_284_png__WEBPACK_IMPORTED_MODULE_65__,
+  '293.png': _images_weather_64x64_night_293_png__WEBPACK_IMPORTED_MODULE_66__,
+  '296.png': _images_weather_64x64_night_296_png__WEBPACK_IMPORTED_MODULE_67__,
+  '299.png': _images_weather_64x64_night_299_png__WEBPACK_IMPORTED_MODULE_68__,
+  '302.png': _images_weather_64x64_night_302_png__WEBPACK_IMPORTED_MODULE_69__,
+  '305.png': _images_weather_64x64_night_305_png__WEBPACK_IMPORTED_MODULE_70__,
+  '308.png': _images_weather_64x64_night_308_png__WEBPACK_IMPORTED_MODULE_71__,
+  '311.png': _images_weather_64x64_night_311_png__WEBPACK_IMPORTED_MODULE_72__,
+  '314.png': _images_weather_64x64_night_314_png__WEBPACK_IMPORTED_MODULE_73__,
+  '317.png': _images_weather_64x64_night_317_png__WEBPACK_IMPORTED_MODULE_74__,
+  '320.png': _images_weather_64x64_night_320_png__WEBPACK_IMPORTED_MODULE_75__,
+  '323.png': _images_weather_64x64_night_323_png__WEBPACK_IMPORTED_MODULE_76__,
+  '326.png': _images_weather_64x64_night_326_png__WEBPACK_IMPORTED_MODULE_77__,
+  '329.png': _images_weather_64x64_night_329_png__WEBPACK_IMPORTED_MODULE_78__,
+  '332.png': _images_weather_64x64_night_332_png__WEBPACK_IMPORTED_MODULE_79__,
+  '335.png': _images_weather_64x64_night_335_png__WEBPACK_IMPORTED_MODULE_80__,
+  '338.png': _images_weather_64x64_night_338_png__WEBPACK_IMPORTED_MODULE_81__,
+  '350.png': _images_weather_64x64_night_350_png__WEBPACK_IMPORTED_MODULE_82__,
+  '353.png': _images_weather_64x64_night_353_png__WEBPACK_IMPORTED_MODULE_83__,
+  '356.png': _images_weather_64x64_night_356_png__WEBPACK_IMPORTED_MODULE_84__,
+  '359.png': _images_weather_64x64_night_359_png__WEBPACK_IMPORTED_MODULE_85__,
+  '362.png': _images_weather_64x64_night_362_png__WEBPACK_IMPORTED_MODULE_86__,
+  '365.png': _images_weather_64x64_night_365_png__WEBPACK_IMPORTED_MODULE_87__,
+  '368.png': _images_weather_64x64_night_368_png__WEBPACK_IMPORTED_MODULE_88__,
+  '371.png': _images_weather_64x64_night_371_png__WEBPACK_IMPORTED_MODULE_89__,
+  '374.png': _images_weather_64x64_night_374_png__WEBPACK_IMPORTED_MODULE_90__,
+  '377.png': _images_weather_64x64_night_377_png__WEBPACK_IMPORTED_MODULE_91__,
+  '386.png': _images_weather_64x64_night_386_png__WEBPACK_IMPORTED_MODULE_92__,
+  '389.png': _images_weather_64x64_night_389_png__WEBPACK_IMPORTED_MODULE_93__,
+  '392.png': _images_weather_64x64_night_392_png__WEBPACK_IMPORTED_MODULE_94__,
+  '395.png': _images_weather_64x64_night_395_png__WEBPACK_IMPORTED_MODULE_95__,
+};
+
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/113.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/113.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "17608b0baa1391eb05a0.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/116.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/116.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "8ea9e73debaf4c25a8cf.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/119.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/119.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "e740cebbccd7be04d824.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/122.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/122.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "036a7f4b9402e1d74535.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/143.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/143.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a93c5cdce8f09616fc0e.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/176.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/176.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "307889846f4a6877a9ea.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/179.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/179.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "ff6c626ccae29522a258.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/182.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/182.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "6fe62e8748f042a1cbc4.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/185.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/185.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "b29c7a91f5f0986860ea.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/200.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/200.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "cc1054a285a2ec8fecca.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/227.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/227.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "b129e818f96bfd5302e9.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/230.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/230.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "b8b0bf9be35bccc67ed8.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/248.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/248.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "b2a1d4434712ee44f9ba.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/260.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/260.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "83e24a5eb9c1903d153a.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/263.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/263.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "9f768941645c662c7fad.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/266.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/266.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "9f768941645c662c7fad.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/281.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/281.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "b29c7a91f5f0986860ea.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/284.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/284.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "56ec9edb8b4e68fe86cd.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/293.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/293.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "307889846f4a6877a9ea.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/296.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/296.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "be8d48a6fb6962fa1edd.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/299.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/299.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "307889846f4a6877a9ea.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/302.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/302.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "be8d48a6fb6962fa1edd.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/305.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/305.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "b79f79a47ff26675bbb6.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/308.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/308.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "abccde130cb90d6b8d28.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/311.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/311.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a856df694720212e414a.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/314.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/314.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a856df694720212e414a.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/317.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/317.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "21cb978b0b5bc99863da.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/320.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/320.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "21cb978b0b5bc99863da.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/323.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/323.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "ff6c626ccae29522a258.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/326.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/326.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "997f80887a654d8e2bd8.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/329.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/329.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "ff6c626ccae29522a258.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/332.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/332.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "997f80887a654d8e2bd8.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/335.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/335.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "f112e7b7295449ca0f2c.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/338.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/338.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "33ecc25ad9b9bcdead64.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/350.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/350.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "e2ffeba8f660e868882d.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/353.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/353.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "307889846f4a6877a9ea.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/356.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/356.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "b79f79a47ff26675bbb6.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/359.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/359.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a4e620fd4749c3b4e4e0.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/362.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/362.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "6fe62e8748f042a1cbc4.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/365.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/365.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "de693c69934c56d7621b.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/368.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/368.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "ff6c626ccae29522a258.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/371.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/371.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "f112e7b7295449ca0f2c.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/374.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/374.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "bbb2a9027eb47dd6fc81.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/377.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/377.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "d5b7ec94bf807ad7a1f5.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/386.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/386.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "cc1054a285a2ec8fecca.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/389.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/389.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "f01fba5ae744838fbf95.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/392.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/392.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "654b4a200e85db363fc9.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/day/395.png":
+/*!**********************************************!*\
+  !*** ./src/images/weather/64x64/day/395.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "1cb8e1c8dd3b23368d56.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/113.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/113.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "9a181351a22b54059f46.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/116.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/116.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "337f58255916e54ea1e1.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/119.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/119.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "877a68f87ae89bb957ef.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/122.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/122.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "fe1ad0ff1820050f573a.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/143.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/143.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "3a38774211eb11741b54.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/176.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/176.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "2274b0f9afde269933e5.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/179.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/179.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a05c0ed9c03235edca96.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/182.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/182.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "17b97c48fb138ff20843.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/185.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/185.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "73c62dfd22eaf889b373.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/200.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/200.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a85bb9589ece1a589e53.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/227.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/227.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a417dc841fb787a3121e.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/230.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/230.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "af63c80cb02f1b88520b.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/248.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/248.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "360b1cd2a1b3bf3eccf0.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/260.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/260.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "cb1570c9ecb894bc1087.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/263.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/263.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "3e3495b8348354827949.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/266.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/266.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "3e3495b8348354827949.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/281.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/281.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "73c62dfd22eaf889b373.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/284.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/284.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "bf216d4d2f4aa9d2a734.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/293.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/293.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "2274b0f9afde269933e5.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/296.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/296.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "e15944de07d227742faa.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/299.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/299.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "2274b0f9afde269933e5.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/302.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/302.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "e15944de07d227742faa.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/305.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/305.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "f3012ddd8e268e19eb2e.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/308.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/308.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "3b4d7dcbbedd8be85713.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/311.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/311.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "32aa06f17c3f7cfb3a99.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/314.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/314.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "32aa06f17c3f7cfb3a99.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/317.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/317.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "5b39c4234abc34044d08.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/320.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/320.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "5b39c4234abc34044d08.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/323.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/323.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a05c0ed9c03235edca96.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/326.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/326.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "66cad1fd4ea2b425476d.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/329.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/329.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a05c0ed9c03235edca96.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/332.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/332.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "66cad1fd4ea2b425476d.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/335.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/335.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a05c0ed9c03235edca96.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/338.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/338.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "68e33fb0d2d3d215a5fe.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/350.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/350.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "1c33e3dd2cb58a8c51b7.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/353.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/353.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "2274b0f9afde269933e5.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/356.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/356.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "f3012ddd8e268e19eb2e.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/359.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/359.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "f0ea4e443a205a9cfbbf.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/362.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/362.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "17b97c48fb138ff20843.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/365.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/365.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "3e3b2a1ad34b9471b980.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/368.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/368.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a05c0ed9c03235edca96.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/371.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/371.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "2c7b41d4dea564886958.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/374.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/374.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "42f4df0e587e14e2ec2d.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/377.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/377.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "2821934c72b0870a790d.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/386.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/386.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a85bb9589ece1a589e53.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/389.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/389.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "815a9988eef459cc98c3.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/392.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/392.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "972cf01edfd40c105c6c.png";
+
+/***/ }),
+
+/***/ "./src/images/weather/64x64/night/395.png":
+/*!************************************************!*\
+  !*** ./src/images/weather/64x64/night/395.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "1cb8e1c8dd3b23368d56.png";
+
 /***/ })
 
 /******/ 	});
@@ -1368,6 +2665,18 @@ async function multipleCityChecker(array) {
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -1382,6 +2691,29 @@ async function multipleCityChecker(array) {
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && !scriptUrl) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
@@ -1412,10 +2744,8 @@ __webpack_require__.r(__webpack_exports__);
 
 //! **`` WATCH YOUR PROJECT WITH 'NPX WEBPACK --WATCH' FOOOOOOOOL!!!! :)
 
-//todo **`` Bring in the icons
-
-//* File: dom-manipulation.js | Line: 76
-//todo **`` Get the measurementSystemCheck() to hide the C or F info on initial IP fetch.
+//* File: dom-manipulation.js | Line: 130
+//todo **`` Need to get the 'setIcon' function to detect if current weather 'is_day' and show appropriate icon
 
 //* File: functions.js | Line: 150
 //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??

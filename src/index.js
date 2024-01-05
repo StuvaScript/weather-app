@@ -12,10 +12,8 @@ toggleMeasurementData();
 
 //! **`` WATCH YOUR PROJECT WITH 'NPX WEBPACK --WATCH' FOOOOOOOOL!!!! :)
 
-//todo **`` Bring in the icons
-
-//* File: dom-manipulation.js | Line: 76
-//todo **`` Get the measurementSystemCheck() to hide the C or F info on initial IP fetch.
+//* File: dom-manipulation.js | Line: 130
+//todo **`` Need to get the 'setIcon' function to detect if current weather 'is_day' and show appropriate icon
 
 //* File: functions.js | Line: 150
 //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
