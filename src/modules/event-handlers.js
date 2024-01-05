@@ -1,4 +1,4 @@
-import { displayData } from './dom-manipulation';
+import { displayC, displayData, displayF } from './dom-manipulation';
 import {
   fetchAutocomplete,
   fetchWeather,
@@ -36,32 +36,12 @@ function searchInputLogic() {
   });
 }
 
+//? **`` When clicking the C or F radio buttons, it displays the correct data accordingly
 function toggleMeasurementData() {
   const toggleWrapper = document.querySelector('#toggle-wrapper');
   const fToggle = document.querySelector('#F-toggle');
 
-  toggleWrapper.addEventListener('click', (e) => {
-    console.log(e);
-
+  toggleWrapper.addEventListener('click', () => {
     fToggle.checked ? displayF() : displayC();
-  });
-}
-
-//! **`` Move these to function module
-function displayF() {
-  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
-    item.classList.remove('hidden');
-  });
-  [...document.querySelectorAll('.celsius')].forEach((item) => {
-    item.classList.add('hidden');
-  });
-}
-
-function displayC() {
-  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
-    item.classList.add('hidden');
-  });
-  [...document.querySelectorAll('.celsius')].forEach((item) => {
-    item.classList.remove('hidden');
   });
 }

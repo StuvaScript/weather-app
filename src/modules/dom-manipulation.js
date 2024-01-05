@@ -1,4 +1,4 @@
-export { displayData };
+export { displayData, displayC, displayF };
 
 const main = document.querySelector('main');
 
@@ -6,8 +6,6 @@ const main = document.querySelector('main');
 function displayData(data) {
   //? **`` This removes all the child elements inside the 'main' element
   main.replaceChildren();
-
-  measurementSystemCheck(data);
 
   //? **`` Display city
   const cityDiv = document.createElement('div');
@@ -31,6 +29,9 @@ function displayData(data) {
   });
 
   main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
+
+  //? **`` Checks for and shows either F or C data
+  measurementSystemCheck(data);
 }
 
 //? **`` Creates divs with the inputted data and adds class names
@@ -44,7 +45,7 @@ function createDivs(parentElement, weatherInfo) {
   }
 }
 
-//? **`` Changes to F or C depending on the detected country
+//? **`` Changes the checked radio button (F or C) depending on the detected country and displays either the C or F data accordingly
 function measurementSystemCheck(data) {
   const fToggle = document.querySelector('#F-toggle');
   const cToggle = document.querySelector('#C-toggle');
@@ -56,8 +57,10 @@ function measurementSystemCheck(data) {
       data.location.country === 'Liberia'
     ) {
       fToggle.checked = true;
+      displayF();
     } else {
       cToggle.checked = true;
+      displayC();
     }
   }
 }
@@ -89,5 +92,25 @@ function measurementClassAdder(key, div) {
     if (key === item) {
       return div.classList.add('fahrenheit');
     }
+  });
+}
+
+//? **`` Hides all the data with the class of 'celsius' and shows all the data with the class 'fahrenheit'
+function displayF() {
+  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
+    item.classList.remove('hidden');
+  });
+  [...document.querySelectorAll('.celsius')].forEach((item) => {
+    item.classList.add('hidden');
+  });
+}
+
+//? **`` Hides all the data with the class of 'fahrenheit' and shows all the data with the class 'celsius'
+function displayC() {
+  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
+    item.classList.add('hidden');
+  });
+  [...document.querySelectorAll('.celsius')].forEach((item) => {
+    item.classList.remove('hidden');
   });
 }

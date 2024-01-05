@@ -451,7 +451,11 @@ main {
 #forecast-weather-wrapper > * {
   border: 2px solid #000;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n"],"sourceRoot":""}]);
+
+.hidden {
+  display: none;
+}
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -960,7 +964,9 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   displayData: () => (/* binding */ displayData)
+/* harmony export */   displayC: () => (/* binding */ displayC),
+/* harmony export */   displayData: () => (/* binding */ displayData),
+/* harmony export */   displayF: () => (/* binding */ displayF)
 /* harmony export */ });
 
 
@@ -970,8 +976,6 @@ const main = document.querySelector('main');
 function displayData(data) {
   //? **`` This removes all the child elements inside the 'main' element
   main.replaceChildren();
-
-  measurementSystemCheck(data);
 
   //? **`` Display city
   const cityDiv = document.createElement('div');
@@ -995,6 +999,9 @@ function displayData(data) {
   });
 
   main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
+
+  //? **`` Checks for and shows either F or C data
+  measurementSystemCheck(data);
 }
 
 //? **`` Creates divs with the inputted data and adds class names
@@ -1008,7 +1015,7 @@ function createDivs(parentElement, weatherInfo) {
   }
 }
 
-//? **`` Changes to F or C depending on the detected country
+//? **`` Changes the checked radio button (F or C) depending on the detected country and displays either the C or F data accordingly
 function measurementSystemCheck(data) {
   const fToggle = document.querySelector('#F-toggle');
   const cToggle = document.querySelector('#C-toggle');
@@ -1020,8 +1027,10 @@ function measurementSystemCheck(data) {
       data.location.country === 'Liberia'
     ) {
       fToggle.checked = true;
+      displayF();
     } else {
       cToggle.checked = true;
+      displayC();
     }
   }
 }
@@ -1053,6 +1062,26 @@ function measurementClassAdder(key, div) {
     if (key === item) {
       return div.classList.add('fahrenheit');
     }
+  });
+}
+
+//? **`` Hides all the data with the class of 'celsius' and shows all the data with the class 'fahrenheit'
+function displayF() {
+  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
+    item.classList.remove('hidden');
+  });
+  [...document.querySelectorAll('.celsius')].forEach((item) => {
+    item.classList.add('hidden');
+  });
+}
+
+//? **`` Hides all the data with the class of 'fahrenheit' and shows all the data with the class 'celsius'
+function displayC() {
+  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
+    item.classList.add('hidden');
+  });
+  [...document.querySelectorAll('.celsius')].forEach((item) => {
+    item.classList.remove('hidden');
   });
 }
 
@@ -1106,33 +1135,13 @@ function searchInputLogic() {
   });
 }
 
+//? **`` When clicking the C or F radio buttons, it displays the correct data accordingly
 function toggleMeasurementData() {
   const toggleWrapper = document.querySelector('#toggle-wrapper');
   const fToggle = document.querySelector('#F-toggle');
 
-  toggleWrapper.addEventListener('click', (e) => {
-    console.log(e);
-
-    fToggle.checked ? displayF() : displayC();
-  });
-}
-
-//! **`` Move these to function module
-function displayF() {
-  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
-    item.classList.remove('hidden');
-  });
-  [...document.querySelectorAll('.celsius')].forEach((item) => {
-    item.classList.add('hidden');
-  });
-}
-
-function displayC() {
-  [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
-    item.classList.add('hidden');
-  });
-  [...document.querySelectorAll('.celsius')].forEach((item) => {
-    item.classList.remove('hidden');
+  toggleWrapper.addEventListener('click', () => {
+    fToggle.checked ? (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayF)() : (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayC)();
   });
 }
 
@@ -1407,9 +1416,6 @@ __webpack_require__.r(__webpack_exports__);
 
 //* File: dom-manipulation.js | Line: 76
 //todo **`` Get the measurementSystemCheck() to hide the C or F info on initial IP fetch.
-
-//* File: event-handlers.js | Line: 39
-//todo **`` Move the functions to dom-manipulation.js, add the toggler to measurementSystemCheck() and change it to only check fToggle and classList.toggle() accordingly to shorten up the 'hidden' class add code.
 
 //* File: functions.js | Line: 150
 //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
