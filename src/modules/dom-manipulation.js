@@ -32,18 +32,34 @@ function displayData(data) {
 
   main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
 
-  //? **`` Checks for and shows either F or C data
+  // function setNightIcon() {
+  //   if (document.querySelector('.is_day').innerText === '1') {
+  //     const myIcon = document.querySelector(
+  //       '#current-weather-wrapper > .icon > img',
+  //     );
+  //     myIcon.setAttribute('src', icon.night['113.png']);
+  //     console.log(myIcon);
+  //   }
+  // }
+  // setNightIcon();
+
+  //? **`` Checks for and displays either F or C data
   measurementSystemCheck(data);
 }
 
-//? **`` Creates divs with the inputted data, adds class names, displays either C or F, sets the correct weather icon
+//? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night, then sets the weather icon
 function manipulateData(parentElement, weatherInfo) {
+  let isDay;
+  console.log(isDay);
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
     measurementClassAdder(key, div);
     div.classList.add(`${key}`);
     div.innerText = `${value}`;
-    setIcon(div, key, value);
+    if (key === 'is_day' && value === 0) {
+      isDay = false;
+    }
+    setIcon(div, key, value, isDay);
 
     parentElement.append(div);
   }
@@ -126,11 +142,16 @@ function displayC() {
   });
 }
 
-//? **`` Detects if the key is an icon, takes the icon value and gets the icon from the 'icon-handler.js' file
-function setIcon(div, key, value) {
+//? **`` Detects if the key is an icon, takes the icon value, gets the icon from the 'icon-handler.js' file, then displays it
+function setIcon(div, key, value, isDay) {
   if (key === 'icon') {
     const img = document.createElement('img');
-    img.setAttribute('src', icon.day[`${value}`]);
+    if (isDay === false) {
+      img.setAttribute('src', icon.night[`${value}`]);
+      isDay = '';
+    } else {
+      img.setAttribute('src', icon.day[`${value}`]);
+    }
     img.setAttribute('alt', 'Icon representing the weather');
     div.innerText = '';
     div.append(img);

@@ -99,8 +99,8 @@ function createWeatherDataObject(data) {
   current.temp_c = data.current.temp_c;
   current.temp_f = data.current.temp_f;
   current.condition = data.current.condition.text;
-  current.icon = data.current.condition.icon.slice(-7);
   current.is_day = data.current.is_day;
+  current.icon = data.current.condition.icon.slice(-7);
 
   //? **`` Creating an array with objects for the forecast with only the needed data
   const forecastday = [];
