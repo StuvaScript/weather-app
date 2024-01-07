@@ -7,10 +7,10 @@ import {
 
 export { searchInputLogic, toggleMeasurementData };
 
-const form = document.querySelector('form');
-
 //? **`` This activates the autocomplete, the user selects a city if there are multiples, then the coordinates are sent to the weather fetcher, then displayed.
 function searchInputLogic() {
+  const form = document.querySelector('form');
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     let inputField = document.querySelector('#search-input');

@@ -2,10 +2,10 @@ import * as icon from './icon-handler';
 
 export { displayData, displayC, displayF };
 
-const main = document.querySelector('main');
-
 //? **`` This gets all our necessary data and displays it
 function displayData(data) {
+  const main = document.querySelector('main');
+
   //? **`` This removes all the child elements inside the 'main' element
   main.replaceChildren();
 

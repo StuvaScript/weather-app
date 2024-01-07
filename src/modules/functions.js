@@ -151,8 +151,22 @@ function createAutocompleteDataArray(data) {
 //? **`` This checks to see if there is more than one value in the Autocomplete fetch
 async function multipleCityChecker(array) {
   if (array[1]) {
-    //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
+    //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after?? The return at the bottom bypasses all this code, just fyi. Need to make a return inside the if statement and possibly need to create a 'new Promise()' so that all the code will wait on the user's selection. Not sure yet tho.
     console.log('Pick your city');
+    createMultiCityDisplay(array);
+
+    function createMultiCityDisplay(array) {
+      const body = document.querySelector('body');
+      const multiCityWrapper = document.createElement('div');
+      multiCityWrapper.classList.add('multi-city-wrapper');
+      array.forEach((location) => {
+        const div = document.createElement('div');
+        div.innerText = `${location.name}, ${location.region}, ${location.country}`;
+        div.classList.add(`city-choice`);
+        multiCityWrapper.append(div);
+      });
+      body.append(multiCityWrapper);
+    }
   }
   return array;
 }
