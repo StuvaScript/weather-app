@@ -117,16 +117,17 @@ function createWeatherDataObject(data) {
     forecastday[index].daily_will_it_rain = element.day.daily_will_it_rain;
     forecastday[index].daily_will_it_snow = element.day.daily_will_it_snow;
     forecastday[index].daily_chance_of_rain = element.day.daily_chance_of_rain;
-    forecastday[index].daily_chance_of_snow = element.day.daily_chance_of_snow;
     forecastday[index].totalprecip_in = element.day.totalprecip_in;
     forecastday[index].totalprecip_mm = element.day.totalprecip_mm;
-    forecastday[index].totalsnow_in = element.day.totalsnow_cm / 25.4;
+    forecastday[index].daily_chance_of_snow = element.day.daily_chance_of_snow;
+    forecastday[index].totalsnow_in = element.day.totalsnow_cm / 2.54;
     forecastday[index].totalsnow_cm = element.day.totalsnow_cm;
   });
 
   //? **`` Creating an object with the city name
   const location = {};
   location.city_name = data.location.name;
+  location.region = data.location.region;
   location.country = data.location.country;
 
   return { current, forecastday, location };

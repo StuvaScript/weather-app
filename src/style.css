@@ -29,6 +29,42 @@ main {
   border: 2px solid #000;
 }
 
+.temp_c::after,
+.temp_f::after {
+  content: '°';
+}
+
+.mintemp_c::after,
+.mintemp_f::after {
+  content: '° low';
+}
+
+.maxtemp_c::after,
+.maxtemp_f::after {
+  content: '° high';
+}
+
+.daily_chance_of_rain::after {
+  content: '% chance of rain';
+}
+
+.daily_chance_of_snow::after {
+  content: '% chance of snow';
+}
+
+.totalprecip_in::after,
+.totalsnow_in::after {
+  content: ' in';
+}
+
+.totalprecip_mm::after {
+  content: ' mm';
+}
+
+.totalsnow_cm::after {
+  content: ' cm';
+}
+
 /*? **`` This is controlled by javascript */
 .measure-hidden {
   display: none;

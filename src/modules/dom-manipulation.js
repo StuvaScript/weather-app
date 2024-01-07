@@ -34,21 +34,23 @@ function displayData(data) {
 
   measurementSystemCheck(data);
   checkForRainOrSnow(data);
+  regionCorrection();
   hideIrrelevantData();
 }
 
-//? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night, then sets the weather icon
+//? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night then sets the weather icon, rounds off longer numbers
 function manipulateData(parentElement, weatherInfo) {
   let isDay;
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
     measurementClassAdder(key, div);
     div.classList.add(`${key}`);
-    div.innerText = `${value}: ${key}`;
+    div.innerText = `${value}`;
     if (key === 'is_day' && value === 0) {
       isDay = false;
     }
     setIcon(div, key, value, isDay);
+    roundOffNumbers(key, value, div);
 
     parentElement.append(div);
   }
@@ -185,4 +187,30 @@ function hideIrrelevantData() {
     .forEach((e) => {
       e.classList.add('irrelevant-hidden');
     });
+}
+
+//? **`` If the fetched region data is empty or is the same name as the city, make the region data hidden
+function regionCorrection() {
+  const city = document.querySelector('.city_name');
+  const region = document.querySelector('.region');
+  if (city.innerText == region.innerText || region.innerText === '') {
+    region.classList.add('irrelevant-hidden');
+  }
+}
+
+//? **`` Makes sure certain numbers are rounded
+function roundOffNumbers(key, value, div) {
+  //? **`` Rounds to the tenth position
+  if (
+    key === 'totalsnow_in' ||
+    key === 'totalsnow_cm' ||
+    key === 'totalprecip_mm'
+  ) {
+    div.innerText = value.toFixed(1);
+  }
+
+  //? **`` Rounds to the whole number
+  if (key === 'temp_f' || key === 'mintemp_f' || key === 'maxtemp_f') {
+    div.innerText = value.toFixed();
+  }
 }

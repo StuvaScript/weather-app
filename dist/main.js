@@ -452,6 +452,42 @@ main {
   border: 2px solid #000;
 }
 
+.temp_c::after,
+.temp_f::after {
+  content: '°';
+}
+
+.mintemp_c::after,
+.mintemp_f::after {
+  content: '° low';
+}
+
+.maxtemp_c::after,
+.maxtemp_f::after {
+  content: '° high';
+}
+
+.daily_chance_of_rain::after {
+  content: '% chance of rain';
+}
+
+.daily_chance_of_snow::after {
+  content: '% chance of snow';
+}
+
+.totalprecip_in::after,
+.totalsnow_in::after {
+  content: ' in';
+}
+
+.totalprecip_mm::after {
+  content: ' mm';
+}
+
+.totalsnow_cm::after {
+  content: ' cm';
+}
+
 /*? **\`\` This is controlled by javascript */
 .measure-hidden {
   display: none;
@@ -464,7 +500,7 @@ main {
 .irrelevant-hidden {
   display: none;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA,2CAA2C;AAC3C;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n/*? **`` This is controlled by javascript */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA,2CAA2C;AAC3C;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n/*? **`` This is controlled by javascript */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1014,21 +1050,23 @@ function displayData(data) {
 
   measurementSystemCheck(data);
   checkForRainOrSnow(data);
+  regionCorrection();
   hideIrrelevantData();
 }
 
-//? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night, then sets the weather icon
+//? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night then sets the weather icon, rounds off longer numbers
 function manipulateData(parentElement, weatherInfo) {
   let isDay;
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
     measurementClassAdder(key, div);
     div.classList.add(`${key}`);
-    div.innerText = `${value}: ${key}`;
+    div.innerText = `${value}`;
     if (key === 'is_day' && value === 0) {
       isDay = false;
     }
     setIcon(div, key, value, isDay);
+    roundOffNumbers(key, value, div);
 
     parentElement.append(div);
   }
@@ -1165,6 +1203,32 @@ function hideIrrelevantData() {
     .forEach((e) => {
       e.classList.add('irrelevant-hidden');
     });
+}
+
+//? **`` If the fetched region data is empty or is the same name as the city, make the region data hidden
+function regionCorrection() {
+  const city = document.querySelector('.city_name');
+  const region = document.querySelector('.region');
+  if (city.innerText == region.innerText || region.innerText === '') {
+    region.classList.add('irrelevant-hidden');
+  }
+}
+
+//? **`` Makes sure certain numbers are rounded
+function roundOffNumbers(key, value, div) {
+  //? **`` Rounds to the tenth position
+  if (
+    key === 'totalsnow_in' ||
+    key === 'totalsnow_cm' ||
+    key === 'totalprecip_mm'
+  ) {
+    div.innerText = value.toFixed(1);
+  }
+
+  //? **`` Rounds to the whole number
+  if (key === 'temp_f' || key === 'mintemp_f' || key === 'maxtemp_f') {
+    div.innerText = value.toFixed();
+  }
 }
 
 
@@ -1358,16 +1422,17 @@ function createWeatherDataObject(data) {
     forecastday[index].daily_will_it_rain = element.day.daily_will_it_rain;
     forecastday[index].daily_will_it_snow = element.day.daily_will_it_snow;
     forecastday[index].daily_chance_of_rain = element.day.daily_chance_of_rain;
-    forecastday[index].daily_chance_of_snow = element.day.daily_chance_of_snow;
     forecastday[index].totalprecip_in = element.day.totalprecip_in;
     forecastday[index].totalprecip_mm = element.day.totalprecip_mm;
-    forecastday[index].totalsnow_in = element.day.totalsnow_cm / 25.4;
+    forecastday[index].daily_chance_of_snow = element.day.daily_chance_of_snow;
+    forecastday[index].totalsnow_in = element.day.totalsnow_cm / 2.54;
     forecastday[index].totalsnow_cm = element.day.totalsnow_cm;
   });
 
   //? **`` Creating an object with the city name
   const location = {};
   location.city_name = data.location.name;
+  location.region = data.location.region;
   location.country = data.location.country;
 
   return { current, forecastday, location };
