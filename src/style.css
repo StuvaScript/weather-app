@@ -37,3 +37,7 @@ main {
 .weather-hidden {
   display: none;
 }
+
+.irrelevant-hidden {
+  display: none;
+}

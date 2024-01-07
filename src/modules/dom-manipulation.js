@@ -34,6 +34,7 @@ function displayData(data) {
 
   measurementSystemCheck(data);
   checkForRainOrSnow(data);
+  hideIrrelevantData();
 }
 
 //? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night, then sets the weather icon
@@ -161,6 +162,7 @@ function checkForRainOrSnow(data) {
           e.classList.add('weather-hidden');
         });
     }
+
     //? **`` Checks for snow
     if (day.daily_will_it_snow === 0) {
       document
@@ -174,4 +176,13 @@ function checkForRainOrSnow(data) {
     //? **`` At the end of each loop, it adds one to the day simulator
     dayCounter++;
   });
+}
+
+//? **`` Adds a 'hidden' class to data that doesn't need to be displayed
+function hideIrrelevantData() {
+  document
+    .querySelectorAll('.is_day, .daily_will_it_rain, .daily_will_it_snow ')
+    .forEach((e) => {
+      e.classList.add('irrelevant-hidden');
+    });
 }
