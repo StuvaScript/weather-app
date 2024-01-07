@@ -29,6 +29,11 @@ main {
   border: 2px solid #000;
 }
 
-.hidden {
+/*? **`` This is controlled by javascript */
+.measure-hidden {
+  display: none;
+}
+
+.weather-hidden {
   display: none;
 }

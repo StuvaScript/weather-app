@@ -28,11 +28,13 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.group('%cOriginal Data', 'background:rebeccapurple');
     console.log(data);
+    console.groupEnd();
 
     const dataObject = createWeatherDataObject(data);
 
-    console.group('%cWeather', 'background:gold; color:black');
+    console.group('%cFiltered Weather', 'background:gold; color:black');
     console.log(dataObject);
     console.groupEnd();
 
@@ -54,7 +56,6 @@ async function fetchIPAddress() {
 
     console.group('%cIP Address', 'background:green');
     console.log(`We detect that you're in ${data.city}`);
-    console.log('Is that right?');
     console.log(dataObject);
     console.groupEnd();
 

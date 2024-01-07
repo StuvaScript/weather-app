@@ -32,30 +32,18 @@ function displayData(data) {
 
   main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
 
-  // function setNightIcon() {
-  //   if (document.querySelector('.is_day').innerText === '1') {
-  //     const myIcon = document.querySelector(
-  //       '#current-weather-wrapper > .icon > img',
-  //     );
-  //     myIcon.setAttribute('src', icon.night['113.png']);
-  //     console.log(myIcon);
-  //   }
-  // }
-  // setNightIcon();
-
-  //? **`` Checks for and displays either F or C data
   measurementSystemCheck(data);
+  checkForRainOrSnow(data);
 }
 
 //? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night, then sets the weather icon
 function manipulateData(parentElement, weatherInfo) {
   let isDay;
-  console.log(isDay);
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
     measurementClassAdder(key, div);
     div.classList.add(`${key}`);
-    div.innerText = `${value}`;
+    div.innerText = `${value}: ${key}`;
     if (key === 'is_day' && value === 0) {
       isDay = false;
     }
@@ -125,20 +113,20 @@ function measurementClassAdder(key, div) {
 //? **`` Hides all the data with the class of 'celsius' and shows all the data with the class 'fahrenheit'
 function displayF() {
   [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
-    item.classList.remove('hidden');
+    item.classList.remove('measure-hidden');
   });
   [...document.querySelectorAll('.celsius')].forEach((item) => {
-    item.classList.add('hidden');
+    item.classList.add('measure-hidden');
   });
 }
 
 //? **`` Hides all the data with the class of 'fahrenheit' and shows all the data with the class 'celsius'
 function displayC() {
   [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
-    item.classList.add('hidden');
+    item.classList.add('measure-hidden');
   });
   [...document.querySelectorAll('.celsius')].forEach((item) => {
-    item.classList.remove('hidden');
+    item.classList.remove('measure-hidden');
   });
 }
 
@@ -156,4 +144,34 @@ function setIcon(div, key, value, isDay) {
     div.innerText = '';
     div.append(img);
   }
+}
+
+//? **`` Checks if the forecast day will rain or snow and hides data if no rain or snow is present
+function checkForRainOrSnow(data) {
+  //? **`` This counter simulates the day being checked
+  let dayCounter = 1;
+  data.forecastday.forEach((day) => {
+    //? **`` Checks for rain
+    if (day.daily_will_it_rain === 0) {
+      document
+        .querySelectorAll(
+          `.forecast-day:nth-child(${dayCounter}) > .daily_chance_of_rain, .forecast-day:nth-child(${dayCounter}) > .totalprecip_in, .forecast-day:nth-child(${dayCounter}) > .totalprecip_mm`,
+        )
+        .forEach((e) => {
+          e.classList.add('weather-hidden');
+        });
+    }
+    //? **`` Checks for snow
+    if (day.daily_will_it_snow === 0) {
+      document
+        .querySelectorAll(
+          `.forecast-day:nth-child(${dayCounter}) > .daily_chance_of_snow, .forecast-day:nth-child(${dayCounter}) > .totalsnow_in, .forecast-day:nth-child(${dayCounter}) > .totalsnow_cm`,
+        )
+        .forEach((e) => {
+          e.classList.add('weather-hidden');
+        });
+    }
+    //? **`` At the end of each loop, it adds one to the day simulator
+    dayCounter++;
+  });
 }

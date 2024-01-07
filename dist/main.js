@@ -452,10 +452,15 @@ main {
   border: 2px solid #000;
 }
 
-.hidden {
+/*? **\`\` This is controlled by javascript */
+.measure-hidden {
   display: none;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
+
+.weather-hidden {
+  display: none;
+}
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA,2CAA2C;AAC3C;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n/*? **`` This is controlled by javascript */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1003,30 +1008,18 @@ function displayData(data) {
 
   main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
 
-  // function setNightIcon() {
-  //   if (document.querySelector('.is_day').innerText === '1') {
-  //     const myIcon = document.querySelector(
-  //       '#current-weather-wrapper > .icon > img',
-  //     );
-  //     myIcon.setAttribute('src', icon.night['113.png']);
-  //     console.log(myIcon);
-  //   }
-  // }
-  // setNightIcon();
-
-  //? **`` Checks for and displays either F or C data
   measurementSystemCheck(data);
+  checkForRainOrSnow(data);
 }
 
 //? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night, then sets the weather icon
 function manipulateData(parentElement, weatherInfo) {
   let isDay;
-  console.log(isDay);
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
     measurementClassAdder(key, div);
     div.classList.add(`${key}`);
-    div.innerText = `${value}`;
+    div.innerText = `${value}: ${key}`;
     if (key === 'is_day' && value === 0) {
       isDay = false;
     }
@@ -1096,20 +1089,20 @@ function measurementClassAdder(key, div) {
 //? **`` Hides all the data with the class of 'celsius' and shows all the data with the class 'fahrenheit'
 function displayF() {
   [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
-    item.classList.remove('hidden');
+    item.classList.remove('measure-hidden');
   });
   [...document.querySelectorAll('.celsius')].forEach((item) => {
-    item.classList.add('hidden');
+    item.classList.add('measure-hidden');
   });
 }
 
 //? **`` Hides all the data with the class of 'fahrenheit' and shows all the data with the class 'celsius'
 function displayC() {
   [...document.querySelectorAll('.fahrenheit')].forEach((item) => {
-    item.classList.add('hidden');
+    item.classList.add('measure-hidden');
   });
   [...document.querySelectorAll('.celsius')].forEach((item) => {
-    item.classList.remove('hidden');
+    item.classList.remove('measure-hidden');
   });
 }
 
@@ -1127,6 +1120,36 @@ function setIcon(div, key, value, isDay) {
     div.innerText = '';
     div.append(img);
   }
+}
+
+//? **`` Checks if the forecast day will rain or snow and hides data if no rain or snow is present
+function checkForRainOrSnow(data) {
+  //? **`` This counter simulates the day being checked
+  let dayCounter = 1;
+  data.forecastday.forEach((day) => {
+    //? **`` Checks for rain
+    if (day.daily_will_it_rain === 0) {
+      document
+        .querySelectorAll(
+          `.forecast-day:nth-child(${dayCounter}) > .daily_chance_of_rain, .forecast-day:nth-child(${dayCounter}) > .totalprecip_in, .forecast-day:nth-child(${dayCounter}) > .totalprecip_mm`,
+        )
+        .forEach((e) => {
+          e.classList.add('weather-hidden');
+        });
+    }
+    //? **`` Checks for snow
+    if (day.daily_will_it_snow === 0) {
+      document
+        .querySelectorAll(
+          `.forecast-day:nth-child(${dayCounter}) > .daily_chance_of_snow, .forecast-day:nth-child(${dayCounter}) > .totalsnow_in, .forecast-day:nth-child(${dayCounter}) > .totalsnow_cm`,
+        )
+        .forEach((e) => {
+          e.classList.add('weather-hidden');
+        });
+    }
+    //? **`` At the end of each loop, it adds one to the day simulator
+    dayCounter++;
+  });
 }
 
 
@@ -1231,11 +1254,13 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
+    console.group('%cOriginal Data', 'background:rebeccapurple');
     console.log(data);
+    console.groupEnd();
 
     const dataObject = createWeatherDataObject(data);
 
-    console.group('%cWeather', 'background:gold; color:black');
+    console.group('%cFiltered Weather', 'background:gold; color:black');
     console.log(dataObject);
     console.groupEnd();
 
@@ -1257,7 +1282,6 @@ async function fetchIPAddress() {
 
     console.group('%cIP Address', 'background:green');
     console.log(`We detect that you're in ${data.city}`);
-    console.log('Is that right?');
     console.log(dataObject);
     console.groupEnd();
 
@@ -2764,9 +2788,6 @@ __webpack_require__.r(__webpack_exports__);
 (0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.toggleMeasurementData)();
 
 //! **`` WATCH YOUR PROJECT WITH 'NPX WEBPACK --WATCH' FOOOOOOOOL!!!! :)
-
-//* File: dom-manipulation.js | Line: 130
-//todo **`` Need to get the 'setIcon' function to detect if current weather 'is_day' and show appropriate icon
 
 //* File: functions.js | Line: 150
 //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
