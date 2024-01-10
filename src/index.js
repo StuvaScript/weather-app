@@ -12,11 +12,11 @@ toggleMeasurementData();
 
 //! **`` WATCH YOUR PROJECT WITH 'NPX WEBPACK --WATCH' FOOOOOOOOL!!!! :)
 
-//* File: functions.js | Line: 150
-//todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
-
 //* File: event-handlers.js | Line: 19
 //todo **`` Need to pop up a warning or something that it's empty
 
 //* File: event-handlers.js | Line: 31
 //todo **`` Need to pop up a warning or something that it can't find the location
+
+//* File: README.md | Line: 1
+//todo **`` Update README.md

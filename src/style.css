@@ -8,6 +8,33 @@ main {
   grid-template-columns: repeat(2, 1fr);
 }
 
+#search-input {
+  padding: 5px 10px;
+  border-radius: 50px;
+  width: 350px;
+  text-align: center;
+}
+
+#search-input::placeholder {
+  text-align: center;
+  opacity: 1;
+}
+
+#search-input:focus::placeholder {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+#submit-button {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  transform: scale(0.35) scaleX(-1);
+  position: relative;
+  left: -60px;
+  bottom: -25px;
+  cursor: pointer;
+}
+
 #city-wrapper {
   background: rebeccapurple;
   color: white;
