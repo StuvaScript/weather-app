@@ -422,15 +422,16 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `body {
+  height: 100vh;
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-main {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-}
-
+/*? **\`\` Form section */
+/* ***************************************************** */
 #search-input {
   padding: 5px 10px;
   border-radius: 50px;
@@ -458,13 +459,24 @@ main {
   cursor: pointer;
 }
 
+/*? **\`\` Main section */
+/* ***************************************************** */
+main {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  width: 80vw;
+}
+
 #city-wrapper {
   background: rebeccapurple;
   color: white;
+  grid-column: 2 / 3;
 }
 
 #current-weather-wrapper {
   background: #1ce;
+  grid-column: 3 / 4;
 }
 
 #forecast-weather-wrapper {
@@ -479,6 +491,18 @@ main {
   border: 2px solid #000;
 }
 
+.multi-city-wrapper {
+  background: rgb(255, 206, 150);
+  width: fit-content;
+}
+
+.city-choice:hover {
+  background: orange;
+  cursor: pointer;
+}
+
+/*? **\`\` Pseudo element symbols and such */
+/* ***************************************************** */
 .temp_c::after,
 .temp_f::after {
   content: '°';
@@ -515,17 +539,8 @@ main {
   content: ' cm';
 }
 
-.multi-city-wrapper {
-  background: rgb(255, 206, 150);
-  width: fit-content;
-}
-
-.city-choice:hover {
-  background: orange;
-  cursor: pointer;
-}
-
 /*? **\`\` This is controlled by javascript */
+/* ***************************************************** */
 .measure-hidden {
   display: none;
 }
@@ -537,7 +552,7 @@ main {
 .irrelevant-hidden {
   display: none;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,iBAAiB;EACjB,mBAAmB;EACnB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,UAAU;AACZ;;AAEA;EACE,UAAU;EACV,yBAAyB;AAC3B;;AAEA;EACE,4BAA4B;EAC5B,YAAY;EACZ,iCAAiC;EACjC,kBAAkB;EAClB,WAAW;EACX,aAAa;EACb,eAAe;AACjB;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,8BAA8B;EAC9B,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA,2CAA2C;AAC3C;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#search-input {\n  padding: 5px 10px;\n  border-radius: 50px;\n  width: 350px;\n  text-align: center;\n}\n\n#search-input::placeholder {\n  text-align: center;\n  opacity: 1;\n}\n\n#search-input:focus::placeholder {\n  opacity: 0;\n  transition: opacity 500ms;\n}\n\n#submit-button {\n  background: rgba(0, 0, 0, 0);\n  border: none;\n  transform: scale(0.35) scaleX(-1);\n  position: relative;\n  left: -60px;\n  bottom: -25px;\n  cursor: pointer;\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n.multi-city-wrapper {\n  background: rgb(255, 206, 150);\n  width: fit-content;\n}\n\n.city-choice:hover {\n  background: orange;\n  cursor: pointer;\n}\n\n/*? **`` This is controlled by javascript */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,uBAAuB;EACvB,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,8BAA8B;AAChC;;AAEA,uBAAuB;AACvB,0DAA0D;AAC1D;EACE,iBAAiB;EACjB,mBAAmB;EACnB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,UAAU;AACZ;;AAEA;EACE,UAAU;EACV,yBAAyB;AAC3B;;AAEA;EACE,4BAA4B;EAC5B,YAAY;EACZ,iCAAiC;EACjC,kBAAkB;EAClB,WAAW;EACX,aAAa;EACb,eAAe;AACjB;;AAEA,uBAAuB;AACvB,0DAA0D;AAC1D;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;EACrC,WAAW;AACb;;AAEA;EACE,yBAAyB;EACzB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,8BAA8B;EAC9B,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA,0CAA0C;AAC1C,0DAA0D;AAC1D;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA,2CAA2C;AAC3C,0DAA0D;AAC1D;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  height: 100vh;\n  font-family: sans-serif;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n}\n\n/*? **`` Form section */\n/* ***************************************************** */\n#search-input {\n  padding: 5px 10px;\n  border-radius: 50px;\n  width: 350px;\n  text-align: center;\n}\n\n#search-input::placeholder {\n  text-align: center;\n  opacity: 1;\n}\n\n#search-input:focus::placeholder {\n  opacity: 0;\n  transition: opacity 500ms;\n}\n\n#submit-button {\n  background: rgba(0, 0, 0, 0);\n  border: none;\n  transform: scale(0.35) scaleX(-1);\n  position: relative;\n  left: -60px;\n  bottom: -25px;\n  cursor: pointer;\n}\n\n/*? **`` Main section */\n/* ***************************************************** */\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(4, 1fr);\n  width: 80vw;\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n  grid-column: 2 / 3;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n  grid-column: 3 / 4;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.multi-city-wrapper {\n  background: rgb(255, 206, 150);\n  width: fit-content;\n}\n\n.city-choice:hover {\n  background: orange;\n  cursor: pointer;\n}\n\n/*? **`` Pseudo element symbols and such */\n/* ***************************************************** */\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n/*? **`` This is controlled by javascript */\n/* ***************************************************** */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1210,7 +1225,7 @@ function checkForRainOrSnow(data) {
     //? **`` This counter simulates the day being checked
     const dayCounter = index + 1;
     //? **`` Checks for rain
-    if (day.daily_will_it_rain === 0) {
+    if (day.daily_chance_of_rain === 0) {
       document
         .querySelectorAll(
           `.forecast-day:nth-child(${dayCounter}) > .daily_chance_of_rain, .forecast-day:nth-child(${dayCounter}) > .totalprecip_in, .forecast-day:nth-child(${dayCounter}) > .totalprecip_mm`,
@@ -1221,7 +1236,7 @@ function checkForRainOrSnow(data) {
     }
 
     //? **`` Checks for snow
-    if (day.daily_will_it_snow === 0) {
+    if (day.daily_chance_of_snow === 0) {
       document
         .querySelectorAll(
           `.forecast-day:nth-child(${dayCounter}) > .daily_chance_of_snow, .forecast-day:nth-child(${dayCounter}) > .totalsnow_in, .forecast-day:nth-child(${dayCounter}) > .totalsnow_cm`,
@@ -1235,11 +1250,9 @@ function checkForRainOrSnow(data) {
 
 //? **`` Adds a 'hidden' class to data that doesn't need to be displayed
 function hideIrrelevantData() {
-  document
-    .querySelectorAll('.is_day, .daily_will_it_rain, .daily_will_it_snow ')
-    .forEach((e) => {
-      e.classList.add('irrelevant-hidden');
-    });
+  document.querySelectorAll('.is_day').forEach((e) => {
+    e.classList.add('irrelevant-hidden');
+  });
 }
 
 //? **`` If the fetched region data is empty or is the same name as the city, make the region data hidden
@@ -1486,14 +1499,12 @@ function createWeatherDataObject(data) {
   data.forecast.forecastday.forEach((element, index) => {
     forecastday[index] = {};
     forecastday[index].date = element.date;
-    forecastday[index].mintemp_c = element.day.mintemp_c;
     forecastday[index].maxtemp_c = element.day.maxtemp_c;
-    forecastday[index].mintemp_f = element.day.mintemp_f;
+    forecastday[index].mintemp_c = element.day.mintemp_c;
     forecastday[index].maxtemp_f = element.day.maxtemp_f;
+    forecastday[index].mintemp_f = element.day.mintemp_f;
     forecastday[index].condition = element.day.condition.text;
     forecastday[index].icon = element.day.condition.icon.slice(-7);
-    forecastday[index].daily_will_it_rain = element.day.daily_will_it_rain;
-    forecastday[index].daily_will_it_snow = element.day.daily_will_it_snow;
     forecastday[index].daily_chance_of_rain = element.day.daily_chance_of_rain;
     forecastday[index].totalprecip_in = element.day.totalprecip_in;
     forecastday[index].totalprecip_mm = element.day.totalprecip_mm;
@@ -2963,6 +2974,8 @@ __webpack_require__.r(__webpack_exports__);
 (0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.toggleMeasurementData)();
 
 //! **`` WATCH YOUR PROJECT WITH 'NPX WEBPACK --WATCH' FOOOOOOOOL!!!! :)
+
+//todo **`` Style this thang!!
 
 //* File: event-handlers.js | Line: 19
 //todo **`` Need to pop up a warning or something that it's empty
