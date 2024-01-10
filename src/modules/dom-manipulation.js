@@ -161,7 +161,7 @@ function checkForRainOrSnow(data) {
     //? **`` This counter simulates the day being checked
     const dayCounter = index + 1;
     //? **`` Checks for rain
-    if (day.daily_will_it_rain === 0) {
+    if (day.daily_chance_of_rain === 0) {
       document
         .querySelectorAll(
           `.forecast-day:nth-child(${dayCounter}) > .daily_chance_of_rain, .forecast-day:nth-child(${dayCounter}) > .totalprecip_in, .forecast-day:nth-child(${dayCounter}) > .totalprecip_mm`,
@@ -172,7 +172,7 @@ function checkForRainOrSnow(data) {
     }
 
     //? **`` Checks for snow
-    if (day.daily_will_it_snow === 0) {
+    if (day.daily_chance_of_snow === 0) {
       document
         .querySelectorAll(
           `.forecast-day:nth-child(${dayCounter}) > .daily_chance_of_snow, .forecast-day:nth-child(${dayCounter}) > .totalsnow_in, .forecast-day:nth-child(${dayCounter}) > .totalsnow_cm`,
@@ -186,11 +186,9 @@ function checkForRainOrSnow(data) {
 
 //? **`` Adds a 'hidden' class to data that doesn't need to be displayed
 function hideIrrelevantData() {
-  document
-    .querySelectorAll('.is_day, .daily_will_it_rain, .daily_will_it_snow ')
-    .forEach((e) => {
-      e.classList.add('irrelevant-hidden');
-    });
+  document.querySelectorAll('.is_day').forEach((e) => {
+    e.classList.add('irrelevant-hidden');
+  });
 }
 
 //? **`` If the fetched region data is empty or is the same name as the city, make the region data hidden

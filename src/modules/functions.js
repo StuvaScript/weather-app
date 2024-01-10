@@ -115,14 +115,12 @@ function createWeatherDataObject(data) {
   data.forecast.forecastday.forEach((element, index) => {
     forecastday[index] = {};
     forecastday[index].date = element.date;
-    forecastday[index].mintemp_c = element.day.mintemp_c;
     forecastday[index].maxtemp_c = element.day.maxtemp_c;
-    forecastday[index].mintemp_f = element.day.mintemp_f;
+    forecastday[index].mintemp_c = element.day.mintemp_c;
     forecastday[index].maxtemp_f = element.day.maxtemp_f;
+    forecastday[index].mintemp_f = element.day.mintemp_f;
     forecastday[index].condition = element.day.condition.text;
     forecastday[index].icon = element.day.condition.icon.slice(-7);
-    forecastday[index].daily_will_it_rain = element.day.daily_will_it_rain;
-    forecastday[index].daily_will_it_snow = element.day.daily_will_it_snow;
     forecastday[index].daily_chance_of_rain = element.day.daily_chance_of_rain;
     forecastday[index].totalprecip_in = element.day.totalprecip_in;
     forecastday[index].totalprecip_mm = element.day.totalprecip_mm;

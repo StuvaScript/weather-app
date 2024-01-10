@@ -1,13 +1,14 @@
 body {
+  height: 100vh;
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-main {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-}
-
+/*? **`` Form section */
+/* ***************************************************** */
 #search-input {
   padding: 5px 10px;
   border-radius: 50px;
@@ -35,13 +36,24 @@ main {
   cursor: pointer;
 }
 
+/*? **`` Main section */
+/* ***************************************************** */
+main {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  width: 80vw;
+}
+
 #city-wrapper {
   background: rebeccapurple;
   color: white;
+  grid-column: 2 / 3;
 }
 
 #current-weather-wrapper {
   background: #1ce;
+  grid-column: 3 / 4;
 }
 
 #forecast-weather-wrapper {
@@ -56,6 +68,18 @@ main {
   border: 2px solid #000;
 }
 
+.multi-city-wrapper {
+  background: rgb(255, 206, 150);
+  width: fit-content;
+}
+
+.city-choice:hover {
+  background: orange;
+  cursor: pointer;
+}
+
+/*? **`` Pseudo element symbols and such */
+/* ***************************************************** */
 .temp_c::after,
 .temp_f::after {
   content: '°';
@@ -92,17 +116,8 @@ main {
   content: ' cm';
 }
 
-.multi-city-wrapper {
-  background: rgb(255, 206, 150);
-  width: fit-content;
-}
-
-.city-choice:hover {
-  background: orange;
-  cursor: pointer;
-}
-
 /*? **`` This is controlled by javascript */
+/* ***************************************************** */
 .measure-hidden {
   display: none;
 }
