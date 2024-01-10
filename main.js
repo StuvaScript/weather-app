@@ -431,6 +431,33 @@ main {
   grid-template-columns: repeat(2, 1fr);
 }
 
+#search-input {
+  padding: 5px 10px;
+  border-radius: 50px;
+  width: 350px;
+  text-align: center;
+}
+
+#search-input::placeholder {
+  text-align: center;
+  opacity: 1;
+}
+
+#search-input:focus::placeholder {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+#submit-button {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  transform: scale(0.35) scaleX(-1);
+  position: relative;
+  left: -60px;
+  bottom: -25px;
+  cursor: pointer;
+}
+
 #city-wrapper {
   background: rebeccapurple;
   color: white;
@@ -510,7 +537,7 @@ main {
 .irrelevant-hidden {
   display: none;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,8BAA8B;EAC9B,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA,2CAA2C;AAC3C;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n.multi-city-wrapper {\n  background: rgb(255, 206, 150);\n  width: fit-content;\n}\n\n.city-choice:hover {\n  background: orange;\n  cursor: pointer;\n}\n\n/*? **`` This is controlled by javascript */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,iBAAiB;EACjB,mBAAmB;EACnB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,UAAU;AACZ;;AAEA;EACE,UAAU;EACV,yBAAyB;AAC3B;;AAEA;EACE,4BAA4B;EAC5B,YAAY;EACZ,iCAAiC;EACjC,kBAAkB;EAClB,WAAW;EACX,aAAa;EACb,eAAe;AACjB;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,8BAA8B;EAC9B,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA,2CAA2C;AAC3C;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#search-input {\n  padding: 5px 10px;\n  border-radius: 50px;\n  width: 350px;\n  text-align: center;\n}\n\n#search-input::placeholder {\n  text-align: center;\n  opacity: 1;\n}\n\n#search-input:focus::placeholder {\n  opacity: 0;\n  transition: opacity 500ms;\n}\n\n#submit-button {\n  background: rgba(0, 0, 0, 0);\n  border: none;\n  transform: scale(0.35) scaleX(-1);\n  position: relative;\n  left: -60px;\n  bottom: -25px;\n  cursor: pointer;\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n.multi-city-wrapper {\n  background: rgb(255, 206, 150);\n  width: fit-content;\n}\n\n.city-choice:hover {\n  background: orange;\n  cursor: pointer;\n}\n\n/*? **`` This is controlled by javascript */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2937,14 +2964,14 @@ __webpack_require__.r(__webpack_exports__);
 
 //! **`` WATCH YOUR PROJECT WITH 'NPX WEBPACK --WATCH' FOOOOOOOOL!!!! :)
 
-//* File: functions.js | Line: 150
-//todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after??
-
 //* File: event-handlers.js | Line: 19
 //todo **`` Need to pop up a warning or something that it's empty
 
 //* File: event-handlers.js | Line: 31
 //todo **`` Need to pop up a warning or something that it can't find the location
+
+//* File: README.md | Line: 1
+//todo **`` Update README.md
 
 })();
 
