@@ -1,4 +1,8 @@
-import { displayData } from './dom-manipulation';
+import {
+  createMultiCityDisplay,
+  displayData,
+  removeCityDisplay,
+} from './dom-manipulation';
 
 export {
   fetchAutocomplete,
@@ -11,6 +15,7 @@ export {
 async function displayInitialWeather() {
   try {
     const ipData = await fetchIPAddress();
+    console.log(ipData);
     const weatherData = await fetchWeather(ipData);
     displayData(weatherData);
   } catch (error) {
@@ -67,6 +72,8 @@ async function fetchIPAddress() {
 
 //? **`` This fetches multiple cities that match the inputted city.
 async function fetchAutocomplete(receivedData) {
+  //? **`` This clears out the search bar
+  document.querySelector('#search-input').value = '';
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/search.json?key=a6926baa03824f759bd20713231912&q=${receivedData}`,
@@ -148,25 +155,33 @@ function createAutocompleteDataArray(data) {
   return autocompleteArray;
 }
 
-//? **`` This checks to see if there is more than one value in the Autocomplete fetch
+//? **`` This checks to see if there is more than one value in the Autocomplete fetch, displays the choices if so, then removes the city picker window. If theres only one city when searched, it returns that one.
 async function multipleCityChecker(array) {
   if (array[1]) {
-    //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after?? The return at the bottom bypasses all this code, just fyi. Need to make a return inside the if statement and possibly need to create a 'new Promise()' so that all the code will wait on the user's selection. Not sure yet tho.
-    console.log('Pick your city');
     createMultiCityDisplay(array);
-
-    function createMultiCityDisplay(array) {
-      const body = document.querySelector('body');
-      const multiCityWrapper = document.createElement('div');
-      multiCityWrapper.classList.add('multi-city-wrapper');
-      array.forEach((location) => {
-        const div = document.createElement('div');
-        div.innerText = `${location.name}, ${location.region}, ${location.country}`;
-        div.classList.add(`city-choice`);
-        multiCityWrapper.append(div);
-      });
-      body.append(multiCityWrapper);
-    }
+    console.log(array);
+    const city = await selectCity(array);
+    removeCityDisplay();
+    return city;
   }
-  return array;
+  return array[0];
+}
+
+//? **`` Creates a new Promise to let the user select the city before any other functions can continue
+function selectCity(array) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      document.querySelectorAll('.city-choice').forEach((choice) => {
+        choice.addEventListener('click', function () {
+          const cityIndex = [...this.parentNode.childNodes].indexOf(this);
+          //? **`` This checks to see if the user selected the last option which is to search again.
+          if (cityIndex === [...this.parentNode.childNodes].length - 1) {
+            resolve('Search cancelled');
+          } else {
+            resolve(array[cityIndex]);
+          }
+        });
+      });
+    }, 0);
+  });
 }

@@ -65,6 +65,16 @@ main {
   content: ' cm';
 }
 
+.multi-city-wrapper {
+  background: rgb(255, 206, 150);
+  width: fit-content;
+}
+
+.city-choice:hover {
+  background: orange;
+  cursor: pointer;
+}
+
 /*? **`` This is controlled by javascript */
 .measure-hidden {
   display: none;

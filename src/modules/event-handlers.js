@@ -24,14 +24,17 @@ function searchInputLogic() {
     try {
       const response = await fetchAutocomplete(inputField.value);
       const multiCheck = await multipleCityChecker(response);
-      const weatherData = await fetchWeather(multiCheck[0]);
-      displayData(weatherData);
+      //? **`` Checks to see if the user hit the last option to 'search again' in the city picker
+      if (multiCheck === 'Search cancelled') {
+        return;
+      } else {
+        const weatherData = await fetchWeather(multiCheck);
+        displayData(weatherData);
+      }
     } catch (error) {
       console.error(`Error: ${error}`);
       //todo **`` Need to pop up a warning or something that it can't find the location
       console.warn("Can't find location");
-    } finally {
-      inputField.value = '';
     }
   });
 }

@@ -488,6 +488,16 @@ main {
   content: ' cm';
 }
 
+.multi-city-wrapper {
+  background: rgb(255, 206, 150);
+  width: fit-content;
+}
+
+.city-choice:hover {
+  background: orange;
+  cursor: pointer;
+}
+
 /*? **\`\` This is controlled by javascript */
 .measure-hidden {
   display: none;
@@ -500,7 +510,7 @@ main {
 .irrelevant-hidden {
   display: none;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA,2CAA2C;AAC3C;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n/*? **`` This is controlled by javascript */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;AACvC;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,8BAA8B;EAC9B,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA,2CAA2C;AAC3C;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  font-family: sans-serif;\n}\n\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(2, 1fr);\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n.multi-city-wrapper {\n  background: rgb(255, 206, 150);\n  width: fit-content;\n}\n\n.city-choice:hover {\n  background: orange;\n  cursor: pointer;\n}\n\n/*? **`` This is controlled by javascript */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1009,9 +1019,11 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createMultiCityDisplay: () => (/* binding */ createMultiCityDisplay),
 /* harmony export */   displayC: () => (/* binding */ displayC),
 /* harmony export */   displayData: () => (/* binding */ displayData),
-/* harmony export */   displayF: () => (/* binding */ displayF)
+/* harmony export */   displayF: () => (/* binding */ displayF),
+/* harmony export */   removeCityDisplay: () => (/* binding */ removeCityDisplay)
 /* harmony export */ });
 /* harmony import */ var _icon_handler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon-handler */ "./src/modules/icon-handler.js");
 
@@ -1167,9 +1179,9 @@ function setIcon(div, key, value, isDay) {
 
 //? **`` Checks if the forecast day will rain or snow and hides data if no rain or snow is present
 function checkForRainOrSnow(data) {
-  //? **`` This counter simulates the day being checked
-  let dayCounter = 1;
-  data.forecastday.forEach((day) => {
+  data.forecastday.forEach((day, index) => {
+    //? **`` This counter simulates the day being checked
+    const dayCounter = index + 1;
     //? **`` Checks for rain
     if (day.daily_will_it_rain === 0) {
       document
@@ -1191,8 +1203,6 @@ function checkForRainOrSnow(data) {
           e.classList.add('weather-hidden');
         });
     }
-    //? **`` At the end of each loop, it adds one to the day simulator
-    dayCounter++;
   });
 }
 
@@ -1229,6 +1239,36 @@ function roundOffNumbers(key, value, div) {
   if (key === 'temp_f' || key === 'mintemp_f' || key === 'maxtemp_f') {
     div.innerText = value.toFixed();
   }
+}
+
+//? **`` Creates a menu to select a city when multiple cities are an option
+function createMultiCityDisplay(array) {
+  const body = document.querySelector('body');
+  const multiCityWrapper = document.createElement('div');
+  multiCityWrapper.classList.add('multi-city-wrapper');
+  array.forEach((location, index) => {
+    const div = document.createElement('div');
+    //? **`` Won't display the region if the city and region share the same name or if the region data is empty
+    if (location.name == location.region || location.region === '') {
+      div.innerText = `${location.name}, ${location.country}`;
+    } else {
+      div.innerText = `${location.name}, ${location.region}, ${location.country}`;
+    }
+    div.classList.add(`city-choice`);
+    multiCityWrapper.append(div);
+  });
+  //? **`` Final option to search again
+  const div = document.createElement('div');
+  div.innerText = 'City not here? Try searching postal code.';
+  div.classList.add(`city-choice`);
+  multiCityWrapper.append(div);
+
+  body.prepend(multiCityWrapper);
+}
+
+//? **`` Removes the city display window
+function removeCityDisplay() {
+  document.querySelector('.multi-city-wrapper').remove();
 }
 
 
@@ -1269,14 +1309,17 @@ function searchInputLogic() {
     try {
       const response = await (0,_functions__WEBPACK_IMPORTED_MODULE_1__.fetchAutocomplete)(inputField.value);
       const multiCheck = await (0,_functions__WEBPACK_IMPORTED_MODULE_1__.multipleCityChecker)(response);
-      const weatherData = await (0,_functions__WEBPACK_IMPORTED_MODULE_1__.fetchWeather)(multiCheck[0]);
-      (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayData)(weatherData);
+      //? **`` Checks to see if the user hit the last option to 'search again' in the city picker
+      if (multiCheck === 'Search cancelled') {
+        return;
+      } else {
+        const weatherData = await (0,_functions__WEBPACK_IMPORTED_MODULE_1__.fetchWeather)(multiCheck);
+        (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayData)(weatherData);
+      }
     } catch (error) {
       console.error(`Error: ${error}`);
       //todo **`` Need to pop up a warning or something that it can't find the location
       console.warn("Can't find location");
-    } finally {
-      inputField.value = '';
     }
   });
 }
@@ -1316,6 +1359,7 @@ __webpack_require__.r(__webpack_exports__);
 async function displayInitialWeather() {
   try {
     const ipData = await fetchIPAddress();
+    console.log(ipData);
     const weatherData = await fetchWeather(ipData);
     (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayData)(weatherData);
   } catch (error) {
@@ -1372,6 +1416,8 @@ async function fetchIPAddress() {
 
 //? **`` This fetches multiple cities that match the inputted city.
 async function fetchAutocomplete(receivedData) {
+  //? **`` This clears out the search bar
+  document.querySelector('#search-input').value = '';
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/search.json?key=a6926baa03824f759bd20713231912&q=${receivedData}`,
@@ -1453,27 +1499,35 @@ function createAutocompleteDataArray(data) {
   return autocompleteArray;
 }
 
-//? **`` This checks to see if there is more than one value in the Autocomplete fetch
+//? **`` This checks to see if there is more than one value in the Autocomplete fetch, displays the choices if so, then removes the city picker window. If theres only one city when searched, it returns that one.
 async function multipleCityChecker(array) {
   if (array[1]) {
-    //todo **`` Need to add buttons to pick city and send it. Get rid of the '[0]' in the 'fetchWeather' parameters after?? The return at the bottom bypasses all this code, just fyi. Need to make a return inside the if statement and possibly need to create a 'new Promise()' so that all the code will wait on the user's selection. Not sure yet tho.
-    console.log('Pick your city');
-    createMultiCityDisplay(array);
-
-    function createMultiCityDisplay(array) {
-      const body = document.querySelector('body');
-      const multiCityWrapper = document.createElement('div');
-      multiCityWrapper.classList.add('multi-city-wrapper');
-      array.forEach((location) => {
-        const div = document.createElement('div');
-        div.innerText = `${location.name}, ${location.region}, ${location.country}`;
-        div.classList.add(`city-choice`);
-        multiCityWrapper.append(div);
-      });
-      body.append(multiCityWrapper);
-    }
+    (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.createMultiCityDisplay)(array);
+    console.log(array);
+    const city = await selectCity(array);
+    (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.removeCityDisplay)();
+    return city;
   }
-  return array;
+  return array[0];
+}
+
+//? **`` Creates a new Promise to let the user select the city before any other functions can continue
+function selectCity(array) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      document.querySelectorAll('.city-choice').forEach((choice) => {
+        choice.addEventListener('click', function () {
+          const cityIndex = [...this.parentNode.childNodes].indexOf(this);
+          //? **`` This checks to see if the user selected the last option which is to search again.
+          if (cityIndex === [...this.parentNode.childNodes].length - 1) {
+            resolve('Search cancelled');
+          } else {
+            resolve(array[cityIndex]);
+          }
+        });
+      });
+    }, 0);
+  });
 }
 
 

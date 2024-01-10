@@ -1,6 +1,12 @@
 import * as icon from './icon-handler';
 
-export { displayData, displayC, displayF };
+export {
+  displayData,
+  displayC,
+  displayF,
+  createMultiCityDisplay,
+  removeCityDisplay,
+};
 
 //? **`` This gets all our necessary data and displays it
 function displayData(data) {
@@ -151,9 +157,9 @@ function setIcon(div, key, value, isDay) {
 
 //? **`` Checks if the forecast day will rain or snow and hides data if no rain or snow is present
 function checkForRainOrSnow(data) {
-  //? **`` This counter simulates the day being checked
-  let dayCounter = 1;
-  data.forecastday.forEach((day) => {
+  data.forecastday.forEach((day, index) => {
+    //? **`` This counter simulates the day being checked
+    const dayCounter = index + 1;
     //? **`` Checks for rain
     if (day.daily_will_it_rain === 0) {
       document
@@ -175,8 +181,6 @@ function checkForRainOrSnow(data) {
           e.classList.add('weather-hidden');
         });
     }
-    //? **`` At the end of each loop, it adds one to the day simulator
-    dayCounter++;
   });
 }
 
@@ -213,4 +217,34 @@ function roundOffNumbers(key, value, div) {
   if (key === 'temp_f' || key === 'mintemp_f' || key === 'maxtemp_f') {
     div.innerText = value.toFixed();
   }
+}
+
+//? **`` Creates a menu to select a city when multiple cities are an option
+function createMultiCityDisplay(array) {
+  const body = document.querySelector('body');
+  const multiCityWrapper = document.createElement('div');
+  multiCityWrapper.classList.add('multi-city-wrapper');
+  array.forEach((location, index) => {
+    const div = document.createElement('div');
+    //? **`` Won't display the region if the city and region share the same name or if the region data is empty
+    if (location.name == location.region || location.region === '') {
+      div.innerText = `${location.name}, ${location.country}`;
+    } else {
+      div.innerText = `${location.name}, ${location.region}, ${location.country}`;
+    }
+    div.classList.add(`city-choice`);
+    multiCityWrapper.append(div);
+  });
+  //? **`` Final option to search again
+  const div = document.createElement('div');
+  div.innerText = 'City not here? Try searching postal code.';
+  div.classList.add(`city-choice`);
+  multiCityWrapper.append(div);
+
+  body.prepend(multiCityWrapper);
+}
+
+//? **`` Removes the city display window
+function removeCityDisplay() {
+  document.querySelector('.multi-city-wrapper').remove();
 }
