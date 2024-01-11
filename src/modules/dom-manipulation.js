@@ -36,7 +36,7 @@ function displayData(data) {
     forecastWeatherDiv.append(forecastDayDiv);
   });
 
-  main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
+  main.append(currentWeatherDiv, cityDiv, forecastWeatherDiv);
 
   measurementSystemCheck(data);
   checkForRainOrSnow(data);

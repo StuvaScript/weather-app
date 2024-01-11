@@ -428,6 +428,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  padding: 30px;
 }
 
 /*? **\`\` Form section */
@@ -452,45 +453,151 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 #submit-button {
   background: rgba(0, 0, 0, 0);
   border: none;
-  transform: scale(0.35) scaleX(-1);
   position: relative;
-  left: -60px;
-  bottom: -25px;
+  left: -40px;
+  top: -18px;
   cursor: pointer;
+  user-select: none;
+}
+
+#submit-button img {
+  position: absolute;
+  width: 25px;
+  transform: scaleX(-1);
 }
 
 /*? **\`\` Main section */
 /* ***************************************************** */
 main {
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 1fr 2fr;
   grid-template-columns: repeat(4, 1fr);
-  width: 80vw;
+  width: 90vw;
+  height: 60vh;
 }
 
+/*? **\`\` City section */
+/* ***************************************************** */
 #city-wrapper {
-  background: rebeccapurple;
-  color: white;
+  /* background: rebeccapurple; */
+  /* color: white; */
+  grid-column: 3 / -1;
+}
+
+.city_name {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.region {
+  margin-bottom: 5px;
+}
+
+/*? **\`\` Current weather section */
+/* ***************************************************** */
+#current-weather-wrapper {
+  /* background: #1ce; */
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-rows: 1fr 1.8fr;
+  grid-template-columns: 1fr 2fr;
+}
+
+.temp_f,
+.temp_c {
+  font-size: 3rem;
   grid-column: 2 / 3;
 }
 
-#current-weather-wrapper {
-  background: #1ce;
-  grid-column: 3 / 4;
+#current-weather-wrapper > .condition {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
 }
 
+#current-weather-wrapper > .icon {
+  grid-row: 1 / 2;
+}
+
+/*? **\`\` Forecast weather section */
+/* ***************************************************** */
 #forecast-weather-wrapper {
-  background: #bada55;
+  /* background: #bada55; */
   grid-column: 1 / -1;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
-#forecast-weather-wrapper > * {
-  border: 2px solid #000;
+.forecast-day {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(15, 1fr);
 }
 
+.forecast-day:nth-child(2) {
+  border-right: 2px solid #000;
+  border-left: 2px solid #000;
+}
+
+.date {
+  font-weight: bold;
+  font-size: 1.25rem;
+  grid-row: 1 / 3;
+  grid-column: 1 / -1;
+}
+
+.maxtemp_c,
+.maxtemp_f {
+  font-size: 1.5rem;
+  grid-row: 3 / 5;
+  grid-column: 2 / 3;
+}
+
+.mintemp_c,
+.mintemp_f {
+  font-size: 1.5rem;
+  position: relative;
+  top: -15px;
+  grid-row: 5 / 7;
+  grid-column: 2 / 3;
+}
+
+.forecast-day > .condition {
+  grid-row: 6 / 7;
+  grid-column: 1 / 2;
+}
+
+.forecast-day > .icon {
+  grid-row: 3 / -1;
+  grid-column: 1 / 2;
+}
+
+.daily_chance_of_rain {
+  grid-row: 8 / 9;
+  grid-column: 1 / 2;
+}
+
+.totalprecip_in,
+.totalprecip_mm {
+  grid-row: 9 / 10;
+  grid-column: 1 / 2;
+}
+
+.daily_chance_of_snow {
+  grid-row: 8 / 9;
+  grid-column: 2 / 3;
+}
+
+.totalsnow_in,
+.totalsnow_cm {
+  grid-row: 9 / 10;
+  grid-column: 2 / 3;
+}
+
+/*? **\`\` Multi city popup */
+/* ***************************************************** */
 .multi-city-wrapper {
   background: rgb(255, 206, 150);
   width: fit-content;
@@ -552,7 +659,7 @@ main {
 .irrelevant-hidden {
   display: none;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,uBAAuB;EACvB,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,8BAA8B;AAChC;;AAEA,uBAAuB;AACvB,0DAA0D;AAC1D;EACE,iBAAiB;EACjB,mBAAmB;EACnB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,UAAU;AACZ;;AAEA;EACE,UAAU;EACV,yBAAyB;AAC3B;;AAEA;EACE,4BAA4B;EAC5B,YAAY;EACZ,iCAAiC;EACjC,kBAAkB;EAClB,WAAW;EACX,aAAa;EACb,eAAe;AACjB;;AAEA,uBAAuB;AACvB,0DAA0D;AAC1D;EACE,aAAa;EACb,kCAAkC;EAClC,qCAAqC;EACrC,WAAW;AACb;;AAEA;EACE,yBAAyB;EACzB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;AACvC;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,8BAA8B;EAC9B,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA,0CAA0C;AAC1C,0DAA0D;AAC1D;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA,2CAA2C;AAC3C,0DAA0D;AAC1D;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  height: 100vh;\n  font-family: sans-serif;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n}\n\n/*? **`` Form section */\n/* ***************************************************** */\n#search-input {\n  padding: 5px 10px;\n  border-radius: 50px;\n  width: 350px;\n  text-align: center;\n}\n\n#search-input::placeholder {\n  text-align: center;\n  opacity: 1;\n}\n\n#search-input:focus::placeholder {\n  opacity: 0;\n  transition: opacity 500ms;\n}\n\n#submit-button {\n  background: rgba(0, 0, 0, 0);\n  border: none;\n  transform: scale(0.35) scaleX(-1);\n  position: relative;\n  left: -60px;\n  bottom: -25px;\n  cursor: pointer;\n}\n\n/*? **`` Main section */\n/* ***************************************************** */\nmain {\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(4, 1fr);\n  width: 80vw;\n}\n\n#city-wrapper {\n  background: rebeccapurple;\n  color: white;\n  grid-column: 2 / 3;\n}\n\n#current-weather-wrapper {\n  background: #1ce;\n  grid-column: 3 / 4;\n}\n\n#forecast-weather-wrapper {\n  background: #bada55;\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n#forecast-weather-wrapper > * {\n  border: 2px solid #000;\n}\n\n.multi-city-wrapper {\n  background: rgb(255, 206, 150);\n  width: fit-content;\n}\n\n.city-choice:hover {\n  background: orange;\n  cursor: pointer;\n}\n\n/*? **`` Pseudo element symbols and such */\n/* ***************************************************** */\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n/*? **`` This is controlled by javascript */\n/* ***************************************************** */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,uBAAuB;EACvB,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,8BAA8B;EAC9B,aAAa;AACf;;AAEA,uBAAuB;AACvB,0DAA0D;AAC1D;EACE,iBAAiB;EACjB,mBAAmB;EACnB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,UAAU;AACZ;;AAEA;EACE,UAAU;EACV,yBAAyB;AAC3B;;AAEA;EACE,4BAA4B;EAC5B,YAAY;EACZ,kBAAkB;EAClB,WAAW;EACX,UAAU;EACV,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,qBAAqB;AACvB;;AAEA,uBAAuB;AACvB,0DAA0D;AAC1D;EACE,aAAa;EACb,2BAA2B;EAC3B,qCAAqC;EACrC,WAAW;EACX,YAAY;AACd;;AAEA,uBAAuB;AACvB,0DAA0D;AAC1D;EACE,+BAA+B;EAC/B,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;AACpB;;AAEA,kCAAkC;AAClC,0DAA0D;AAC1D;EACE,sBAAsB;EACtB,kBAAkB;EAClB,aAAa;EACb,6BAA6B;EAC7B,8BAA8B;AAChC;;AAEA;;EAEE,eAAe;EACf,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,kBAAkB;AACpB;;AAEA;EACE,eAAe;AACjB;;AAEA,mCAAmC;AACnC,0DAA0D;AAC1D;EACE,yBAAyB;EACzB,mBAAmB;;EAEnB,aAAa;EACb,qCAAqC;EACrC,SAAS;AACX;;AAEA;EACE,aAAa;EACb,qBAAqB;EACrB,qCAAqC;EACrC,mCAAmC;AACrC;;AAEA;EACE,4BAA4B;EAC5B,2BAA2B;AAC7B;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;EAClB,eAAe;EACf,mBAAmB;AACrB;;AAEA;;EAEE,iBAAiB;EACjB,eAAe;EACf,kBAAkB;AACpB;;AAEA;;EAEE,iBAAiB;EACjB,kBAAkB;EAClB,UAAU;EACV,eAAe;EACf,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,kBAAkB;AACpB;;AAEA;;EAEE,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,kBAAkB;AACpB;;AAEA;;EAEE,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA,2BAA2B;AAC3B,0DAA0D;AAC1D;EACE,8BAA8B;EAC9B,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA,0CAA0C;AAC1C,0DAA0D;AAC1D;;EAEE,YAAY;AACd;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;;EAEE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,cAAc;AAChB;;AAEA,2CAA2C;AAC3C,0DAA0D;AAC1D;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf","sourcesContent":["body {\n  height: 100vh;\n  font-family: sans-serif;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n  padding: 30px;\n}\n\n/*? **`` Form section */\n/* ***************************************************** */\n#search-input {\n  padding: 5px 10px;\n  border-radius: 50px;\n  width: 350px;\n  text-align: center;\n}\n\n#search-input::placeholder {\n  text-align: center;\n  opacity: 1;\n}\n\n#search-input:focus::placeholder {\n  opacity: 0;\n  transition: opacity 500ms;\n}\n\n#submit-button {\n  background: rgba(0, 0, 0, 0);\n  border: none;\n  position: relative;\n  left: -40px;\n  top: -18px;\n  cursor: pointer;\n  user-select: none;\n}\n\n#submit-button img {\n  position: absolute;\n  width: 25px;\n  transform: scaleX(-1);\n}\n\n/*? **`` Main section */\n/* ***************************************************** */\nmain {\n  display: grid;\n  grid-template-rows: 1fr 2fr;\n  grid-template-columns: repeat(4, 1fr);\n  width: 90vw;\n  height: 60vh;\n}\n\n/*? **`` City section */\n/* ***************************************************** */\n#city-wrapper {\n  /* background: rebeccapurple; */\n  /* color: white; */\n  grid-column: 3 / -1;\n}\n\n.city_name {\n  font-size: 3rem;\n  margin-bottom: 10px;\n}\n\n.region {\n  margin-bottom: 5px;\n}\n\n/*? **`` Current weather section */\n/* ***************************************************** */\n#current-weather-wrapper {\n  /* background: #1ce; */\n  grid-column: 2 / 3;\n  display: grid;\n  grid-template-rows: 1fr 1.8fr;\n  grid-template-columns: 1fr 2fr;\n}\n\n.temp_f,\n.temp_c {\n  font-size: 3rem;\n  grid-column: 2 / 3;\n}\n\n#current-weather-wrapper > .condition {\n  grid-row: 2 / 3;\n  grid-column: 1 / 2;\n}\n\n#current-weather-wrapper > .icon {\n  grid-row: 1 / 2;\n}\n\n/*? **`` Forecast weather section */\n/* ***************************************************** */\n#forecast-weather-wrapper {\n  /* background: #bada55; */\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 10px;\n}\n\n.forecast-day {\n  display: grid;\n  justify-items: center;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: repeat(15, 1fr);\n}\n\n.forecast-day:nth-child(2) {\n  border-right: 2px solid #000;\n  border-left: 2px solid #000;\n}\n\n.date {\n  font-weight: bold;\n  font-size: 1.25rem;\n  grid-row: 1 / 3;\n  grid-column: 1 / -1;\n}\n\n.maxtemp_c,\n.maxtemp_f {\n  font-size: 1.5rem;\n  grid-row: 3 / 5;\n  grid-column: 2 / 3;\n}\n\n.mintemp_c,\n.mintemp_f {\n  font-size: 1.5rem;\n  position: relative;\n  top: -15px;\n  grid-row: 5 / 7;\n  grid-column: 2 / 3;\n}\n\n.forecast-day > .condition {\n  grid-row: 6 / 7;\n  grid-column: 1 / 2;\n}\n\n.forecast-day > .icon {\n  grid-row: 3 / -1;\n  grid-column: 1 / 2;\n}\n\n.daily_chance_of_rain {\n  grid-row: 8 / 9;\n  grid-column: 1 / 2;\n}\n\n.totalprecip_in,\n.totalprecip_mm {\n  grid-row: 9 / 10;\n  grid-column: 1 / 2;\n}\n\n.daily_chance_of_snow {\n  grid-row: 8 / 9;\n  grid-column: 2 / 3;\n}\n\n.totalsnow_in,\n.totalsnow_cm {\n  grid-row: 9 / 10;\n  grid-column: 2 / 3;\n}\n\n/*? **`` Multi city popup */\n/* ***************************************************** */\n.multi-city-wrapper {\n  background: rgb(255, 206, 150);\n  width: fit-content;\n}\n\n.city-choice:hover {\n  background: orange;\n  cursor: pointer;\n}\n\n/*? **`` Pseudo element symbols and such */\n/* ***************************************************** */\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n/*? **`` This is controlled by javascript */\n/* ***************************************************** */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1100,7 +1207,7 @@ function displayData(data) {
     forecastWeatherDiv.append(forecastDayDiv);
   });
 
-  main.append(cityDiv, currentWeatherDiv, forecastWeatherDiv);
+  main.append(currentWeatherDiv, cityDiv, forecastWeatherDiv);
 
   measurementSystemCheck(data);
   checkForRainOrSnow(data);
