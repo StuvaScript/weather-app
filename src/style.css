@@ -1,14 +1,23 @@
 body {
   height: 100vh;
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 30px;
+  background: linear-gradient(rgb(255, 255, 255), #48798e);
+  color: rgb(0, 0, 0);
 }
 
-/*? **`` Form section */
+/*todo **`` Need to style multiple city picker.*/
+/* todo **`` Need to change dates to 'Mon 14, Tue 15, etc' using Date() maybe.  */
+/* todo **`` Need to fix footer styling.  */
+/* todo **`` Need to work on responsive/break points.  */
+/* todo **`` Mess with background*/
+/*todo **`` Need to get rid of comments*/
+
+/*? **`` Form search bar section */
 /* ***************************************************** */
 #search-input {
   padding: 5px 10px;
@@ -43,6 +52,32 @@ body {
   transform: scaleX(-1);
 }
 
+/*? **`` Form C or F toggle section */
+/* ***************************************************** */
+#toggle-wrapper {
+  display: flex;
+  position: relative;
+  bottom: -10px;
+  font-size: 1.5rem;
+}
+
+#C-toggle,
+#F-toggle {
+  appearance: none;
+  color: lightgrey;
+}
+
+#C-toggle + label,
+#F-toggle + label {
+  color: lightgrey;
+}
+
+#C-toggle:checked + label,
+#F-toggle:checked + label {
+  color: black;
+  transition: color 500ms;
+}
+
 /*? **`` Main section */
 /* ***************************************************** */
 main {
@@ -51,6 +86,9 @@ main {
   grid-template-columns: repeat(4, 1fr);
   width: 90vw;
   height: 60vh;
+  background: rgba(255, 255, 255, 0.148);
+  border-radius: 10px;
+  padding: 10px 0;
 }
 
 /*? **`` City section */
@@ -64,6 +102,7 @@ main {
 .city_name {
   font-size: 3rem;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .region {
@@ -77,22 +116,28 @@ main {
   grid-column: 2 / 3;
   display: grid;
   grid-template-rows: 1fr 1.8fr;
-  grid-template-columns: 1fr 2fr;
+  /* grid-template-columns: 1fr 4fr; */
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 10px;
 }
 
 .temp_f,
 .temp_c {
   font-size: 3rem;
-  grid-column: 2 / 3;
+  font-weight: bold;
+  /* grid-column: 2 / 3; */
+  grid-column: 3 / 4;
 }
 
 #current-weather-wrapper > .condition {
   grid-row: 2 / 3;
-  grid-column: 1 / 2;
+  /* grid-column: 1 / 2; */
+  grid-column: 2 / -1;
 }
 
 #current-weather-wrapper > .icon {
   grid-row: 1 / 2;
+  grid-column: 2 / 3;
 }
 
 /*? **`` Forecast weather section */
@@ -137,6 +182,7 @@ main {
   font-size: 1.5rem;
   position: relative;
   top: -15px;
+  left: -5px;
   grid-row: 5 / 7;
   grid-column: 2 / 3;
 }
@@ -147,7 +193,7 @@ main {
 }
 
 .forecast-day > .icon {
-  grid-row: 3 / -1;
+  grid-row: 2 / -1;
   grid-column: 1 / 2;
 }
 
