@@ -219,7 +219,7 @@ function roundOffNumbers(key, value, div) {
 
 //? **`` Creates a menu to select a city when multiple cities are an option
 function createMultiCityDisplay(array) {
-  const body = document.querySelector('body');
+  const form = document.querySelector('form');
   const multiCityWrapper = document.createElement('div');
   multiCityWrapper.classList.add('multi-city-wrapper');
   array.forEach((location, index) => {
@@ -239,7 +239,7 @@ function createMultiCityDisplay(array) {
   div.classList.add(`city-choice`);
   multiCityWrapper.append(div);
 
-  body.prepend(multiCityWrapper);
+  form.append(multiCityWrapper);
 }
 
 //? **`` Removes the city display window
