@@ -235,7 +235,7 @@ function createMultiCityDisplay(array) {
   });
   //? **`` Final option to search again
   const div = document.createElement('div');
-  div.innerText = 'City not here? Try searching postal code.';
+  div.innerText = '*City not here? Try searching postal code*';
   div.classList.add(`city-choice`);
   multiCityWrapper.append(div);
 
