@@ -47,6 +47,13 @@ function displayData(data) {
 //? **`` Creates divs with the inputted data, adds class names, adds the C or F class, checks if it's day or night then sets the weather icon, rounds off longer numbers
 function manipulateData(parentElement, weatherInfo) {
   let isDay;
+  //? **`` This sets the date format
+  const intlDateFormat = new Intl.DateTimeFormat(undefined, {
+    month: 'short',
+    day: 'numeric',
+  });
+
+  //? **`` This loops through all the data
   for (const [key, value] of Object.entries(weatherInfo)) {
     const div = document.createElement('div');
     measurementClassAdder(key, div);
@@ -57,6 +64,7 @@ function manipulateData(parentElement, weatherInfo) {
     }
     setIcon(div, key, value, isDay);
     roundOffNumbers(key, value, div);
+    setDateFormat(key, value, div, intlDateFormat);
 
     parentElement.append(div);
   }
@@ -245,4 +253,12 @@ function createMultiCityDisplay(array) {
 //? **`` Removes the city display window
 function removeCityDisplay() {
   document.querySelector('.multi-city-wrapper').remove();
+}
+
+//? **`` Creates a new date based off the value, uses that date with the date format argument, sets the div to the new date format
+function setDateFormat(key, value, div, intlDateFormat) {
+  if (key === 'date') {
+    console.log(value);
+    div.innerText = intlDateFormat.format(new Date(`${value}`));
+  }
 }
