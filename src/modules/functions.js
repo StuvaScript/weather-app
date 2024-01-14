@@ -169,6 +169,18 @@ async function multipleCityChecker(array) {
 function selectCity(array) {
   return new Promise((resolve) => {
     setTimeout(() => {
+      //? **`` This cancels the city search if the user clicks outside of the city search box
+      document.querySelector('body').addEventListener('click', function (e) {
+        //? **`` Checking to see if the element clicked has a class
+        if (e.target.classList.length === 0) {
+          resolve('Search cancelled');
+        }
+        //? **`` Checking to see if the clicked element class does NOT match with the city selection class
+        if (![...e.target.classList].includes('city-choice')) {
+          resolve('Search cancelled');
+        }
+      });
+
       document.querySelectorAll('.city-choice').forEach((choice) => {
         choice.addEventListener('click', function () {
           const cityIndex = [...this.parentNode.childNodes].indexOf(this);
