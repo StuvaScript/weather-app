@@ -421,17 +421,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `/* todo **\`\` Need to work on responsive/break points. Container queries.  */
-/*todo **\`\` Need to get rid of comments*/
-
-body {
+___CSS_LOADER_EXPORT___.push([module.id, `body {
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 15px;
+  padding: 40px 15px;
   background: linear-gradient(rgb(255, 255, 255), #48798e);
   color: rgb(0, 0, 0);
   letter-spacing: 0.5px;
@@ -442,7 +439,7 @@ body {
 #search-input {
   padding: 5px 10px;
   border-radius: 50px;
-  width: 350px;
+  width: clamp(3vw, 350px, 80vw);
   text-align: center;
 }
 
@@ -517,7 +514,7 @@ main {
 }
 
 .city_name {
-  font-size: 3rem;
+  font-size: clamp(3vw, 3rem, 1.25rem);
   margin-bottom: 10px;
   font-weight: bold;
 }
@@ -532,7 +529,6 @@ main {
   grid-column: 2 / 3;
 
   display: grid;
-  /* grid-template-rows: 1fr 1.8fr; */
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(4, 1fr);
   column-gap: 10px;
@@ -540,7 +536,7 @@ main {
 
   .temp_f,
   .temp_c {
-    font-size: 3rem;
+    font-size: clamp(3vw, 3rem, 1.25rem);
     font-weight: bold;
     grid-column: 3 / -1;
     align-self: end;
@@ -552,6 +548,7 @@ main {
     position: relative;
     top: 13px;
     justify-self: center;
+    text-align: center;
   }
 
   .icon {
@@ -574,7 +571,7 @@ main {
   display: grid;
   justify-items: center;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(15, 1fr);
+  grid-template-rows: repeat(15, minmax(19px, 1fr));
   padding: 10px;
 }
 
@@ -647,10 +644,14 @@ main {
   padding: 5px 18px;
   border-radius: 10px;
   line-height: 1.25rem;
-  width: fit-content;
+  max-width: 80vw;
   z-index: 1;
   position: absolute;
   top: 65px;
+}
+
+.city-choice:not(.city-choice:last-child) {
+  border-bottom: 1px solid #000;
 }
 
 .city-choice:last-child {
@@ -672,7 +673,7 @@ footer {
   min-width: 60vw;
   display: flex;
   justify-content: space-between;
-  gap: 100px;
+  gap: 40px;
   align-items: center;
 
   a:link,
@@ -747,6 +748,9 @@ footer {
   display: none;
 }
 
+/*? **\`\` Media queries */
+/* ***************************************************** */
+
 @media (max-width: 1100px) {
   body {
     height: 100%;
@@ -761,46 +765,21 @@ footer {
     grid-template-rows: 192px auto;
   }
 
-  /* main {
-    display: grid;
-    grid-template-rows: 1fr 2fr;
-    grid-template-columns: repeat(4, 1fr);
-    min-width: 60vw;
-    height: 60vh;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 10px 0;
-  } */
-
   #current-weather-wrapper {
     grid-column: 1 / 3;
-  }
 
-  /* #current-weather-wrapper {
-    grid-column: 2 / 3; */
+    .temp_f,
+    .temp_c {
+      align-self: center;
+    }
+  }
 
   #forecast-weather-wrapper {
     grid-template-columns: initial;
     grid-template-rows: repeat(3, 1fr);
-    width: 60vw;
+    width: 100%;
     margin: auto;
   }
-
-  /* #forecast-weather-wrapper {
-    grid-column: 1 / -1;
-  
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  } */
-
-  /* .forecast-day {
-    display: grid;
-    justify-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(15, 1fr);
-    padding: 10px;
-  } */
 
   .forecast-day:nth-child(2) {
     border-image: linear-gradient(to right, #00000000, black, #00000000) 1;
@@ -814,73 +793,58 @@ footer {
     border-style: solid;
   }
 
-  /* .forecast-day:nth-child(2) {
-    border-image: linear-gradient(#00000000, black, #00000000) 1;
-    border-width: 0 2px;
-    border-style: solid;
-  } */
-
-  /* .date {
-    font-weight: bold;
-    font-size: 1.25rem;
-    grid-row: 3 / 5;
-    grid-column: 1 / -1;
-  } */
-
-  /* .maxtemp_c,
-  .maxtemp_f {
-    font-size: 1.5rem;
-    grid-row: 6 / 8;
-    grid-column: 2 / 3;
-  } */
-
-  /* .mintemp_c,
-  .mintemp_f {
-    font-size: 1.5rem;
-    position: relative;
-    top: -15px;
-    grid-row: 8 / 10;
-    grid-column: 2 / 3;
-  } */
-
-  /* .forecast-day > .condition {
-    grid-row: 9 / 11;
-    grid-column: 1 / 2;
-    text-align: center;
-  } */
-
-  /* .forecast-day > .icon {
-    grid-row: 5 / -1;
-    grid-column: 1 / 2;
-  } */
-
-  /* .daily_chance_of_rain {
-    grid-row: 11 / 12;
-    grid-column: 1 / 2;
-  } */
-
-  /* .totalprecip_in,
-  .totalprecip_mm {
-    grid-row: 12 / 13;
-    grid-column: 1 / 2;
-  } */
-
-  /* .daily_chance_of_snow {
-    grid-row: 11 / 12;
-    grid-column: 2 / 3;
-  } */
-
-  /* .totalsnow_in,
-  .totalsnow_cm {
-    grid-row: 12 / 13;
-    grid-column: 2 / 3;
-  } */
-
   footer {
     padding-top: 40px;
+    flex-direction: column;
   }
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"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","sourcesContent":["/* todo **`` Need to work on responsive/break points. Container queries.  */\n/*todo **`` Need to get rid of comments*/\n\nbody {\n  height: 100vh;\n  font-family: Arial, Helvetica, sans-serif;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n  padding: 30px 15px;\n  background: linear-gradient(rgb(255, 255, 255), #48798e);\n  color: rgb(0, 0, 0);\n  letter-spacing: 0.5px;\n}\n\n/*? **`` Form search bar section */\n/* ***************************************************** */\n#search-input {\n  padding: 5px 10px;\n  border-radius: 50px;\n  width: 350px;\n  text-align: center;\n}\n\n#search-input::placeholder {\n  text-align: center;\n  opacity: 1;\n}\n\n#search-input:focus::placeholder {\n  opacity: 0;\n  transition: opacity 500ms;\n}\n\n#submit-button {\n  background: rgba(0, 0, 0, 0);\n  border: none;\n  position: relative;\n  left: -40px;\n  top: -18px;\n  cursor: pointer;\n  user-select: none;\n\n  img {\n    position: absolute;\n    width: 25px;\n    transform: scaleX(-1);\n  }\n}\n\n/*? **`` Form C or F toggle section */\n/* ***************************************************** */\n#toggle-wrapper {\n  display: flex;\n  position: relative;\n  bottom: -10px;\n  font-size: 1.5rem;\n}\n\n#C-toggle,\n#F-toggle {\n  appearance: none;\n\n  + label {\n    color: rgb(181, 181, 181);\n  }\n}\n\n#C-toggle:checked + label,\n#F-toggle:checked + label {\n  color: black;\n  transition: color 500ms;\n}\n\n/*? **`` Main section */\n/* ***************************************************** */\nmain {\n  display: grid;\n  grid-template-rows: 1fr 2fr;\n  grid-template-columns: repeat(4, 1fr);\n  align-items: center;\n  min-width: 60vw;\n  height: 60vh;\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  padding: 10px 0;\n}\n\n/*? **`` City section */\n/* ***************************************************** */\n#city-wrapper {\n  grid-column: 3 / -1;\n}\n\n.city_name {\n  font-size: 3rem;\n  margin-bottom: 10px;\n  font-weight: bold;\n}\n\n.region {\n  margin-bottom: 5px;\n}\n\n/*? **`` Current weather section */\n/* ***************************************************** */\n#current-weather-wrapper {\n  grid-column: 2 / 3;\n\n  display: grid;\n  /* grid-template-rows: 1fr 1.8fr; */\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(4, 1fr);\n  column-gap: 10px;\n  padding: 10px 0;\n\n  .temp_f,\n  .temp_c {\n    font-size: 3rem;\n    font-weight: bold;\n    grid-column: 3 / -1;\n    align-self: end;\n  }\n\n  .condition {\n    grid-row: 2 / 3;\n    grid-column: 2 / 3;\n    position: relative;\n    top: 13px;\n    justify-self: center;\n  }\n\n  .icon {\n    grid-row: 1 / 2;\n    grid-column: 2 / 3;\n  }\n}\n\n/*? **`` Forecast weather section */\n/* ***************************************************** */\n#forecast-weather-wrapper {\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 10px;\n}\n\n.forecast-day {\n  display: grid;\n  justify-items: center;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: repeat(15, 1fr);\n  padding: 10px;\n}\n\n.forecast-day:nth-child(2) {\n  border-image: linear-gradient(#00000000, black, #00000000) 1;\n  border-width: 0 2px;\n  border-style: solid;\n}\n\n.date {\n  font-weight: bold;\n  font-size: 1.25rem;\n  grid-row: 3 / 5;\n  grid-column: 1 / -1;\n}\n\n.maxtemp_c,\n.maxtemp_f {\n  font-size: 1.5rem;\n  grid-row: 6 / 8;\n  grid-column: 2 / 3;\n}\n\n.mintemp_c,\n.mintemp_f {\n  font-size: 1.5rem;\n  position: relative;\n  top: -15px;\n  grid-row: 8 / 10;\n  grid-column: 2 / 3;\n}\n\n.forecast-day > .condition {\n  grid-row: 9 / 11;\n  grid-column: 1 / 2;\n  text-align: center;\n}\n\n.forecast-day > .icon {\n  grid-row: 5 / -1;\n  grid-column: 1 / 2;\n}\n\n.daily_chance_of_rain {\n  grid-row: 11 / 12;\n  grid-column: 1 / 2;\n}\n\n.totalprecip_in,\n.totalprecip_mm {\n  grid-row: 12 / 13;\n  grid-column: 1 / 2;\n}\n\n.daily_chance_of_snow {\n  grid-row: 11 / 12;\n  grid-column: 2 / 3;\n}\n\n.totalsnow_in,\n.totalsnow_cm {\n  grid-row: 12 / 13;\n  grid-column: 2 / 3;\n}\n\n/*? **`` Multi city popup */\n/* ***************************************************** */\n.multi-city-wrapper {\n  background: white;\n  padding: 5px 18px;\n  border-radius: 10px;\n  line-height: 1.25rem;\n  width: fit-content;\n  z-index: 1;\n  position: absolute;\n  top: 65px;\n}\n\n.city-choice:last-child {\n  color: #48798e;\n}\n\n.city-choice:hover:not(.city-choice:last-child) {\n  background: rgba(72, 121, 142, 0.35);\n  border-radius: 5px;\n  margin: 0 -10px;\n  padding: 0 10px;\n  cursor: pointer;\n}\n\n/*? **`` Footer */\n/* ***************************************************** */\nfooter {\n  color: white;\n  min-width: 60vw;\n  display: flex;\n  justify-content: space-between;\n  gap: 100px;\n  align-items: center;\n\n  a:link,\n  a:hover,\n  a:active,\n  a:visited {\n    color: #aae5fe;\n  }\n}\n\n#api-tag {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n\n  img {\n    background: rgba(255, 255, 255, 0.6);\n    padding: 10px;\n    border-radius: 5px;\n  }\n}\n\n/*? **`` Pseudo element symbols and such */\n/* ***************************************************** */\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n/*? **`` This is controlled by javascript */\n/* ***************************************************** */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n\n@media (max-width: 1100px) {\n  body {\n    height: 100%;\n  }\n\n  form {\n    padding-bottom: 30px;\n  }\n\n  main {\n    height: auto;\n    grid-template-rows: 192px auto;\n  }\n\n  /* main {\n    display: grid;\n    grid-template-rows: 1fr 2fr;\n    grid-template-columns: repeat(4, 1fr);\n    min-width: 60vw;\n    height: 60vh;\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: 10px;\n    padding: 10px 0;\n  } */\n\n  #current-weather-wrapper {\n    grid-column: 1 / 3;\n  }\n\n  /* #current-weather-wrapper {\n    grid-column: 2 / 3; */\n\n  #forecast-weather-wrapper {\n    grid-template-columns: initial;\n    grid-template-rows: repeat(3, 1fr);\n    width: 60vw;\n    margin: auto;\n  }\n\n  /* #forecast-weather-wrapper {\n    grid-column: 1 / -1;\n  \n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 10px;\n  } */\n\n  /* .forecast-day {\n    display: grid;\n    justify-items: center;\n    grid-template-columns: repeat(2, 1fr);\n    grid-template-rows: repeat(15, 1fr);\n    padding: 10px;\n  } */\n\n  .forecast-day:nth-child(2) {\n    border-image: linear-gradient(to right, #00000000, black, #00000000) 1;\n    border-width: 2px 0 0 0;\n    border-style: solid;\n  }\n\n  .forecast-day {\n    border-image: linear-gradient(to right, #00000000, black, #00000000) 1;\n    border-width: 2px 0 0 0;\n    border-style: solid;\n  }\n\n  /* .forecast-day:nth-child(2) {\n    border-image: linear-gradient(#00000000, black, #00000000) 1;\n    border-width: 0 2px;\n    border-style: solid;\n  } */\n\n  /* .date {\n    font-weight: bold;\n    font-size: 1.25rem;\n    grid-row: 3 / 5;\n    grid-column: 1 / -1;\n  } */\n\n  /* .maxtemp_c,\n  .maxtemp_f {\n    font-size: 1.5rem;\n    grid-row: 6 / 8;\n    grid-column: 2 / 3;\n  } */\n\n  /* .mintemp_c,\n  .mintemp_f {\n    font-size: 1.5rem;\n    position: relative;\n    top: -15px;\n    grid-row: 8 / 10;\n    grid-column: 2 / 3;\n  } */\n\n  /* .forecast-day > .condition {\n    grid-row: 9 / 11;\n    grid-column: 1 / 2;\n    text-align: center;\n  } */\n\n  /* .forecast-day > .icon {\n    grid-row: 5 / -1;\n    grid-column: 1 / 2;\n  } */\n\n  /* .daily_chance_of_rain {\n    grid-row: 11 / 12;\n    grid-column: 1 / 2;\n  } */\n\n  /* .totalprecip_in,\n  .totalprecip_mm {\n    grid-row: 12 / 13;\n    grid-column: 1 / 2;\n  } */\n\n  /* .daily_chance_of_snow {\n    grid-row: 11 / 12;\n    grid-column: 2 / 3;\n  } */\n\n  /* .totalsnow_in,\n  .totalsnow_cm {\n    grid-row: 12 / 13;\n    grid-column: 2 / 3;\n  } */\n\n  footer {\n    padding-top: 40px;\n  }\n}\n"],"sourceRoot":""}]);
+
+@media (max-width: 400px) {
+  #current-weather-wrapper {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    padding: 10px 0;
+
+    .temp_f,
+    .temp_c {
+      grid-column: 2 / -1;
+    }
+
+    .condition {
+      grid-row: 2 / 3;
+      grid-column: 1 / 2;
+    }
+
+    .icon {
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+    }
+  }
+
+  .daily_chance_of_rain {
+    grid-row: 11 / 12;
+    grid-column: 1 / -1;
+  }
+
+  .totalprecip_in,
+  .totalprecip_mm {
+    grid-row: 12 / 13;
+    grid-column: 1 / -1;
+  }
+
+  .daily_chance_of_snow {
+    grid-row: 14 / 15;
+    grid-column: 1 / -1;
+  }
+
+  .totalsnow_in,
+  .totalsnow_cm {
+    grid-row: 15 / 16;
+    grid-column: 1 / -1;
+  }
+}
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"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","sourcesContent":["body {\n  height: 100vh;\n  font-family: Arial, Helvetica, sans-serif;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n  padding: 40px 15px;\n  background: linear-gradient(rgb(255, 255, 255), #48798e);\n  color: rgb(0, 0, 0);\n  letter-spacing: 0.5px;\n}\n\n/*? **`` Form search bar section */\n/* ***************************************************** */\n#search-input {\n  padding: 5px 10px;\n  border-radius: 50px;\n  width: clamp(3vw, 350px, 80vw);\n  text-align: center;\n}\n\n#search-input::placeholder {\n  text-align: center;\n  opacity: 1;\n}\n\n#search-input:focus::placeholder {\n  opacity: 0;\n  transition: opacity 500ms;\n}\n\n#submit-button {\n  background: rgba(0, 0, 0, 0);\n  border: none;\n  position: relative;\n  left: -40px;\n  top: -18px;\n  cursor: pointer;\n  user-select: none;\n\n  img {\n    position: absolute;\n    width: 25px;\n    transform: scaleX(-1);\n  }\n}\n\n/*? **`` Form C or F toggle section */\n/* ***************************************************** */\n#toggle-wrapper {\n  display: flex;\n  position: relative;\n  bottom: -10px;\n  font-size: 1.5rem;\n}\n\n#C-toggle,\n#F-toggle {\n  appearance: none;\n\n  + label {\n    color: rgb(181, 181, 181);\n  }\n}\n\n#C-toggle:checked + label,\n#F-toggle:checked + label {\n  color: black;\n  transition: color 500ms;\n}\n\n/*? **`` Main section */\n/* ***************************************************** */\nmain {\n  display: grid;\n  grid-template-rows: 1fr 2fr;\n  grid-template-columns: repeat(4, 1fr);\n  align-items: center;\n  min-width: 60vw;\n  height: 60vh;\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  padding: 10px 0;\n}\n\n/*? **`` City section */\n/* ***************************************************** */\n#city-wrapper {\n  grid-column: 3 / -1;\n}\n\n.city_name {\n  font-size: clamp(3vw, 3rem, 1.25rem);\n  margin-bottom: 10px;\n  font-weight: bold;\n}\n\n.region {\n  margin-bottom: 5px;\n}\n\n/*? **`` Current weather section */\n/* ***************************************************** */\n#current-weather-wrapper {\n  grid-column: 2 / 3;\n\n  display: grid;\n  grid-template-rows: repeat(2, 1fr);\n  grid-template-columns: repeat(4, 1fr);\n  column-gap: 10px;\n  padding: 10px 0;\n\n  .temp_f,\n  .temp_c {\n    font-size: clamp(3vw, 3rem, 1.25rem);\n    font-weight: bold;\n    grid-column: 3 / -1;\n    align-self: end;\n  }\n\n  .condition {\n    grid-row: 2 / 3;\n    grid-column: 2 / 3;\n    position: relative;\n    top: 13px;\n    justify-self: center;\n    text-align: center;\n  }\n\n  .icon {\n    grid-row: 1 / 2;\n    grid-column: 2 / 3;\n  }\n}\n\n/*? **`` Forecast weather section */\n/* ***************************************************** */\n#forecast-weather-wrapper {\n  grid-column: 1 / -1;\n\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 10px;\n}\n\n.forecast-day {\n  display: grid;\n  justify-items: center;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: repeat(15, minmax(19px, 1fr));\n  padding: 10px;\n}\n\n.forecast-day:nth-child(2) {\n  border-image: linear-gradient(#00000000, black, #00000000) 1;\n  border-width: 0 2px;\n  border-style: solid;\n}\n\n.date {\n  font-weight: bold;\n  font-size: 1.25rem;\n  grid-row: 3 / 5;\n  grid-column: 1 / -1;\n}\n\n.maxtemp_c,\n.maxtemp_f {\n  font-size: 1.5rem;\n  grid-row: 6 / 8;\n  grid-column: 2 / 3;\n}\n\n.mintemp_c,\n.mintemp_f {\n  font-size: 1.5rem;\n  position: relative;\n  top: -15px;\n  grid-row: 8 / 10;\n  grid-column: 2 / 3;\n}\n\n.forecast-day > .condition {\n  grid-row: 9 / 11;\n  grid-column: 1 / 2;\n  text-align: center;\n}\n\n.forecast-day > .icon {\n  grid-row: 5 / -1;\n  grid-column: 1 / 2;\n}\n\n.daily_chance_of_rain {\n  grid-row: 11 / 12;\n  grid-column: 1 / 2;\n}\n\n.totalprecip_in,\n.totalprecip_mm {\n  grid-row: 12 / 13;\n  grid-column: 1 / 2;\n}\n\n.daily_chance_of_snow {\n  grid-row: 11 / 12;\n  grid-column: 2 / 3;\n}\n\n.totalsnow_in,\n.totalsnow_cm {\n  grid-row: 12 / 13;\n  grid-column: 2 / 3;\n}\n\n/*? **`` Multi city popup */\n/* ***************************************************** */\n.multi-city-wrapper {\n  background: white;\n  padding: 5px 18px;\n  border-radius: 10px;\n  line-height: 1.25rem;\n  max-width: 80vw;\n  z-index: 1;\n  position: absolute;\n  top: 65px;\n}\n\n.city-choice:not(.city-choice:last-child) {\n  border-bottom: 1px solid #000;\n}\n\n.city-choice:last-child {\n  color: #48798e;\n}\n\n.city-choice:hover:not(.city-choice:last-child) {\n  background: rgba(72, 121, 142, 0.35);\n  border-radius: 5px;\n  margin: 0 -10px;\n  padding: 0 10px;\n  cursor: pointer;\n}\n\n/*? **`` Footer */\n/* ***************************************************** */\nfooter {\n  color: white;\n  min-width: 60vw;\n  display: flex;\n  justify-content: space-between;\n  gap: 40px;\n  align-items: center;\n\n  a:link,\n  a:hover,\n  a:active,\n  a:visited {\n    color: #aae5fe;\n  }\n}\n\n#api-tag {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n\n  img {\n    background: rgba(255, 255, 255, 0.6);\n    padding: 10px;\n    border-radius: 5px;\n  }\n}\n\n/*? **`` Pseudo element symbols and such */\n/* ***************************************************** */\n.temp_c::after,\n.temp_f::after {\n  content: '°';\n}\n\n.mintemp_c::after,\n.mintemp_f::after {\n  content: '° low';\n}\n\n.maxtemp_c::after,\n.maxtemp_f::after {\n  content: '° high';\n}\n\n.daily_chance_of_rain::after {\n  content: '% chance of rain';\n}\n\n.daily_chance_of_snow::after {\n  content: '% chance of snow';\n}\n\n.totalprecip_in::after,\n.totalsnow_in::after {\n  content: ' in';\n}\n\n.totalprecip_mm::after {\n  content: ' mm';\n}\n\n.totalsnow_cm::after {\n  content: ' cm';\n}\n\n/*? **`` This is controlled by javascript */\n/* ***************************************************** */\n.measure-hidden {\n  display: none;\n}\n\n.weather-hidden {\n  display: none;\n}\n\n.irrelevant-hidden {\n  display: none;\n}\n\n/*? **`` Media queries */\n/* ***************************************************** */\n\n@media (max-width: 1100px) {\n  body {\n    height: 100%;\n  }\n\n  form {\n    padding-bottom: 30px;\n  }\n\n  main {\n    height: auto;\n    grid-template-rows: 192px auto;\n  }\n\n  #current-weather-wrapper {\n    grid-column: 1 / 3;\n\n    .temp_f,\n    .temp_c {\n      align-self: center;\n    }\n  }\n\n  #forecast-weather-wrapper {\n    grid-template-columns: initial;\n    grid-template-rows: repeat(3, 1fr);\n    width: 100%;\n    margin: auto;\n  }\n\n  .forecast-day:nth-child(2) {\n    border-image: linear-gradient(to right, #00000000, black, #00000000) 1;\n    border-width: 2px 0 0 0;\n    border-style: solid;\n  }\n\n  .forecast-day {\n    border-image: linear-gradient(to right, #00000000, black, #00000000) 1;\n    border-width: 2px 0 0 0;\n    border-style: solid;\n  }\n\n  footer {\n    padding-top: 40px;\n    flex-direction: column;\n  }\n}\n\n@media (max-width: 400px) {\n  #current-weather-wrapper {\n    grid-template-rows: repeat(2, 1fr);\n    grid-template-columns: repeat(2, 1fr);\n    column-gap: 10px;\n    padding: 10px 0;\n\n    .temp_f,\n    .temp_c {\n      grid-column: 2 / -1;\n    }\n\n    .condition {\n      grid-row: 2 / 3;\n      grid-column: 1 / 2;\n    }\n\n    .icon {\n      grid-row: 1 / 2;\n      grid-column: 1 / 2;\n    }\n  }\n\n  .daily_chance_of_rain {\n    grid-row: 11 / 12;\n    grid-column: 1 / -1;\n  }\n\n  .totalprecip_in,\n  .totalprecip_mm {\n    grid-row: 12 / 13;\n    grid-column: 1 / -1;\n  }\n\n  .daily_chance_of_snow {\n    grid-row: 14 / 15;\n    grid-column: 1 / -1;\n  }\n\n  .totalsnow_in,\n  .totalsnow_cm {\n    grid-row: 15 / 16;\n    grid-column: 1 / -1;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1650,7 +1614,6 @@ function removeCityDisplay() {
 //? **`` Creates a new date based off the value, uses that date with the date format argument, sets the div to the new date format
 function setDateFormat(key, value, div, intlDateFormat) {
   if (key === 'date') {
-    console.log(value);
     div.innerText = intlDateFormat.format(new Date(`${value}`));
   }
 }
@@ -1685,7 +1648,6 @@ function searchInputLogic() {
     let inputField = document.querySelector('#search-input');
     //? **`` This returns if the input is submitted empty
     if (inputField.value === '') {
-      //todo **`` Need to pop up a warning or something that it's empty
       console.warn('Empty search field');
       return;
     }
@@ -1702,7 +1664,6 @@ function searchInputLogic() {
       }
     } catch (error) {
       console.error(`Error: ${error}`);
-      //todo **`` Need to pop up a warning or something that it can't find the location
       console.warn("Can't find location");
     }
   });
@@ -1743,7 +1704,6 @@ __webpack_require__.r(__webpack_exports__);
 async function displayInitialWeather() {
   try {
     const ipData = await fetchIPAddress();
-    console.log(ipData);
     const weatherData = await fetchWeather(ipData);
     (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayData)(weatherData);
   } catch (error) {
@@ -1761,16 +1721,7 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('%cOriginal Data', 'background:rebeccapurple');
-    console.log(data);
-    console.groupEnd();
-
     const dataObject = createWeatherDataObject(data);
-
-    console.group('%cFiltered Weather', 'background:gold; color:black');
-    console.log(dataObject);
-    console.groupEnd();
-
     return dataObject;
   } catch (error) {
     console.error(`Error: ${error}`);
@@ -1786,11 +1737,6 @@ async function fetchIPAddress() {
     );
     const data = await response.json();
     const dataObject = createIPDataObject(data);
-
-    console.group('%cIP Address', 'background:green');
-    console.log(`We detect that you're in ${data.city}`);
-    console.log(dataObject);
-    console.groupEnd();
 
     return dataObject;
   } catch (error) {
@@ -1809,10 +1755,6 @@ async function fetchAutocomplete(receivedData) {
     );
     const data = await response.json();
     const dataArray = createAutocompleteDataArray(data);
-
-    console.group('%cAutocomplete', 'background:#1ce; color:black');
-    console.log(dataArray);
-    console.groupEnd();
 
     return dataArray;
   } catch (error) {
@@ -1885,7 +1827,6 @@ function createAutocompleteDataArray(data) {
 async function multipleCityChecker(array) {
   if (array[1]) {
     (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.createMultiCityDisplay)(array);
-    console.log(array);
     const city = await selectCity(array);
     (0,_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.removeCityDisplay)();
     return city;
@@ -3329,15 +3270,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.searchInputLogic)();
 (0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.toggleMeasurementData)();
 
-//! **`` WATCH YOUR PROJECT WITH 'NPX WEBPACK --WATCH' FOOOOOOOOL!!!! :)
-
 //todo **`` When launched on github, check the accessability tab and see if the color contrast is ok
-
-//* File: event-handlers.js | Line: 19
-//todo **`` Need to pop up a warning or something that it's empty
-
-//* File: event-handlers.js | Line: 31
-//todo **`` Need to pop up a warning or something that it can't find the location
 
 //* File: README.md | Line: 1
 //todo **`` Update README.md

@@ -16,7 +16,6 @@ function searchInputLogic() {
     let inputField = document.querySelector('#search-input');
     //? **`` This returns if the input is submitted empty
     if (inputField.value === '') {
-      //todo **`` Need to pop up a warning or something that it's empty
       console.warn('Empty search field');
       return;
     }
@@ -33,7 +32,6 @@ function searchInputLogic() {
       }
     } catch (error) {
       console.error(`Error: ${error}`);
-      //todo **`` Need to pop up a warning or something that it can't find the location
       console.warn("Can't find location");
     }
   });

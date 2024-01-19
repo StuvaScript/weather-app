@@ -15,7 +15,6 @@ export {
 async function displayInitialWeather() {
   try {
     const ipData = await fetchIPAddress();
-    console.log(ipData);
     const weatherData = await fetchWeather(ipData);
     displayData(weatherData);
   } catch (error) {
@@ -33,16 +32,7 @@ async function fetchWeather(receivedData) {
       { mode: 'cors' },
     );
     const data = await response.json();
-    console.group('%cOriginal Data', 'background:rebeccapurple');
-    console.log(data);
-    console.groupEnd();
-
     const dataObject = createWeatherDataObject(data);
-
-    console.group('%cFiltered Weather', 'background:gold; color:black');
-    console.log(dataObject);
-    console.groupEnd();
-
     return dataObject;
   } catch (error) {
     console.error(`Error: ${error}`);
@@ -58,11 +48,6 @@ async function fetchIPAddress() {
     );
     const data = await response.json();
     const dataObject = createIPDataObject(data);
-
-    console.group('%cIP Address', 'background:green');
-    console.log(`We detect that you're in ${data.city}`);
-    console.log(dataObject);
-    console.groupEnd();
 
     return dataObject;
   } catch (error) {
@@ -81,10 +66,6 @@ async function fetchAutocomplete(receivedData) {
     );
     const data = await response.json();
     const dataArray = createAutocompleteDataArray(data);
-
-    console.group('%cAutocomplete', 'background:#1ce; color:black');
-    console.log(dataArray);
-    console.groupEnd();
 
     return dataArray;
   } catch (error) {
@@ -157,7 +138,6 @@ function createAutocompleteDataArray(data) {
 async function multipleCityChecker(array) {
   if (array[1]) {
     createMultiCityDisplay(array);
-    console.log(array);
     const city = await selectCity(array);
     removeCityDisplay();
     return city;

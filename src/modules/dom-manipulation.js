@@ -258,7 +258,6 @@ function removeCityDisplay() {
 //? **`` Creates a new date based off the value, uses that date with the date format argument, sets the div to the new date format
 function setDateFormat(key, value, div, intlDateFormat) {
   if (key === 'date') {
-    console.log(value);
     div.innerText = intlDateFormat.format(new Date(`${value}`));
   }
 }

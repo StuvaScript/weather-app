@@ -1,6 +1,3 @@
-/* todo **`` Need to work on responsive/break points. Container queries.  */
-/*todo **`` Need to get rid of comments*/
-
 body {
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
@@ -8,7 +5,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 15px;
+  padding: 40px 15px;
   background: linear-gradient(rgb(255, 255, 255), #48798e);
   color: rgb(0, 0, 0);
   letter-spacing: 0.5px;
@@ -19,7 +16,7 @@ body {
 #search-input {
   padding: 5px 10px;
   border-radius: 50px;
-  width: 350px;
+  width: clamp(3vw, 350px, 80vw);
   text-align: center;
 }
 
@@ -94,7 +91,7 @@ main {
 }
 
 .city_name {
-  font-size: 3rem;
+  font-size: clamp(3vw, 3rem, 1.25rem);
   margin-bottom: 10px;
   font-weight: bold;
 }
@@ -109,7 +106,6 @@ main {
   grid-column: 2 / 3;
 
   display: grid;
-  /* grid-template-rows: 1fr 1.8fr; */
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(4, 1fr);
   column-gap: 10px;
@@ -117,7 +113,7 @@ main {
 
   .temp_f,
   .temp_c {
-    font-size: 3rem;
+    font-size: clamp(3vw, 3rem, 1.25rem);
     font-weight: bold;
     grid-column: 3 / -1;
     align-self: end;
@@ -129,6 +125,7 @@ main {
     position: relative;
     top: 13px;
     justify-self: center;
+    text-align: center;
   }
 
   .icon {
@@ -151,7 +148,7 @@ main {
   display: grid;
   justify-items: center;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(15, 1fr);
+  grid-template-rows: repeat(15, minmax(19px, 1fr));
   padding: 10px;
 }
 
@@ -224,10 +221,14 @@ main {
   padding: 5px 18px;
   border-radius: 10px;
   line-height: 1.25rem;
-  width: fit-content;
+  max-width: 80vw;
   z-index: 1;
   position: absolute;
   top: 65px;
+}
+
+.city-choice:not(.city-choice:last-child) {
+  border-bottom: 1px solid #000;
 }
 
 .city-choice:last-child {
@@ -249,7 +250,7 @@ footer {
   min-width: 60vw;
   display: flex;
   justify-content: space-between;
-  gap: 100px;
+  gap: 40px;
   align-items: center;
 
   a:link,
@@ -324,6 +325,9 @@ footer {
   display: none;
 }
 
+/*? **`` Media queries */
+/* ***************************************************** */
+
 @media (max-width: 1100px) {
   body {
     height: 100%;
@@ -338,46 +342,21 @@ footer {
     grid-template-rows: 192px auto;
   }
 
-  /* main {
-    display: grid;
-    grid-template-rows: 1fr 2fr;
-    grid-template-columns: repeat(4, 1fr);
-    min-width: 60vw;
-    height: 60vh;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 10px 0;
-  } */
-
   #current-weather-wrapper {
     grid-column: 1 / 3;
-  }
 
-  /* #current-weather-wrapper {
-    grid-column: 2 / 3; */
+    .temp_f,
+    .temp_c {
+      align-self: center;
+    }
+  }
 
   #forecast-weather-wrapper {
     grid-template-columns: initial;
     grid-template-rows: repeat(3, 1fr);
-    width: 60vw;
+    width: 100%;
     margin: auto;
   }
-
-  /* #forecast-weather-wrapper {
-    grid-column: 1 / -1;
-  
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  } */
-
-  /* .forecast-day {
-    display: grid;
-    justify-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(15, 1fr);
-    padding: 10px;
-  } */
 
   .forecast-day:nth-child(2) {
     border-image: linear-gradient(to right, #00000000, black, #00000000) 1;
@@ -391,69 +370,54 @@ footer {
     border-style: solid;
   }
 
-  /* .forecast-day:nth-child(2) {
-    border-image: linear-gradient(#00000000, black, #00000000) 1;
-    border-width: 0 2px;
-    border-style: solid;
-  } */
-
-  /* .date {
-    font-weight: bold;
-    font-size: 1.25rem;
-    grid-row: 3 / 5;
-    grid-column: 1 / -1;
-  } */
-
-  /* .maxtemp_c,
-  .maxtemp_f {
-    font-size: 1.5rem;
-    grid-row: 6 / 8;
-    grid-column: 2 / 3;
-  } */
-
-  /* .mintemp_c,
-  .mintemp_f {
-    font-size: 1.5rem;
-    position: relative;
-    top: -15px;
-    grid-row: 8 / 10;
-    grid-column: 2 / 3;
-  } */
-
-  /* .forecast-day > .condition {
-    grid-row: 9 / 11;
-    grid-column: 1 / 2;
-    text-align: center;
-  } */
-
-  /* .forecast-day > .icon {
-    grid-row: 5 / -1;
-    grid-column: 1 / 2;
-  } */
-
-  /* .daily_chance_of_rain {
-    grid-row: 11 / 12;
-    grid-column: 1 / 2;
-  } */
-
-  /* .totalprecip_in,
-  .totalprecip_mm {
-    grid-row: 12 / 13;
-    grid-column: 1 / 2;
-  } */
-
-  /* .daily_chance_of_snow {
-    grid-row: 11 / 12;
-    grid-column: 2 / 3;
-  } */
-
-  /* .totalsnow_in,
-  .totalsnow_cm {
-    grid-row: 12 / 13;
-    grid-column: 2 / 3;
-  } */
-
   footer {
     padding-top: 40px;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 400px) {
+  #current-weather-wrapper {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    padding: 10px 0;
+
+    .temp_f,
+    .temp_c {
+      grid-column: 2 / -1;
+    }
+
+    .condition {
+      grid-row: 2 / 3;
+      grid-column: 1 / 2;
+    }
+
+    .icon {
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+    }
+  }
+
+  .daily_chance_of_rain {
+    grid-row: 11 / 12;
+    grid-column: 1 / -1;
+  }
+
+  .totalprecip_in,
+  .totalprecip_mm {
+    grid-row: 12 / 13;
+    grid-column: 1 / -1;
+  }
+
+  .daily_chance_of_snow {
+    grid-row: 14 / 15;
+    grid-column: 1 / -1;
+  }
+
+  .totalsnow_in,
+  .totalsnow_cm {
+    grid-row: 15 / 16;
+    grid-column: 1 / -1;
   }
 }
