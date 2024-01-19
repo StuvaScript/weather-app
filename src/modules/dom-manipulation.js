@@ -1,5 +1,6 @@
 import * as icon from './icon-handler';
 import searchIcon from '../images/icons/search_149852.png';
+import favicon from '../images/icons/21120620821600621640.svg';
 
 export {
   displayData,
@@ -8,6 +9,7 @@ export {
   createMultiCityDisplay,
   removeCityDisplay,
   displaySearchIcon,
+  displayFavicon,
 };
 
 //? **`` This gets all our necessary data and displays it
@@ -268,4 +270,8 @@ function displaySearchIcon() {
   document
     .querySelector('#submit-button > img')
     .setAttribute('src', searchIcon);
+}
+
+function displayFavicon() {
+  document.querySelector('link').setAttribute('href', favicon);
 }

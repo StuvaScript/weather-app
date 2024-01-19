@@ -1357,11 +1357,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   displayC: () => (/* binding */ displayC),
 /* harmony export */   displayData: () => (/* binding */ displayData),
 /* harmony export */   displayF: () => (/* binding */ displayF),
+/* harmony export */   displayFavicon: () => (/* binding */ displayFavicon),
 /* harmony export */   displaySearchIcon: () => (/* binding */ displaySearchIcon),
 /* harmony export */   removeCityDisplay: () => (/* binding */ removeCityDisplay)
 /* harmony export */ });
 /* harmony import */ var _icon_handler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon-handler */ "./src/modules/icon-handler.js");
 /* harmony import */ var _images_icons_search_149852_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../images/icons/search_149852.png */ "./src/images/icons/search_149852.png");
+/* harmony import */ var _images_icons_21120620821600621640_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../images/icons/21120620821600621640.svg */ "./src/images/icons/21120620821600621640.svg");
+
 
 
 
@@ -1625,6 +1628,10 @@ function displaySearchIcon() {
   document
     .querySelector('#submit-button > img')
     .setAttribute('src', _images_icons_search_149852_png__WEBPACK_IMPORTED_MODULE_1__);
+}
+
+function displayFavicon() {
+  document.querySelector('link').setAttribute('href', _images_icons_21120620821600621640_svg__WEBPACK_IMPORTED_MODULE_2__);
 }
 
 
@@ -2188,6 +2195,16 @@ const night = {
   '395.png': _images_weather_64x64_night_395_png__WEBPACK_IMPORTED_MODULE_95__,
 };
 
+
+/***/ }),
+
+/***/ "./src/images/icons/21120620821600621640.svg":
+/*!***************************************************!*\
+  !*** ./src/images/icons/21120620821600621640.svg ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "1f916957cf8bd78132fc.svg";
 
 /***/ }),
 
@@ -3291,6 +3308,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_1__.searchInputLogic)();
 (0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_1__.toggleMeasurementData)();
 (0,_modules_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displaySearchIcon)();
+(0,_modules_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayFavicon)();
 
 //todo **`` When launched on github, check the accessability tab and see if the color contrast is ok
 
