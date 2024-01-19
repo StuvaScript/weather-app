@@ -3375,11 +3375,6 @@ __webpack_require__.r(__webpack_exports__);
 (0,_modules_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayFavicon)();
 (0,_modules_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displayLoadImage)();
 
-//todo **`` When launched on github, check the accessability tab and see if the color contrast is ok
-
-//* File: README.md | Line: 1
-//todo **`` Update README.md
-
 })();
 
 /******/ })()
