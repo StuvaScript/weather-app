@@ -1,4 +1,8 @@
-import { displayFavicon, displaySearchIcon } from './modules/dom-manipulation';
+import {
+  displayFavicon,
+  displayLoadImage,
+  displaySearchIcon,
+} from './modules/dom-manipulation';
 import {
   searchInputLogic,
   toggleMeasurementData,
@@ -12,6 +16,7 @@ searchInputLogic();
 toggleMeasurementData();
 displaySearchIcon();
 displayFavicon();
+displayLoadImage();
 
 //todo **`` When launched on github, check the accessability tab and see if the color contrast is ok
 

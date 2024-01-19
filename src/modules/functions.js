@@ -2,6 +2,7 @@ import {
   createMultiCityDisplay,
   displayData,
   removeCityDisplay,
+  toggleLoadingImage,
 } from './dom-manipulation';
 
 export {
@@ -14,10 +15,13 @@ export {
 //? **`` Gets the user's IP address, sends the location to the weather fetcher which fetches the weather data, then logs it to the console
 async function displayInitialWeather() {
   try {
+    toggleLoadingImage();
     const ipData = await fetchIPAddress();
     const weatherData = await fetchWeather(ipData);
+    toggleLoadingImage();
     displayData(weatherData);
   } catch (error) {
+    toggleLoadingImage();
     console.error(`Error: ${error}`);
   }
 }

@@ -273,6 +273,32 @@ footer {
   }
 }
 
+/*? **`` Loading image */
+/* ***************************************************** */
+#loading-image {
+  position: absolute;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  display: none;
+
+  img {
+    background: rgb(255, 255, 255);
+    border: 5px solid #000;
+    border-radius: 50%;
+    width: clamp(250px, 50vw, 400px);
+    transform: scale(0);
+    transition: transform 500ms ease-in-out;
+
+    &.loaded {
+      transform: scale(1);
+    }
+  }
+}
+
 /*? **`` Pseudo element symbols and such */
 /* ***************************************************** */
 .temp_c::after,
@@ -327,7 +353,6 @@ footer {
 
 /*? **`` Media queries */
 /* ***************************************************** */
-
 @media (max-width: 1100px) {
   body {
     height: 100%;

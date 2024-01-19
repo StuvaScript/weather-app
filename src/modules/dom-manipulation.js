@@ -1,6 +1,7 @@
 import * as icon from './icon-handler';
 import searchIcon from '../images/icons/search_149852.png';
 import favicon from '../images/icons/21120620821600621640.svg';
+import loadImage from '../images/gifs/giphy.gif';
 
 export {
   displayData,
@@ -10,6 +11,8 @@ export {
   removeCityDisplay,
   displaySearchIcon,
   displayFavicon,
+  displayLoadImage,
+  toggleLoadingImage,
 };
 
 //? **`` This gets all our necessary data and displays it
@@ -274,4 +277,24 @@ function displaySearchIcon() {
 
 function displayFavicon() {
   document.querySelector('link').setAttribute('href', favicon);
+}
+
+function displayLoadImage() {
+  document.querySelector('#loading-image > img').setAttribute('src', loadImage);
+}
+
+//? **`` This displays and removes the loading image by toggling the 'loaded' class name to the element.
+function toggleLoadingImage() {
+  //? **`` For display purposes, this changes the parent element display between 'display: none' and 'display: flex'
+  const loadingElement = document.querySelector('#loading-image');
+  const compStyles = window.getComputedStyle(loadingElement);
+  const style = compStyles.getPropertyValue('display');
+  if (style === 'none') {
+    loadingElement.style.display = 'flex';
+  } else {
+    loadingElement.style.display = 'none';
+  }
+
+  //? **`` Toggling the image element
+  document.querySelector('#loading-image > img').classList.toggle('loaded');
 }

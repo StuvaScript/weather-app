@@ -1,4 +1,9 @@
-import { displayC, displayData, displayF } from './dom-manipulation';
+import {
+  displayC,
+  displayData,
+  displayF,
+  toggleLoadingImage,
+} from './dom-manipulation';
 import {
   fetchAutocomplete,
   fetchWeather,
@@ -26,11 +31,13 @@ function searchInputLogic() {
       //? **`` Checks to see if the user hit the last option to 'search again' in the city picker
       if (multiCheck === 'Search cancelled') {
         return;
-      } else {
-        const weatherData = await fetchWeather(multiCheck);
-        displayData(weatherData);
       }
+      toggleLoadingImage();
+      const weatherData = await fetchWeather(multiCheck);
+      toggleLoadingImage();
+      displayData(weatherData);
     } catch (error) {
+      toggleLoadingImage();
       console.error(`Error: ${error}`);
       console.warn("Can't find location");
     }
