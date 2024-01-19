@@ -1,5 +1,3 @@
-[project here](https://stuvascript.github.io/weather-app/)
-
 # Weather App
 
 Do what Aristotle wished he could do and know the weather at any time!
