@@ -30,6 +30,10 @@ Example: `Paris France`
 
 Example: `75460`
 
+### Switching Between Metric and Imperial
+
+To toggle the displayed data between the metric system and the imperial system, simply click the '°F' or the '°C' buttons located under the search bar.
+
 ## Built With
 
 Vanilla JavaScript, CSS, and HTML
