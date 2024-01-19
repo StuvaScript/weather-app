@@ -12,21 +12,21 @@ Upon initial load, it will detect your location and display the weather near you
 
 ### Searching
 
-- To search for a new location, enter the city name in the search field and either press `Enter` or click the magnifying glass icon.
+1. To search for a new location, enter the city name in the search field and either press `Enter` or click the magnifying glass icon.
 
 Example: `Paris`
 
-- If there are more than one city that share the same name, a dropdown menu will appear and you can click on the correct location.
+If there are more than one city that share the same name, a dropdown menu will appear and you can click on the correct location.
 
-- If you don't see the correct city in the dropdown list, try typing in the city and the region.
+2. If you don't see the correct city in the dropdown list, try typing in the city and the region.
 
 Example: `Paris Texas`
 
-- If you still don't see the correct city in the dropdown list, try typing in the city and the country.
+3. If you still don't see the correct city in the dropdown list, try typing in the city and the country.
 
 Example: `Paris France`
 
-- And a final option is to type in the ZIP/postal code.
+4. And a final option is to type in the ZIP/postal code.
 
 Example: `75460`
 
