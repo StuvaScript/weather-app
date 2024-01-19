@@ -28,7 +28,7 @@ async function fetchWeather(receivedData) {
 
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=${inputData}&days=3`,
+      `https://api.weatherapi.com/v1/forecast.json?key=a6926baa03824f759bd20713231912&q=${inputData}&days=3`,
       { mode: 'cors' },
     );
     const data = await response.json();
@@ -43,7 +43,7 @@ async function fetchWeather(receivedData) {
 async function fetchIPAddress() {
   try {
     const response = await fetch(
-      'http://api.weatherapi.com/v1/ip.json?key=a6926baa03824f759bd20713231912&q=auto:ip',
+      'https://api.weatherapi.com/v1/ip.json?key=a6926baa03824f759bd20713231912&q=auto:ip',
       { mode: 'cors' },
     );
     const data = await response.json();
@@ -61,7 +61,7 @@ async function fetchAutocomplete(receivedData) {
   document.querySelector('#search-input').value = '';
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/search.json?key=a6926baa03824f759bd20713231912&q=${receivedData}`,
+      `https://api.weatherapi.com/v1/search.json?key=a6926baa03824f759bd20713231912&q=${receivedData}`,
       { mode: 'cors' },
     );
     const data = await response.json();
