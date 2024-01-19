@@ -1,3 +1,4 @@
+import { displaySearchIcon } from './modules/dom-manipulation';
 import {
   searchInputLogic,
   toggleMeasurementData,
@@ -9,6 +10,7 @@ import './style.css';
 displayInitialWeather();
 searchInputLogic();
 toggleMeasurementData();
+displaySearchIcon();
 
 //todo **`` When launched on github, check the accessability tab and see if the color contrast is ok
 

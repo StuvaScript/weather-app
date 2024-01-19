@@ -1,4 +1,5 @@
 import * as icon from './icon-handler';
+import searchIcon from '../images/icons/search_149852.png';
 
 export {
   displayData,
@@ -6,6 +7,7 @@ export {
   displayF,
   createMultiCityDisplay,
   removeCityDisplay,
+  displaySearchIcon,
 };
 
 //? **`` This gets all our necessary data and displays it
@@ -260,4 +262,10 @@ function setDateFormat(key, value, div, intlDateFormat) {
   if (key === 'date') {
     div.innerText = intlDateFormat.format(new Date(`${value}`));
   }
+}
+
+function displaySearchIcon() {
+  document
+    .querySelector('#submit-button > img')
+    .setAttribute('src', searchIcon);
 }
