@@ -167,14 +167,14 @@ main {
 
 .maxtemp_c,
 .maxtemp_f {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 3.75vw, 1.5rem);
   grid-row: 6 / 8;
   grid-column: 2 / 3;
 }
 
 .mintemp_c,
 .mintemp_f {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 3.75vw, 1.5rem);
   position: relative;
   top: -15px;
   grid-row: 8 / 10;
