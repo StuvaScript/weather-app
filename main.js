@@ -1357,9 +1357,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   displayC: () => (/* binding */ displayC),
 /* harmony export */   displayData: () => (/* binding */ displayData),
 /* harmony export */   displayF: () => (/* binding */ displayF),
+/* harmony export */   displaySearchIcon: () => (/* binding */ displaySearchIcon),
 /* harmony export */   removeCityDisplay: () => (/* binding */ removeCityDisplay)
 /* harmony export */ });
 /* harmony import */ var _icon_handler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon-handler */ "./src/modules/icon-handler.js");
+/* harmony import */ var _images_icons_search_149852_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../images/icons/search_149852.png */ "./src/images/icons/search_149852.png");
+
 
 
 
@@ -1616,6 +1619,12 @@ function setDateFormat(key, value, div, intlDateFormat) {
   if (key === 'date') {
     div.innerText = intlDateFormat.format(new Date(`${value}`));
   }
+}
+
+function displaySearchIcon() {
+  document
+    .querySelector('#submit-button > img')
+    .setAttribute('src', _images_icons_search_149852_png__WEBPACK_IMPORTED_MODULE_1__);
 }
 
 
@@ -2179,6 +2188,16 @@ const night = {
   '395.png': _images_weather_64x64_night_395_png__WEBPACK_IMPORTED_MODULE_95__,
 };
 
+
+/***/ }),
+
+/***/ "./src/images/icons/search_149852.png":
+/*!********************************************!*\
+  !*** ./src/images/icons/search_149852.png ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "4ef0183b74625e38b402.png";
 
 /***/ }),
 
@@ -3257,18 +3276,21 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/event-handlers */ "./src/modules/event-handlers.js");
-/* harmony import */ var _modules_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/functions */ "./src/modules/functions.js");
-/* harmony import */ var _normalize_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./normalize.css */ "./src/normalize.css");
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
+/* harmony import */ var _modules_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/dom-manipulation */ "./src/modules/dom-manipulation.js");
+/* harmony import */ var _modules_event_handlers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/event-handlers */ "./src/modules/event-handlers.js");
+/* harmony import */ var _modules_functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/functions */ "./src/modules/functions.js");
+/* harmony import */ var _normalize_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./normalize.css */ "./src/normalize.css");
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 
 
 
 
 
-(0,_modules_functions__WEBPACK_IMPORTED_MODULE_1__.displayInitialWeather)();
-(0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.searchInputLogic)();
-(0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_0__.toggleMeasurementData)();
+
+(0,_modules_functions__WEBPACK_IMPORTED_MODULE_2__.displayInitialWeather)();
+(0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_1__.searchInputLogic)();
+(0,_modules_event_handlers__WEBPACK_IMPORTED_MODULE_1__.toggleMeasurementData)();
+(0,_modules_dom_manipulation__WEBPACK_IMPORTED_MODULE_0__.displaySearchIcon)();
 
 //todo **`` When launched on github, check the accessability tab and see if the color contrast is ok
 
